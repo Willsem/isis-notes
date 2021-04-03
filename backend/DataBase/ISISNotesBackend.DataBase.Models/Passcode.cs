@@ -12,5 +12,15 @@ namespace ISISNotesBackend.DataBase.Models
         public string Password { get; set; }
         
         public User User { get; set; }
+
+        public Passcode()
+        {
+        }
+
+        public Passcode(Guid id, string password)
+        {
+            Id = id;
+            Password = password;
+        }
     }
 }
