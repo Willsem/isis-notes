@@ -11,5 +11,27 @@ namespace ISISNotesBackend.DataBase.Models
         
         public Passcode Passcode { get; set; }
         public UserPhoto UserPhoto { get; set; }
+
+        public User()
+        {
+        }
+
+        public User(Guid id, 
+            string name, 
+            string email, 
+            DateTime registrationDate)
+        {
+            Id = id;
+            Name = name;
+            Email = email;
+            RegistrationDate = registrationDate;
+        }
+        
+        public User(string name, 
+            string email, 
+            DateTime registrationDate)
+            : this(Guid.NewGuid(), name, email, registrationDate)
+        {
+        }
     }
 }
