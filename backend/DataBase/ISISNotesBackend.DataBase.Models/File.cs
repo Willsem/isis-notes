@@ -11,6 +11,9 @@ namespace ISISNotesBackend.DataBase.Models
         [ForeignKey("FileType")]
         public Guid FileTypeId { get; set; }
         public FileType FileType { get; set; }
+        
+        [ForeignKey("TextNote")]
+        public Guid TextNoteId { get; set; }
 
         public File()
         {
@@ -19,18 +22,21 @@ namespace ISISNotesBackend.DataBase.Models
         public File(Guid id, 
             string filePath,
             Guid fileTypeId,
-            FileType fileType)
+            FileType fileType,
+            Guid textNoteId)
         {
             Id = id;
             FilePath = filePath;
             FileTypeId = fileTypeId;
             FileType = fileType;
+            TextNoteId = textNoteId;
         }
         
         public File(string filePath,
             Guid fileTypeId,
-            FileType fileType)
-            : this(Guid.NewGuid(), filePath, fileTypeId, fileType)
+            FileType fileType,
+            Guid textNoteId)
+            : this(Guid.NewGuid(), filePath, fileTypeId, fileType, textNoteId)
         {
         }
     }
