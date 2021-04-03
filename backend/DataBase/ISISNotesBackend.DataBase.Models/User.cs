@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace ISISNotesBackend.DataBase.Models
 {
@@ -11,6 +12,8 @@ namespace ISISNotesBackend.DataBase.Models
         
         public Passcode Passcode { get; set; }
         public UserPhoto UserPhoto { get; set; }
+        
+        public ICollection<UserNote> UserNotes { get; set; }
 
         public User()
         {
