@@ -40,4 +40,8 @@ export class AuthPageComponent implements OnInit {
     const redirect = this.route.snapshot.queryParamMap.get('redirect') || '/';
     await this.router.navigateByUrl(redirect);
   }
+
+  public onForgot(): void {
+
+  }
 }

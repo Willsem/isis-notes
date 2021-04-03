@@ -1,12 +1,8 @@
 <div class="auth-box">
+    <input type="text" [(ngModel)]="username" autofocus placeholder="Username">
     <div>
-        <span>Username</span>
-        <input type="text" [(ngModel)]="username" autofocus>
+        <input type="password" [(ngModel)]="password" placeholder="Password">
+        <button class="forgot" (click)="onForgot()">Forgot password?</button>
     </div>
-    <div>
-        <span>Password</span>
-        <input type="password" [(ngModel)]="password">
-    </div>
-    <button (click)="onLogin()">Login</button>
-    <button (click)="onClear()">Clear</button>
+    <button class="sign" (click)="onLogin()">Sign in</button>
 </div>

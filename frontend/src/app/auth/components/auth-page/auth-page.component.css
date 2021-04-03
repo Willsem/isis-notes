@@ -1,3 +1,60 @@
 .auth-box {
+  background-color: #eee;
+  border-radius: 5px;
+  box-sizing: border-box;
+  padding: 10px 0;
+  width: 450px;
+  height: 190px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.auth-box input, .sign {
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+}
+
+.auth-box input {
   font-family: 'Poppins', sans-serif;
+  box-sizing: border-box;
+  width: 400px;
+  height: 40px;
+  padding-left: 10px;
+  font-size: 18px;
+  color: #666;
+}
+
+.auth-box input::placeholder {
+  color: #ccc;
+}
+
+.auth-box button {
+  font-family: 'Poppins', sans-serif;
+  cursor: pointer;
+}
+
+.auth-box .forgot {
+  display: block;
+  text-decoration: underline;
+  color: #888;
+  background: none;
+  border: none;
+}
+
+.auth-box .forgot:hover {
+  color: #bbb;
+}
+
+.auth-box .sign {
+  padding: 5px 25px;
+  color: #666;
+  font-size: 18px;
+}
+
+.auth-box .sign:hover {
+  box-shadow: 3px 3px 5px #666666;
 }
