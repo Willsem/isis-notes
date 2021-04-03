@@ -1,11 +1,17 @@
-<div class="auth-box">
-    <input type="text" [(ngModel)]="username" autofocus placeholder="Username">
+<div class="auth-box" [style.fontSize.px]="13">
+    <mat-form-field class="opaque-form-field" appearance="outline">
+        <mat-label>Username</mat-label>
+        <input type="text" [(ngModel)]="username" autofocus matInput>
+    </mat-form-field>
     <div>
-        <input type="password" [(ngModel)]="password" placeholder="Password">
+        <mat-form-field class="opaque-form-field" appearance="outline">
+            <mat-label>Password</mat-label>
+            <input type="password" [(ngModel)]="password" autofocus matInput>
+        </mat-form-field>
         <div class="btns-under-password">
             <button class="less-visible-btn" (click)="onForgot()">Forgot password?</button>
             <button class="less-visible-btn" (click)="onCreate()">Create account</button>
         </div>
     </div>
-    <button class="sign" (click)="onLogin()">Sign in</button>
+    <button mat-raised-button class="sign" (click)="onLogin()">Sign in</button>
 </div>

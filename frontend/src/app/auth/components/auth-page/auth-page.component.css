@@ -10,34 +10,26 @@
   background-color: #eee;
   border-radius: 5px;
   box-sizing: border-box;
-  padding: 10px 0;
-  width: 450px;
-  height: 190px;
+  padding: 20px;
   margin: auto;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
 }
 
-.auth-box input, .sign {
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  background-color: #fff;
-}
-
-.auth-box input {
+::ng-deep .auth-box mat-form-field {
   font-family: 'Poppins', sans-serif;
-  box-sizing: border-box;
   width: 400px;
-  height: 40px;
-  padding-left: 10px;
-  font-size: 18px;
-  color: #666;
 }
 
-.auth-box input::placeholder {
-  color: #ccc;
+::ng-deep .opaque-form-field .mat-form-field-outline {
+  background-color: #fff;
+  border-radius: 5px;
+}
+
+::ng-deep .mat-form-field-wrapper {
+  padding-bottom: 0;
 }
 
 .auth-box button {
@@ -55,6 +47,7 @@
   color: #888;
   background: none;
   border: none;
+  transition: 0.2s all;
 }
 
 .auth-box .less-visible-btn:hover {
@@ -62,11 +55,5 @@
 }
 
 .auth-box .sign {
-  padding: 5px 25px;
-  color: #666;
-  font-size: 18px;
-}
-
-.auth-box .sign:hover {
-  box-shadow: 3px 3px 5px #666666;
+  color: rgba(0,0,0,.6);
 }

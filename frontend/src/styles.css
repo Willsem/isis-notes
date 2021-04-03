@@ -6,11 +6,10 @@ html, body {
 
 body {
   margin: 0;
-  font-family: 'Poppins', sans-serif;
 }
 
-* {
+::ng-deep * {
   padding: 0;
   margin: 0;
-  transition: 0.5s all;
+  font-family: 'Poppins', sans-serif;
 }
