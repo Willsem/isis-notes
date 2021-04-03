@@ -41,7 +41,7 @@ export class AuthPageComponent implements OnInit {
     await this.router.navigateByUrl(redirect);
   }
 
-  public onForgot(): void {
+  public onForgot(): void {}
 
-  }
+  public onCreate(): void {}
 }

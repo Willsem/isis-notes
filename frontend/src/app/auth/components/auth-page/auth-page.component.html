@@ -2,7 +2,10 @@
     <input type="text" [(ngModel)]="username" autofocus placeholder="Username">
     <div>
         <input type="password" [(ngModel)]="password" placeholder="Password">
-        <button class="forgot" (click)="onForgot()">Forgot password?</button>
+        <div class="btns-under-password">
+            <button class="less-visible-btn" (click)="onForgot()">Forgot password?</button>
+            <button class="less-visible-btn" (click)="onCreate()">Create account</button>
+        </div>
     </div>
     <button class="sign" (click)="onLogin()">Sign in</button>
 </div>
