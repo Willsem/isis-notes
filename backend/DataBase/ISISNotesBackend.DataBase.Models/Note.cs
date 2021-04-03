@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace ISISNotesBackend.DataBase.Models
 {
@@ -10,6 +11,7 @@ namespace ISISNotesBackend.DataBase.Models
         public DateTime ChangingDate { get; set; }
         
         public TextNote TextNote { get; set; }
+        public ICollection<UserNote> UserNotes { get; set; }
 
         public Note()
         {
