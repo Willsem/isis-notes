@@ -45,15 +45,19 @@
   cursor: pointer;
 }
 
-.auth-box .forgot {
-  display: block;
+.auth-box .btns-under-password {
+  display: flex;
+  justify-content: space-between;
+}
+
+.auth-box .less-visible-btn {
   text-decoration: underline;
   color: #888;
   background: none;
   border: none;
 }
 
-.auth-box .forgot:hover {
+.auth-box .less-visible-btn:hover {
   color: #bbb;
 }
 
