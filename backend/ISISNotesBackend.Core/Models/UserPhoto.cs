@@ -17,6 +17,10 @@ namespace ISISNotesBackend.Core.Models
             {
                 exceptionMessage += $"'{nameof(user)}': Reference to User can't be null \n";
             }
+            if (string.IsNullOrEmpty(image))
+            {
+                exceptionMessage += $"'{nameof(image)}': Image can't be null \n";
+            }
             
             if (exceptionMessage != "Wrong parameters: \n")
             {
