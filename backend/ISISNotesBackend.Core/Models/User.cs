@@ -34,10 +34,6 @@ namespace ISISNotesBackend.Core.Models
             {
                 exceptionMessage += $"'{nameof(passcode)}': Reference to Passcode can't be null \n";
             }
-            if (userPhoto == null)
-            {
-                exceptionMessage += $"'{nameof(userPhoto)}': Reference to UserPhoto can't be null \n";
-            }
 
             if (exceptionMessage != "Wrong parameters: \n")
             {
