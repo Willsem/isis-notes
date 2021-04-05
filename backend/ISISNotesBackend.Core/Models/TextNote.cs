@@ -16,6 +16,10 @@ namespace ISISNotesBackend.Core.Models
             {
                 exceptionMessage += $"'{nameof(note)}': Reference to Note can't be null \n";
             }
+            if (text == null)
+            {
+                exceptionMessage += $"'{nameof(text)}': Text can't be null \n";
+            }
 
             if (exceptionMessage != "Wrong parameters: \n")
             {
