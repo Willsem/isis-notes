@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { NotAuthGuard } from '../auth/guards/not-auth.guard';
+import { AuthGuard } from '../auth/guards/auth.guard';
 
 
 const routes: Routes = [
@@ -12,6 +12,15 @@ const routes: Routes = [
     canActivateChild: [NotAuthGuard],
     data: {
       title: 'Авторизация'
+    }
+  },
+  {
+    path: 'notes',
+    loadChildren: () => import('../notes/notes.module').then(m => m.NotesModule),
+    canActivate: [AuthGuard],
+    canActivateChild: [AuthGuard],
+    data: {
+      title: 'ISIS Notes'
     }
   }
 ];
