@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from '../../api/services/api.service';
-import { BehaviorSubject } from 'rxjs';
+import {BehaviorSubject, of} from 'rxjs';
 import { Note } from '../../shared/models/note';
 import { AuthService } from '../../auth/services/auth.service';
 import {NoteContent} from '../../shared/models/note-content';
@@ -24,10 +24,27 @@ export class NotesService {
         this.notes.next([]);
       }
     });
+    this.loadNotes(); // TODO: remove
   }
 
   public async loadNotes(): Promise<void> {
-    const notes = await this.api.getUserNotes(this.auth.currentSessionValue.user.id).toPromise();
+    const notes = [ // TODO: remove
+      {
+        id: 'asd',
+        name: 'KEK',
+        mode: 'author'
+      },
+      {
+        id: 'qwe',
+        name: 'LOL',
+        mode: 'write'
+      },
+      {
+        id: 'zxc',
+        name: 'BOGOMOL',
+        mode: 'read'
+      }
+    ] as Note[]; // await this.api.getUserNotes(this.auth.currentSessionValue.user.id).toPromise();
 
     this.notes.next(notes);
   }

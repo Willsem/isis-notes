@@ -1,1 +1,10 @@
-<p>notes-list works!</p>
+<mat-list>
+    <mat-list-item *ngFor="let note of notes.notesObservable | async" [routerLink]="'/notes/' + note.id">
+        <mat-icon mat-list-icon>insert_drive_file</mat-icon>
+        <div mat-line>{{note.name}}</div>
+    </mat-list-item>
+    <mat-list-item>
+        <mat-icon mat-list-icon>add</mat-icon>
+        <div mat-line class="note-new">Новая заметка</div>
+    </mat-list-item>
+</mat-list>
