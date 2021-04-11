@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from '../../api/services/api.service';
-import {BehaviorSubject, of} from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { Note } from '../../shared/models/note';
 import { AuthService } from '../../auth/services/auth.service';
-import {NoteContent} from '../../shared/models/note-content';
+import { NoteContent } from '../../shared/models/note-content';
 
 @Injectable({
   providedIn: 'root'
@@ -47,6 +47,12 @@ export class NotesService {
     ] as Note[]; // await this.api.getUserNotes(this.auth.currentSessionValue.user.id).toPromise();
 
     this.notes.next(notes);
+  }
+
+  public getNoteById(noteId): Note {
+    const index = this.notes.value.map(n => n.id).indexOf(noteId);
+
+    return this.notes.value[index];
   }
 
   public async getNoteContent(noteId: string): Promise<NoteContent[]> {

@@ -1,5 +1,7 @@
 <mat-list>
-    <mat-list-item *ngFor="let note of notes.notesObservable | async" [routerLink]="'/notes/' + note.id">
+    <mat-list-item role="link" *ngFor="let note of notes.notesObservable | async"
+                   routerLink='/notes/{{note.id}}'
+                   routerLinkActive="note-active">
         <mat-icon mat-list-icon>insert_drive_file</mat-icon>
         <div mat-line>{{note.name}}</div>
     </mat-list-item>
