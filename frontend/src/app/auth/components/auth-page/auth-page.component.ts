@@ -3,7 +3,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {AuthService} from '../../services/auth.service';
 
 @Component({
-  selector: 'app-auth-page',
+  selector: 'isis-auth-page',
   templateUrl: './auth-page.component.html',
   styleUrls: ['./auth-page.component.css']
 })
