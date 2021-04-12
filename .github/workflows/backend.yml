@@ -5,11 +5,12 @@ on: push
 jobs:
   build:
     runs-on: ubuntu-latest
-
-  steps:
-  - name: Setup .NET Core SDK 5.0.x
-    uses: actions/setup-dotnet@v1.7.2
-  - name: Restore
-    run: dotnet restore
-  - name: Build
-    run: dotnet publish ./backend -c Release -o out
+    name: Build backend
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup .NET Core SDK
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '5.0.202'
+      - run: dotnet restore ./backend
+      - run: dotnet publish ./backend -c Release -o out
