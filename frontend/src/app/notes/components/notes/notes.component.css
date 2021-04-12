@@ -1,0 +1,7 @@
+.notes-sidenav-container {
+  height: 100%;
+}
+
+.notes-sidenav-container mat-sidenav {
+  width: 300px;
+}
