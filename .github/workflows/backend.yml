@@ -29,19 +29,13 @@ jobs:
     name: 'Publsh backend'
     needs: build
     steps:
-      - name: 'Check Out Repo'
         uses: actions/checkout@v2
 
       - name: 'Download binary backend'
         uses: actions/download-artifact@v2
         with:
           name: backend-bin
-
-      - name: 'Move binary to backend folder'
-        run: |
-          ls -lah
-          pwd
-        # run: mv -f ./isis-notes ./backend/out
+          path: ./backend/out
 
       - name: 'Check Out Repo'
         uses: actions/checkout@v2
