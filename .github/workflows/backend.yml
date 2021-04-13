@@ -38,8 +38,9 @@ jobs:
           name: backend-bin
 
       - name: 'Move binary to backend folder'
-      - run: ls -lah
-      - run: pwd
+        run: |
+          ls -lah
+          pwd
         # run: mv -f ./isis-notes ./backend/out
 
       - name: 'Check Out Repo'
