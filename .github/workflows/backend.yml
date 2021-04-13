@@ -1,16 +1,24 @@
 name: backend
 
-on: push
+on: [push, pull_request]
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    name: Build backend
+    name: 'Build backend'
     steps:
       - uses: actions/checkout@v2
-      - name: Setup .NET Core SDK
+
+      - name: 'Build backend project'
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: '5.0.202'
       - run: dotnet restore ./backend
-      - run: dotnet publish ./backend -c Release -o out
+      - run: dotnet publish ./backend -c Release -o ./backend/out
+
+      - name: 'Upload Artifact'
+        uses: actions/upload-artifact@v2
+        with:
+          name: backend-bin
+          path: ./backend/out
+          retention-days: 1
