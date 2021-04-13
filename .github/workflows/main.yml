@@ -58,6 +58,7 @@ jobs:
     runs-on: ubuntu-latest
     name: 'Publish frontend'
     needs: [test-frontend, build-frontend]
+    if: github.ref == 'refs/heads/feature/ISIS-14_ci-cd'
     steps:
       - name: 'Check Out Repo'
         uses: actions/checkout@v2
@@ -119,8 +120,9 @@ jobs:
 
   publish-backend:
     runs-on: ubuntu-latest
-    name: 'Publsh backend'
+    name: 'Publish backend'
     needs: [test-backend, build-backend]
+    if: github.ref == 'refs/heads/feature/ISIS-14_ci-cd'
     steps:
       - name: 'Check Out Repo'
         uses: actions/checkout@v2
@@ -150,6 +152,7 @@ jobs:
     runs-on: ubuntu-latest
     name: 'Deploy project'
     needs: [publish-frontend, publish-backend]
+    if: github.ref == 'refs/heads/feature/ISIS-14_ci-cd'
     steps:
       - name: 'Check Out Repo'
         uses: actions/checkout@v2
