@@ -38,8 +38,11 @@ jobs:
           name: backend-bin
           path: ./backend/out
 
-      - name: 'Check Out Repo'
-        uses: actions/checkout@v2
+      - name: 'check files'
+        run: |
+          ls -lah ./backend
+          echo SEPARATE
+          ls -lah ./backend/out
 
       - name: 'Login to Docker Hub'
         uses: docker/login-action@v1
