@@ -23,7 +23,7 @@ jobs:
       - name: 'Build frontend project'
         run: |
           cd frontend
-          npm ng build
+          npm run ng build
 
       - name: 'Upload Artifact'
         uses: actions/upload-artifact@v2
