@@ -7,7 +7,8 @@ jobs:
     runs-on: ubuntu-latest
     name: 'Build backend'
     steps:
-      uses: actions/checkout@v2
+      - name: 'Check Out Repo'
+        uses: actions/checkout@v2
 
       - name: 'Build backend project'
         uses: actions/setup-dotnet@v1
@@ -28,7 +29,8 @@ jobs:
     name: 'Publsh backend'
     needs: build
     steps:
-      uses: actions/checkout@v2
+      - name: 'Check Out Repo'
+        uses: actions/checkout@v2
 
       - name: 'Download binary backend'
         uses: actions/download-artifact@v2
