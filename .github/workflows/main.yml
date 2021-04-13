@@ -23,7 +23,7 @@ jobs:
       - name: 'Test frontend project'
         run: |
           cd frontend
-          npm run ng test
+          npm test
 
   build-frontend:
     runs-on: ubuntu-latest
@@ -172,4 +172,3 @@ jobs:
         run: |
           docker-compose down
           docker-compose up -d
-
