@@ -15,9 +15,15 @@ jobs:
         with:
           node-version: '14'
 
-      - run: cd frontend
-      - run: npm i
-      - run: npm ng build
+      - name: 'Install packages'
+        run: |
+          cd frontend
+          npm i
+
+      - name: 'Build frontend project'
+        run: |
+          cd frontend
+          npm ng build
 
       - name: 'Upload Artifact'
         uses: actions/upload-artifact@v2
