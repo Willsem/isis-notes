@@ -36,6 +36,9 @@ jobs:
         with:
           name: backend-bin
 
+      - name: 'Move binary to backend folder'
+        run: mv -f ./out ./backend/out
+
       - name: 'Check Out Repo'
         uses: actions/checkout@v2
 
