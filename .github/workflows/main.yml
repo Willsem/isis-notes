@@ -3,6 +3,37 @@ name: 'CI CD'
 on: [push, pull_request]
 
 jobs:
+  build-frontend:
+    runs-on: ubuntu-latest
+    name: 'Build frontend'
+    steps:
+      - name: 'Check Out Repo'
+        uses: actions/checkout@v2
+
+      - name: 'Build frontend project'
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+        run: |
+          cd frontend
+          npm i
+          npm ng build
+
+      - name: 'Upload Artifact'
+        uses: actions/upload-artifact@v2
+        with:
+          name: frontend-bin
+          path: ./frontend/dist
+          retention-days: 1
+
+  publish-frontend:
+    runs-on: ubuntu-latest
+    name: 'Publish frontend'
+    needs: build-frontend
+    steps:
+      - name: 'Check Out Repo'
+        uses: actions/checkout@v2
+
   build-backend:
     runs-on: ubuntu-latest
     name: 'Build backend'
