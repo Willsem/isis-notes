@@ -3,6 +3,13 @@ name: 'CI CD'
 on: [push, pull_request]
 
 jobs:
+  test-frontend:
+    runs-on: ubuntu-latest
+    name: 'Build frontend'
+    steps:
+      - name: 'Check Out Repo'
+        uses: actions/checkout@v2
+
   build-frontend:
     runs-on: ubuntu-latest
     name: 'Build frontend'
@@ -35,7 +42,7 @@ jobs:
   publish-frontend:
     runs-on: ubuntu-latest
     name: 'Publish frontend'
-    needs: build-frontend
+    needs: [test-frontend, build-frontend]
     steps:
       - name: 'Check Out Repo'
         uses: actions/checkout@v2
@@ -61,6 +68,19 @@ jobs:
           push: true
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/isis-frontend:latest
 
+  test-backend:
+    runs-on: ubuntu-latest
+    name: 'Test backend'
+    steps:
+      - name: 'Check Out Repo'
+        uses: actions/checkout@v2
+
+      - name: 'Test backend project'
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '5.0.202'
+      - run: dotnet test ./backend
+
   build-backend:
     runs-on: ubuntu-latest
     name: 'Build backend'
@@ -85,7 +105,7 @@ jobs:
   publish-backend:
     runs-on: ubuntu-latest
     name: 'Publsh backend'
-    needs: build-backend
+    needs: [test-backend, build-backend]
     steps:
       - name: 'Check Out Repo'
         uses: actions/checkout@v2
