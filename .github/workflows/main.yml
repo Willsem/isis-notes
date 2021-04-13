@@ -110,3 +110,24 @@ jobs:
           file: ./backend/Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/isis-backend:latest
+
+  deploy:
+    runs-on: ubuntu-latest
+    name: 'Deploy project'
+    needs: [publish-frontend, publish-backend]
+    steps:
+      - name: 'Check Out Repo'
+        uses: actions/checkout@v2
+
+      - name: 'Connect ssh to server'
+        uses: easingthemes/ssh-deploy@v2.1.5
+        env:
+            SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+            REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
+            REMOTE_USER: ${{ secrets.REMOTE_USER }}
+
+      - name: 'Deploy to server'
+        run: |
+          docker-compose down
+          docker-compose up -d
+
