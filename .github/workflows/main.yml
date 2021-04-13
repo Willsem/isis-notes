@@ -154,21 +154,25 @@ jobs:
       - name: 'Check Out Repo'
         uses: actions/checkout@v2
 
-      - name: 'Create ssh key'
+      - name: 'Configure SSH'
         env:
             SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-        run: |
-          mkdir -p ~/.ssh
-          echo "$SSH_PRIVATE_KEY" > ~/.ssh/private.key
-          sudo chmod 600 ~/.ssh/private.key
-
-      - name: 'Connect to server with ssh'
-        env:
             REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
             REMOTE_USER: ${{ secrets.REMOTE_USER }}
-        run: ssh $REMOTE_USER@$REMOTE_HOST
-
-      - name: 'Deploy to server'
         run: |
-          docker-compose down
-          docker-compose up -d
+          mkdir -p ~/.ssh
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/staging.key
+          sudo chmod 600 ~/.ssh/staging.key
+          cat >>~/.ssh/config <<END
+          Host staging
+            HostName $REMOTE_HOST
+            User $REMOTE_USER
+            IdentityFile ~/.ssh/staging.key
+            StrictHostKeyChecking no
+          END
+
+      - name: 'Stop the server'
+        run: ssh staging 'docker-compose down'
+
+      - name: 'Run the server'
+        run: ssh staging 'docker-compose up -d'
