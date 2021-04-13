@@ -3,7 +3,7 @@ name: 'CI CD'
 on: [push, pull_request]
 
 jobs:
-  build:
+  build-backend:
     runs-on: ubuntu-latest
     name: 'Build backend'
     steps:
@@ -24,10 +24,10 @@ jobs:
           path: ./backend/out
           retention-days: 1
 
-  publish:
+  publish-backend:
     runs-on: ubuntu-latest
     name: 'Publsh backend'
-    needs: build
+    needs: build-backend
     steps:
       - name: 'Check Out Repo'
         uses: actions/checkout@v2
