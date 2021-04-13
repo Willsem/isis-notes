@@ -11,7 +11,7 @@ namespace ISISNotesBackend.DataBase.Models
         public DateTime RegistrationDate { get; set; }
         
         public Passcode Passcode { get; set; }
-        public UserPhoto UserPhoto { get; set; }
+        public UserPhoto? UserPhoto { get; set; }
         
         public ICollection<UserNote> UserNotes { get; set; }
 
