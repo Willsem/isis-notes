@@ -7,7 +7,8 @@ jobs:
     runs-on: ubuntu-latest
     name: 'Build backend'
     steps:
-      - uses: actions/checkout@v2
+      - name: 'Check Out Repo'
+        uses: actions/checkout@v2
 
       - name: 'Build backend project'
         uses: actions/setup-dotnet@v1
@@ -28,7 +29,7 @@ jobs:
     name: 'Publsh backend'
     needs: build
     steps:
-      - name: Check Out Repo 
+      - name: 'Check Out Repo'
         uses: actions/checkout@v2
 
       - name: 'Download binary backend'
@@ -37,7 +38,7 @@ jobs:
           name: backend-bin
 
       - name: 'Move binary to backend folder'
-        run: mv -f ./out ./backend/out
+        run: mv -f ./isis-notes/out ./backend/out
 
       - name: 'Check Out Repo'
         uses: actions/checkout@v2
