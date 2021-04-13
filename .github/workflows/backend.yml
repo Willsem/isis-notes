@@ -38,7 +38,7 @@ jobs:
           name: backend-bin
 
       - name: 'Move binary to backend folder'
-        run: mv -f ./isis-notes/out ./backend/out
+        run: mv -f ./isis-notes ./backend/out
 
       - name: 'Check Out Repo'
         uses: actions/checkout@v2
