@@ -178,14 +178,8 @@ jobs:
         run: ssh staging 'docker-compose down'
 
       - name: 'Remove images'
-        env:
-          USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
         run: |
-          ssh staging 'docker image ls -a'
-          ssh staging 'docker image rm $USERNAME/isis-frontend'
-          ssh staging 'docker image rm $USERNAME/isis-backend'
-          ssh staging 'docker image rm postgres'
-          ssh staging 'docker image rm dpage/pgadmin4'
+          ssh staging 'docker image rm $(docker image ls -aq)'
 
       - name: 'Run the server'
         run: ssh staging 'docker-compose up -d'
