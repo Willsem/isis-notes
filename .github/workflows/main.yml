@@ -177,5 +177,9 @@ jobs:
       - name: 'Stop the server'
         run: ssh staging 'docker-compose down'
 
+      - name: 'Remove images'
+        run: |
+          ssh staging 'docker image rm $(docker image ls -aq)'
+
       - name: 'Run the server'
         run: ssh staging 'docker-compose up -d'
