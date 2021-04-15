@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { NotAuthGuard } from '../auth/guards/not-auth.guard';
 import { AuthGuard } from '../auth/guards/auth.guard';
-import {Page404Component} from './components/page404/page404.component';
+import { Page404Component } from './components/page404/page404.component';
 
 
 const routes: Routes = [
