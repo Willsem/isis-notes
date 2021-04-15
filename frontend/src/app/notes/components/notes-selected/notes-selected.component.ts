@@ -13,7 +13,10 @@ export class NotesSelectedComponent implements OnInit {
 
   public syncTime = moment(Date.now()).toDate();
 
-  public note: Note;
+  public note: Note = {id: '', mode: 'read', name: ''};
+
+  public isWriter = this.note.mode === 'author' || this.note.mode === 'write';
+  public isAuthor = this.note.mode === 'author';
 
   constructor(
     public notes: NotesService,
@@ -23,6 +26,8 @@ export class NotesSelectedComponent implements OnInit {
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
       this.note = this.notes.getNoteById(params.get('id'));
+      this.isWriter = this.note.mode === 'author' || this.note.mode === 'write';
+      this.isAuthor = this.note.mode === 'author';
     });
   }
 
