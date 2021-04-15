@@ -1,0 +1,21 @@
+.note-user-permission {
+  position: absolute;
+  top: 21px;
+  right: 21px;
+}
+
+.note-settings-button {
+  position: absolute;
+  bottom: 15px;
+  right: 13px;
+}
+
+.note-sync-date {
+  position: absolute;
+  bottom: 15px;
+  left: 13px;
+}
+
+.note-interface-icon {
+  color: #aaaaaa;
+}

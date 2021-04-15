@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Note } from '../../../shared/models/note';
 import { ActivatedRoute } from '@angular/router';
-import {NotesService} from '../../services/notes.service';
+import { NotesService } from '../../services/notes.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'isis-notes-selected',
@@ -9,6 +10,8 @@ import {NotesService} from '../../services/notes.service';
   styleUrls: ['./notes-selected.component.css']
 })
 export class NotesSelectedComponent implements OnInit {
+
+  public syncTime = moment(Date.now()).toDate();
 
   public note: Note;
 

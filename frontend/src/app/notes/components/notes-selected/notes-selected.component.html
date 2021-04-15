@@ -1,2 +1,15 @@
 {{note.id}}
 {{note.name}}
+
+<div class="note-user-permission note-interface-icon">
+    <mat-icon *ngIf="note.mode === 'write' || note.mode === 'author'">edit</mat-icon>
+    <mat-icon *ngIf="note.mode === 'read'">menu_book</mat-icon>
+</div>
+
+<div class="note-settings-button note-interface-icon">
+    <button mat-icon-button><mat-icon>settings</mat-icon></button>
+</div>
+
+<div class="note-sync-date note-interface-icon">
+    <span>Последняя синхронизация: {{syncTime | date:'dd/mm/yyyy h:mm a'}}</span>
+</div>
