@@ -1,6 +1,6 @@
 <div class="register-wrapper">
     <div class="register-dialog">
-        <isis-user-data-form></isis-user-data-form>
-        <button mat-raised-button class="register">Sign up</button>
+        <isis-user-data-form [(value)]="userRegisterData"></isis-user-data-form>
+        <button mat-raised-button class="register" (click)="onRegister()">Sign up</button>
     </div>
 </div>

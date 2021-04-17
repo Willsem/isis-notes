@@ -1,18 +1,18 @@
-<div class="user-data-wrapper">
+<div class="user-data-wrapper" [formGroup]="userDataForm">
     <mat-form-field appearance="outline" class="opaque-form-field">
         <mat-label>Login</mat-label>
-        <input matInput>
+        <input matInput formControlName="login">
     </mat-form-field>
     <mat-form-field appearance="outline" class="opaque-form-field">
         <mat-label>Email</mat-label>
-        <input matInput>
+        <input matInput formControlName="email">
     </mat-form-field>
     <mat-form-field appearance="outline" class="opaque-form-field">
         <mat-label>Password</mat-label>
-        <input matInput type="password">
+        <input matInput type="password" formControlName="password">
     </mat-form-field>
     <mat-form-field appearance="outline" class="opaque-form-field">
         <mat-label>Confirm password</mat-label>
-        <input matInput type="password">
+        <input matInput type="password" formControlName="confirmPassword">
     </mat-form-field>
 </div>
