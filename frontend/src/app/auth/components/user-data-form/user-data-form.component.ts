@@ -1,6 +1,15 @@
 import { Component, OnInit, EventEmitter, forwardRef, Input, Output } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { ControlValueAccessor, FormBuilder, FormGroup, NG_VALUE_ACCESSOR } from '@angular/forms';
+import {
+  AbstractControl,
+  ControlValueAccessor,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  NG_VALUE_ACCESSOR,
+  ValidatorFn,
+  Validators
+} from '@angular/forms';
 
 interface UserData {
   login: string;
@@ -21,22 +30,16 @@ interface UserData {
 })
 export class UserDataFormComponent implements OnInit, ControlValueAccessor {
 
-  public userData = new BehaviorSubject({
-    login: '',
-    email: '',
-    password: '',
-    confirmPassword: ''
-  } as UserData);
-
   public userDataForm: FormGroup;
 
   public get value(): UserData {
-    return this.userData.value;
+    return this.userDataForm.value;
   }
 
   @Input()
   public set value(data: UserData) {
-    this.userData.next(data);
+    this.userDataForm.setValue(data);
+    this.onChange(data);
   }
 
   @Output()
@@ -46,15 +49,17 @@ export class UserDataFormComponent implements OnInit, ControlValueAccessor {
     public fb: FormBuilder,
   ) {
     this.userDataForm = fb.group({
-      login: '',
-      email: '',
-      password: '',
-      confirmPassword: ''
+      login: ['', [Validators.required]],
+      email: ['', [Validators.email]],
+      password: ['', [Validators.required]],
+      confirmPassword: ['', [Validators.required]],
     });
 
     this.userDataForm.valueChanges.subscribe(val => {
-      this.value = val;
-      this.valueChange.emit(val);
+      if (this.userDataForm.valid) {
+        this.valueChange.emit(val);
+        this.onChange(val);
+      }
     });
   }
 

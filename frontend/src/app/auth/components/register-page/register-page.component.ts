@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../../api/services/api.service';
 import {Router} from '@angular/router';
+import {AbstractControl, FormControl, ValidatorFn} from '@angular/forms';
 
 @Component({
   selector: 'isis-register-page',
@@ -9,12 +10,12 @@ import {Router} from '@angular/router';
 })
 export class RegisterPageComponent implements OnInit {
 
-  userRegisterData = {
+  userRegisterDataForm = new FormControl({
     login: '',
     email: '',
     password: '',
     confirmPassword: ''
-  };
+  }, [this.validatePassword()]);
 
   constructor(
     public api: ApiService,
@@ -24,29 +25,31 @@ export class RegisterPageComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  public validatePassword(): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: boolean } | null => {
+      return control.value.password === control.value.confirmPassword && control.value !== ''
+        ? null : {'Passwords must match': true};
+    };
+  }
+
   public async onRegister(): Promise<void> {
-    console.log({
-      user: {
-        username: this.userRegisterData.login,
-        email: this.userRegisterData.email,
-        id: '',
-        avatar: ''
-      },
-      login: {
-        username: this.userRegisterData.login,
-        password: this.userRegisterData.password,
-      }
-    });
+    if (this.userRegisterDataForm.value.email === '' || this.userRegisterDataForm.value.login === ''
+      || this.userRegisterDataForm.value.password === '' || this.userRegisterDataForm.value.confirmPassword === ''
+      || this.userRegisterDataForm.invalid) {
+      console.log(this.userRegisterDataForm.errors); // TODO: Add error handling
+      return;
+    }
+
     await this.api.registerUser({
       user: {
-        username: this.userRegisterData.login,
-        email: this.userRegisterData.email,
+        username: this.userRegisterDataForm.value.login,
+        email: this.userRegisterDataForm.value.email,
         id: '',
         avatar: ''
       },
       login: {
-        username: this.userRegisterData.login,
-        password: this.userRegisterData.password,
+        username: this.userRegisterDataForm.value.login,
+        password: this.userRegisterDataForm.value.password,
       }
     }).toPromise();
 
