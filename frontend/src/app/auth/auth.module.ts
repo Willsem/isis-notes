@@ -6,11 +6,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialProxyModule } from '../material-proxy/material-proxy.module';
 import { RegisterPageComponent } from './components/register-page/register-page.component';
 import { UserDataFormComponent } from './components/user-data-form/user-data-form.component';
+import { UserDetailsComponent } from './components/user-details/user-details.component';
+import { UserEditComponent } from './components/user-edit/user-edit.component';
 
 
 
 @NgModule({
-  declarations: [AuthPageComponent, RegisterPageComponent, UserDataFormComponent],
+  declarations: [AuthPageComponent, RegisterPageComponent, UserDataFormComponent, UserDetailsComponent, UserEditComponent],
     imports: [
         CommonModule,
         AuthRoutingModule,
