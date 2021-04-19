@@ -27,7 +27,7 @@ export class RegisterPageComponent implements OnInit {
 
   public validatePassword(): ValidatorFn {
     return (control: AbstractControl): { [key: string]: boolean } | null => {
-      return control.value.password === control.value.confirmPassword && control.value !== ''
+      return control.value.password === control.value.confirmPassword
         ? null : {'Passwords must match': true};
     };
   }

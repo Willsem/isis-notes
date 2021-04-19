@@ -59,6 +59,15 @@ export class UserDataFormComponent implements OnInit, ControlValueAccessor {
       if (this.userDataForm.valid) {
         this.valueChange.emit(val);
         this.onChange(val);
+      } else {
+        const newVal = {
+          login: '',
+          email: '',
+          password: '',
+          confirmPassword: ''
+        };
+        this.valueChange.emit(newVal);
+        this.onChange(newVal);
       }
     });
   }
