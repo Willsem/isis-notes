@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../../services/auth.service';
+import { User } from '../../../shared/models/user';
 
 @Component({
   selector: 'isis-user-details',
@@ -7,9 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserDetailsComponent implements OnInit {
 
-  constructor() { }
+  public user: User;
+
+  constructor(
+    public auth: AuthService,
+  ) { }
 
   ngOnInit(): void {
+    this.user = this.auth.currentSessionValue.user ?? {id: '', username: '', email: '', avatar: ''};
   }
 
 }

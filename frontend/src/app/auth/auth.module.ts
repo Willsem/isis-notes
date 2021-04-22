@@ -13,12 +13,15 @@ import { UserEditComponent } from './components/user-edit/user-edit.component';
 
 @NgModule({
   declarations: [AuthPageComponent, RegisterPageComponent, UserDataFormComponent, UserDetailsComponent, UserEditComponent],
-    imports: [
-        CommonModule,
-        AuthRoutingModule,
-        FormsModule,
-        MaterialProxyModule,
-        ReactiveFormsModule,
-    ]
+  exports: [
+    UserDetailsComponent
+  ],
+  imports: [
+    CommonModule,
+    AuthRoutingModule,
+    FormsModule,
+    MaterialProxyModule,
+    ReactiveFormsModule,
+  ]
 })
 export class AuthModule { }
