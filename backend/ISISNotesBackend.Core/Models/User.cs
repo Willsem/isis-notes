@@ -1,51 +1,18 @@
-using System;
-
 namespace ISISNotesBackend.Core.Models
 {
     public class User
     {
-        public Guid Id { get; set; }
-        public string Name { get; set; }
+        public string Id { get; set; }
+        public string Username { get; set; }
         public string Email { get; set; }
-        public DateTime RegistrationDate { get; set; }
-        
-        public Passcode Passcode { get; set; }
-        public UserPhoto UserPhoto { get; set; }
+        public string Avatar { get; set; }
 
-        public User(Guid id, string name, string email,
-            DateTime registrationDate, Passcode passcode,
-            UserPhoto userPhoto)
+        public User(string id, string username, string email, string avatar)
         {
-            string exceptionMessage = "Wrong parameters: \n";
-            
-            if (string.IsNullOrEmpty(name))
-            {
-                exceptionMessage += $"'{nameof(name)}': Name of user can't be null \n";
-            }
-            if (string.IsNullOrEmpty(email))
-            {
-                exceptionMessage += $"'{nameof(email)}': Email of user can't be null \n";
-            }
-            if (registrationDate > DateTime.Today)
-            {
-                exceptionMessage += $"'{nameof(registrationDate)}': Date of registration can't be from future \n";
-            }
-            if (passcode == null)
-            {
-                exceptionMessage += $"'{nameof(passcode)}': Reference to Passcode can't be null \n";
-            }
-
-            if (exceptionMessage != "Wrong parameters: \n")
-            {
-                throw new ArgumentException(exceptionMessage);
-            }
-            
             Id = id;
-            Name = name;
+            Username = username;
             Email = email;
-            RegistrationDate = registrationDate;
-            Passcode = passcode;
-            UserPhoto = userPhoto;
+            Avatar = avatar;
         }
     }
 }
