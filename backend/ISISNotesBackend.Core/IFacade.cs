@@ -13,29 +13,32 @@ namespace ISISNotesBackend.Core
         /// </summary>
         /// <param name="userId">Id of user.</param>
         /// <returns>Notes of user.</returns>
-        IEnumerable<Note> GetUserNotes(Guid userId);
+        Note[] GetUserNotes(string userId);
         /// <summary>
         /// Creates a new note.
         /// </summary>
         /// <param name="userId">Id of user, who creates a note.</param>
         /// <param name="name">Name of a note.</param>
         /// <returns>Created note.</returns>
-        Note CreateNote(Guid userId, String name);
+        Note CreateNote(string userId, String name);
+
         /// <summary>
         /// Gets text content of note.
         /// </summary>
         /// <param name="userId">Id of user, who wants to get the content.</param>
         /// <param name="noteId">Id of note.</param>
+        /// <param name="path">Path to folder with files.</param>
         /// <returns>Text of note.</returns>
-        TextNote GetNoteContent(Guid userId, Guid noteId);
+        NoteContent[] GetNoteContent(string userId, string noteId, string path);
         /// <summary>
         /// Changes text content of note.
         /// </summary>
         /// <param name="userId">Id of user, who wants to change the content.</param>
         /// <param name="noteId">Id of note.</param>
-        /// <param name="text">New text.</param>
-        /// <returns>Text of note.</returns>
-        TextNote ChangeNoteText(Guid userId, Guid noteId, String text);
+        /// <param name="noteContent">New content of note.</param>
+        /// <param name="path">Path to folder with files.</param>
+        /// <returns>Note.</returns>
+        NoteWithContent ChangeNoteText(string userId, string noteId, NoteContent[] noteContent, string path);
         /// <summary>
         /// Changes name of note.
         /// </summary>
@@ -43,37 +46,39 @@ namespace ISISNotesBackend.Core
         /// <param name="noteId">Id of note.</param>
         /// <param name="name">New name.</param>
         /// <returns>Note.</returns>
-        Note ChangeNoteName(Guid userId, Guid noteId, String name);
+        NoteWithContent ChangeNoteName(string userId, string noteId, String name);
         /// <summary>
         /// Deletes note.
         /// </summary>
         /// <param name="userId">Id of user, who wants to delete note.</param>
         /// <param name="noteId">Id of note.</param>
         /// <returns>Deleted note.</returns>
-        Note DeleteNote(Guid userId, Guid noteId);
+        Note DeleteNote(string userId, string noteId);
+
         /// <summary>
         /// Adds file to note.
         /// </summary>
         /// <param name="userId">Id of user, who wants to add file to note.</param>
-        /// <param name="noteId">Id of note.</param>
-        /// <param name="filePath">Path of file.</param>
-        /// <param name="fileType">Type of file.</param>
+        /// <param name="file">File.</param>
+        /// <param name="path">Path to folder with files.</param>
         /// <returns>Added file.</returns>
-        File AddFile(Guid userId, Guid noteId, String filePath, String fileType);
+        NoteFileContent AddFile(string userId, FileWithContent file, string path);
+
         /// <summary>
         /// Gets file by Id.
         /// </summary>
         /// <param name="userId">Id of user, who wants to get file.</param>
         /// <param name="fileId">Id of file.</param>
+        /// <param name="path">Path to folder with files.</param>
         /// <returns>File.</returns>
-        File GetFile(Guid userId, Guid fileId);
+        byte[] GetFile(string userId, string fileId, string path);
         /// <summary>
         /// Deletes file.
         /// </summary>
         /// <param name="userId">Id of user, who wants to delete file.</param>
         /// <param name="fileId">Id of file.</param>
         /// <returns>Deleted file.</returns>
-        File DeleteFile(Guid userId, Guid fileId);
+        NoteFileContent DeleteFile(string userId, string fileId);
         #endregion
 
         #region UserRepository
@@ -81,26 +86,21 @@ namespace ISISNotesBackend.Core
         /// Gets all users of ISISNotes.
         /// </summary>
         /// <returns>All users.</returns>
-        IEnumerable<User> GetAllUsers();
+        User[] GetAllUsers();
         /// <summary>
         /// Creates new user.
         /// </summary>
-        /// <param name="name">Name of new user.</param>
-        /// <param name="email">Email of new user.</param>
-        /// <param name="password">Password of new user.</param>
-        /// <param name="image">Image of new user.</param>
+        /// <param name="userWithLogin">User.</param>
         /// <returns>Created user.</returns>
-        User CreateUser(String name, String email, String password, String? image);
+        User CreateUser(UserWithLogin userWithLogin);
+
         /// <summary>
         /// Changes user.
         /// </summary>
-        /// <param name="userId">Id of user.</param>
-        /// <param name="name">Name of user.</param>
-        /// <param name="email">Email of user.</param>
-        /// <param name="password">Password of user.</param>
-        /// <param name="image">Image of user.</param>
+        /// <param name="userWithLoginAndAvatar">User.</param>
+        /// <param name="Path">Path to folder with files.</param>
         /// <returns>User.</returns>
-        User ChangeUser(Guid userId, String name, String email, String password, String image);
+        User ChangeUser(UserWithLoginAndAvatar userWithLoginAndAvatar, string path);
         #endregion
 
         #region UserNoteRepository
@@ -119,7 +119,7 @@ namespace ISISNotesBackend.Core
         /// <param name="noteId">Id of note.</param>
         /// <param name="userRights">Rights of user.</param>
         /// <returns>New user of note.</returns>
-        UserNote CreateUserNote(String changeUserId, String userId, String noteId, UserRights userRights);
+        NoteAccessRight CreateUserNote(String changeUserId, String userId, String noteId, UserRights userRights);
         /// <summary>
         /// Changes user rights.
         /// </summary>
@@ -128,7 +128,7 @@ namespace ISISNotesBackend.Core
         /// <param name="noteId">Id of note.</param>
         /// <param name="userRights">New rights of user.</param>
         /// <returns>Changed user of note.</returns>
-        UserNote ChangeUserNote(String changeUserId, String userId, String noteId, UserRights userRights);
+        NoteAccessRight ChangeUserNote(String changeUserId, String userId, String noteId, UserRights userRights);
         /// <summary>
         /// Deletes user of note.
         /// </summary>
@@ -136,7 +136,7 @@ namespace ISISNotesBackend.Core
         /// <param name="userId">Id of deleted user.</param>
         /// <param name="noteId">Id of note.</param>
         /// <returns>Deleted user of note.</returns>
-        UserNote DeleteUserNote(String changeUserId, String userId, String noteId);
+        NoteAccessRight DeleteUserNote(String changeUserId, String userId, String noteId);
         #endregion
     }
 }

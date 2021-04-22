@@ -14,21 +14,14 @@ namespace ISISNotesBackend.Core.Repositories
         /// <summary>
         /// Creates new user.
         /// </summary>
-        /// <param name="name">Name of new user.</param>
-        /// <param name="email">Email of new user.</param>
-        /// <param name="password">Password of new user.</param>
-        /// <param name="image">Image of new user.</param>
+        /// <param name="userWithLogin">User.</param>
         /// <returns>Created user.</returns>
-        User CreateUser(String name, String email, String password, String? image);
+        User CreateUser(UserWithLogin userWithLogin);
         /// <summary>
         /// Changes user.
         /// </summary>
-        /// <param name="userId">Id of user.</param>
-        /// <param name="name">Name of user.</param>
-        /// <param name="email">Email of user.</param>
-        /// <param name="password">Password of user.</param>
-        /// <param name="image">Image of user.</param>
+        /// <param name="userWithLoginAndAvatar">User.</param>
         /// <returns>User.</returns>
-        User ChangeUser(Guid userId, String name, String email, String password, String image);
+        User ChangeUser(UserWithLoginAndAvatar userWithLoginAndAvatar);
     }
 }

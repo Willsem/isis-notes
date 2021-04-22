@@ -21,7 +21,7 @@ namespace ISISNotesBackend.Core.Repositories
         /// <param name="noteId">Id of note.</param>
         /// <param name="userRights">Rights of user.</param>
         /// <returns>New user of note.</returns>
-        UserNote CreateUserNote(String changeUserId, String userId, String noteId, UserRights userRights);
+        NoteAccessRight CreateUserNote(String changeUserId, String userId, String noteId, UserRights userRights);
         /// <summary>
         /// Changes user rights.
         /// </summary>
@@ -30,7 +30,7 @@ namespace ISISNotesBackend.Core.Repositories
         /// <param name="noteId">Id of note.</param>
         /// <param name="userRights">New rights of user.</param>
         /// <returns>Changed user of note.</returns>
-        UserNote ChangeUserNote(String changeUserId, String userId, String noteId, UserRights userRights);
+        NoteAccessRight ChangeUserNote(String changeUserId, String userId, String noteId, UserRights userRights);
         /// <summary>
         /// Deletes user of note.
         /// </summary>
@@ -38,6 +38,6 @@ namespace ISISNotesBackend.Core.Repositories
         /// <param name="userId">Id of deleted user.</param>
         /// <param name="noteId">Id of note.</param>
         /// <returns>Deleted user of note.</returns>
-        UserNote DeleteUserNote(String changeUserId, String userId, String noteId);
+        NoteAccessRight DeleteUserNote(String changeUserId, String userId, String noteId);
     }
 }
