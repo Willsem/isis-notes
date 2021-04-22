@@ -13,29 +13,32 @@ namespace ISISNotesBackend.Core
         /// </summary>
         /// <param name="userId">Id of user.</param>
         /// <returns>Notes of user.</returns>
-        IEnumerable<Note> GetUserNotes(Guid userId);
+        Note[] GetUserNotes(string userId);
         /// <summary>
         /// Creates a new note.
         /// </summary>
         /// <param name="userId">Id of user, who creates a note.</param>
         /// <param name="name">Name of a note.</param>
         /// <returns>Created note.</returns>
-        Note CreateNote(Guid userId, String name);
+        Note CreateNote(string userId, String name);
+
         /// <summary>
         /// Gets text content of note.
         /// </summary>
         /// <param name="userId">Id of user, who wants to get the content.</param>
         /// <param name="noteId">Id of note.</param>
+        /// <param name="path">Path to folder with files.</param>
         /// <returns>Text of note.</returns>
-        NoteContent[] GetNoteContent(Guid userId, Guid noteId);
+        NoteContent[] GetNoteContent(string userId, string noteId, string path);
         /// <summary>
         /// Changes text content of note.
         /// </summary>
         /// <param name="userId">Id of user, who wants to change the content.</param>
         /// <param name="noteId">Id of note.</param>
         /// <param name="noteContent">New content of note.</param>
+        /// <param name="path">Path to folder with files.</param>
         /// <returns>Note.</returns>
-        NoteWithContent ChangeNoteText(Guid userId, Guid noteId, NoteContent[] noteContent);
+        NoteWithContent ChangeNoteText(string userId, string noteId, NoteContent[] noteContent, string path);
         /// <summary>
         /// Changes name of note.
         /// </summary>
@@ -43,14 +46,14 @@ namespace ISISNotesBackend.Core
         /// <param name="noteId">Id of note.</param>
         /// <param name="name">New name.</param>
         /// <returns>Note.</returns>
-        NoteWithContent ChangeNoteName(Guid userId, Guid noteId, String name);
+        NoteWithContent ChangeNoteName(string userId, string noteId, String name);
         /// <summary>
         /// Deletes note.
         /// </summary>
         /// <param name="userId">Id of user, who wants to delete note.</param>
         /// <param name="noteId">Id of note.</param>
         /// <returns>Deleted note.</returns>
-        Note DeleteNote(Guid userId, Guid noteId);
+        Note DeleteNote(string userId, string noteId);
 
         /// <summary>
         /// Adds file to note.

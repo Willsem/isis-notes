@@ -13,7 +13,7 @@ namespace ISISNotesBackend.API.Controllers
     {
         private readonly IFacade _facade;
         private readonly IConfiguration _configuration;
-        private string _path => _configuration["Database:StoredFilesPath"];
+        private string Path => _configuration["Database:StoredFilesPath"];
 
         public NoteController(IFacade facade, IConfiguration configuration)
         {
@@ -24,49 +24,50 @@ namespace ISISNotesBackend.API.Controllers
         [Route("{userId}")]
         public Note[] GetNotes(string userId)
         {
-            return null;
+            return _facade.GetUserNotes(userId);
         }
         
         [Route("{userId}")]
         public Note CreateNote(string userId, [FromBody] Note note)
         {
-            return null;
+            return _facade.CreateNote(userId, note.Name);
         }
         
         [Route("{userId}/{noteId}")]
         public NoteContent[] GetNoteContent(string userId, string noteId)
         {
-            return null;
+            return _facade.GetNoteContent(userId, noteId, Path);
         }
         
         [Route("{userId}/{noteId}")]
         public NoteWithContent ChangeNote(string userId, string noteId, [FromBody] NoteWithContent note)
         {
-            return null;
+            _facade.ChangeNoteName(userId, noteId, note.Note.Name);
+            return _facade.ChangeNoteText(userId, noteId, note.NoteContent, Path);
         }
         
         [Route("{userId}/{noteId}")]
         public Note DeleteNote(string userId, string noteId)
         {
-            return null;
+            return _facade.DeleteNote(userId, noteId);
         }
         
         [Route("{userId}/{noteId}/permission")]
         public NoteAccessRight AddUserRights(string userId, string noteId, [FromBody] NoteAccessRight noteAccessRight)
         {
-            return null;
+            return _facade.CreateUserNote(userId, noteAccessRight.UserId, noteAccessRight.NoteId, noteAccessRight.Rights);
         }
         
         [Route("{userId}/{noteId}/permission")]
         public NoteAccessRight EditUserRights(string userId, string noteId, [FromBody] NoteAccessRight noteAccessRight)
         {
-            return null;
+            return _facade.ChangeUserNote(userId, noteAccessRight.UserId, noteAccessRight.NoteId, noteAccessRight.Rights);
         }
         
         [Route("{userId}/{noteId}/permission/{toUserId}")]
         public NoteAccessRight DeleteUserRights(string userId, string noteId, string toUserId)
         {
-            return null;
+            return _facade.DeleteUserNote(userId, toUserId, noteId);
         }
     }
 }
