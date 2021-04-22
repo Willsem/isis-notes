@@ -10,7 +10,7 @@ namespace ISISNotesBackend.API.Controllers
     {
         private readonly IFacade _facade;
         private readonly IConfiguration _configuration;
-        private string _path => _configuration["Database:StoredFilesPath"];
+        private string Path => _configuration["Database:StoredFilesPath"];
         
         public UserController(IFacade facade, IConfiguration configuration)
         {
@@ -21,19 +21,19 @@ namespace ISISNotesBackend.API.Controllers
         [Route("")]
         public User[] GetUsers()
         {
-            return null;
+            return _facade.GetAllUsers();
         }
         
         [Route("")]
         public User CreateUser([FromBody] UserWithLogin userWithLogin)
         {
-            return null;
+            return _facade.CreateUser(userWithLogin);
         }
         
         [Route("")]
         public User ChangeUser([FromBody]  UserWithLoginAndAvatar userWithLoginAndAvatar)
         {
-            return null;
+            return _facade.ChangeUser(userWithLoginAndAvatar, Path);
         }
     }
 }

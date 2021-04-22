@@ -83,19 +83,21 @@ namespace ISISNotesBackend.Core
         /// Gets all users of ISISNotes.
         /// </summary>
         /// <returns>All users.</returns>
-        IEnumerable<User> GetAllUsers();
+        User[] GetAllUsers();
         /// <summary>
         /// Creates new user.
         /// </summary>
         /// <param name="userWithLogin">User.</param>
         /// <returns>Created user.</returns>
         User CreateUser(UserWithLogin userWithLogin);
+
         /// <summary>
         /// Changes user.
         /// </summary>
         /// <param name="userWithLoginAndAvatar">User.</param>
+        /// <param name="Path">Path to folder with files.</param>
         /// <returns>User.</returns>
-        User ChangeUser(UserWithLoginAndAvatar userWithLoginAndAvatar);
+        User ChangeUser(UserWithLoginAndAvatar userWithLoginAndAvatar, string path);
         #endregion
 
         #region UserNoteRepository
