@@ -55,25 +55,23 @@ namespace ISISNotesBackend.Core
         /// Adds file to note.
         /// </summary>
         /// <param name="userId">Id of user, who wants to add file to note.</param>
-        /// <param name="noteId">Id of note.</param>
-        /// <param name="filePath">Path of file.</param>
-        /// <param name="fileType">Type of file.</param>
+        /// <param name="file">File.</param>
         /// <returns>Added file.</returns>
-        File AddFile(Guid userId, Guid noteId, String filePath, String fileType);
+        NoteFileContent AddFile(Guid userId, FileWithContent file);
         /// <summary>
         /// Gets file by Id.
         /// </summary>
         /// <param name="userId">Id of user, who wants to get file.</param>
         /// <param name="fileId">Id of file.</param>
         /// <returns>File.</returns>
-        File GetFile(Guid userId, Guid fileId);
+        byte[] GetFile(Guid userId, Guid fileId);
         /// <summary>
         /// Deletes file.
         /// </summary>
         /// <param name="userId">Id of user, who wants to delete file.</param>
         /// <param name="fileId">Id of file.</param>
         /// <returns>Deleted file.</returns>
-        File DeleteFile(Guid userId, Guid fileId);
+        NoteFileContent DeleteFile(Guid userId, Guid fileId);
         #endregion
 
         #region UserRepository
