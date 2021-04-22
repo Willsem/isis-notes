@@ -12,7 +12,7 @@ namespace ISISNotesBackend.API.Controllers
     {
         private readonly IFacade _facade;
         private readonly IConfiguration _configuration;
-        private string _path => _configuration["Database:StoredFilesPath"];
+        private string Path => _configuration["Database:StoredFilesPath"];
 
         public FileController(IFacade facade, IConfiguration configuration)
         {
@@ -23,19 +23,19 @@ namespace ISISNotesBackend.API.Controllers
         [Route("{userId}")]
         public NoteFileContent AddFile(string userId, [FromBody] FileWithContent file)
         {
-            return null;
+            return _facade.AddFile(userId, file, Path);
         }
         
         [Route("{userId}/{fileId}")]
         public byte[] GetFile(string userId, string fileId)
         {
-            return null;
+            return _facade.GetFile(userId, fileId, Path);
         }
         
         [Route("{userId}/{fileId}")]
         public NoteFileContent DeleteFile(string userId, string fileId)
         {
-            return null;
+            return _facade.DeleteFile(userId, fileId);
         }
     }
 }
