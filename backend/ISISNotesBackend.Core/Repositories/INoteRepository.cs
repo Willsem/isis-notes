@@ -25,15 +25,15 @@ namespace ISISNotesBackend.Core.Repositories
         /// <param name="userId">Id of user, who wants to get the content.</param>
         /// <param name="noteId">Id of note.</param>
         /// <returns>Text of note.</returns>
-        TextNote GetNoteContent(Guid userId, Guid noteId);
+        NoteContent[] GetNoteContent(Guid userId, Guid noteId);
         /// <summary>
         /// Changes text content of note.
         /// </summary>
         /// <param name="userId">Id of user, who wants to change the content.</param>
         /// <param name="noteId">Id of note.</param>
-        /// <param name="text">New text.</param>
+        /// <param name="noteContent">New content.</param>
         /// <returns>Text of note.</returns>
-        TextNote ChangeNoteText(Guid userId, Guid noteId, String text);
+        NoteWithContent ChangeNoteText(Guid userId, Guid noteId, NoteContent[] noteContent);
         /// <summary>
         /// Changes name of note.
         /// </summary>
@@ -41,7 +41,7 @@ namespace ISISNotesBackend.Core.Repositories
         /// <param name="noteId">Id of note.</param>
         /// <param name="name">New name.</param>
         /// <returns>Note.</returns>
-        Note ChangeNoteName(Guid userId, Guid noteId, String name);
+        NoteWithContent ChangeNoteName(Guid userId, Guid noteId, String name);
         /// <summary>
         /// Deletes note.
         /// </summary>
@@ -57,20 +57,20 @@ namespace ISISNotesBackend.Core.Repositories
         /// <param name="filePath">Path of file.</param>
         /// <param name="fileType">Type of file.</param>
         /// <returns>Added file.</returns>
-        File AddFile(Guid userId, Guid noteId, String filePath, String fileType);
+        NoteFileContent AddFile(Guid userId, Guid noteId, String filePath, String fileType);
         /// <summary>
         /// Gets file by Id.
         /// </summary>
         /// <param name="userId">Id of user, who wants to get file.</param>
         /// <param name="fileId">Id of file.</param>
         /// <returns>File.</returns>
-        File GetFile(Guid userId, Guid fileId);
+        NoteFileContent GetFile(Guid userId, Guid fileId);
         /// <summary>
         /// Deletes file.
         /// </summary>
         /// <param name="userId">Id of user, who wants to delete file.</param>
         /// <param name="fileId">Id of file.</param>
         /// <returns>Deleted file.</returns>
-        File DeleteFile(Guid userId, Guid fileId);
+        NoteFileContent DeleteFile(Guid userId, Guid fileId);
     }
 }
