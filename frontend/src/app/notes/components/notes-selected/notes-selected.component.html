@@ -1,2 +1,4 @@
-{{note.id}}
-{{note.name}}
+<div class="selected-note">
+    <isis-note-editor [(inputModel)]="contentFromEditor"></isis-note-editor>
+    <isis-note-text [content]="contentFromEditor"></isis-note-text>
+</div>

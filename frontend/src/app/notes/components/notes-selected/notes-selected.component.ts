@@ -11,6 +11,8 @@ import {NotesService} from '../../services/notes.service';
 export class NotesSelectedComponent implements OnInit {
 
   public note: Note;
+  
+  public contentFromEditor: string;
 
   constructor(
     public notes: NotesService,
