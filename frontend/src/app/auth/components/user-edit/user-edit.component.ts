@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {User} from '../../../shared/models/user';
-import {AuthService} from '../../services/auth.service';
-import {UserLogin} from '../../../shared/models/user-login';
-import {FormControl} from '@angular/forms';
-import {ApiService} from '../../../api/services/api.service';
-import {MatDialogRef} from '@angular/material/dialog';
+import { User } from '../../../shared/models/user';
+import { AuthService } from '../../services/auth.service';
+import { FormControl } from '@angular/forms';
+import { ApiService } from '../../../api/services/api.service';
 
 @Component({
   selector: 'isis-user-edit',

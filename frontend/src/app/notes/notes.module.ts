@@ -5,7 +5,7 @@ import { NotesComponent } from './components/notes/notes.component';
 import { NotesListComponent } from './components/notes-list/notes-list.component';
 import { CommonModule } from '@angular/common';
 import { NotesSelectedComponent } from './components/notes-selected/notes-selected.component';
-import {AuthModule} from '../auth/auth.module';
+import { AuthModule } from '../auth/auth.module';
 
 
 
