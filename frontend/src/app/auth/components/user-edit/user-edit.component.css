@@ -1,0 +1,82 @@
+.user-edit-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+h2 {
+  width: 100%;
+  font-size: 18px;
+  color: #333333;
+}
+
+.user-details-avatar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.user-details-avatar-images {
+  display: flex;
+  flex-direction: row;
+  margin-right: 21px;
+  /*align-items: flex-end;*/
+}
+
+::ng-deep .user-details-button {
+  border: solid 1px #aaaaaa !important;
+  color: #aaaaaa;
+  font-size: 18px !important;
+  border-radius: 10px !important;
+  height: 40px;
+  margin-top: 10px !important;
+  min-width: 105px;
+}
+
+.user-details-avatar-input {
+  display: none;
+}
+
+.avatar-big {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.avatar-medium {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-left: 12px;
+}
+
+.avatar-small {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-left: 25px;
+}
+
+isis-user-data-form {
+  margin-top: 40px;
+}
+
+::ng-deep mat-dialog-container {
+  padding-top: 0 !important;
+  position: relative;
+}
+
+.user-details-close {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+}
+
+.user-details-close mat-icon {
+  width: 24px;
+  height: 24px;
+  color: #aaaaaa;
+}

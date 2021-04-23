@@ -10,7 +10,8 @@
 
 mat-form-field {
   font-family: 'Poppins', sans-serif;
-  width: 400px;
+  width: 400px !important;
+  font-size: 13px;
 }
 
 ::ng-deep .mat-form-field-wrapper {
