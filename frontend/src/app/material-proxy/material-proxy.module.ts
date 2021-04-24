@@ -6,6 +6,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatDialogModule } from '@angular/material/dialog';
 
 const materialModules = [
   MatInputModule,
@@ -15,6 +16,7 @@ const materialModules = [
   MatListModule,
   MatIconModule,
   MatMenuModule,
+  MatDialogModule,
 ];
 
 @NgModule({
