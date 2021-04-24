@@ -18,6 +18,8 @@ export class NotesSelectedComponent implements OnInit {
   public isWriter = this.note.mode === 'author' || this.note.mode === 'write';
   public isAuthor = this.note.mode === 'author';
 
+  public content1: string = '';
+
   constructor(
     public notes: NotesService,
     public route: ActivatedRoute,
