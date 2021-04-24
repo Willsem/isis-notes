@@ -10,6 +10,7 @@ import {MarkdownModule} from 'ngx-markdown';
 import {FormsModule} from '@angular/forms';
 import { NoteEditorComponent } from './components/note-editor/note-editor.component';
 import { AutosizeModule } from 'ngx-autosize';
+import { NoteContentComponent } from './components/note-content/note-content.component';
 
 
 @NgModule({
@@ -19,6 +20,7 @@ import { AutosizeModule } from 'ngx-autosize';
     NotesSelectedComponent,
     NoteTextComponent,
     NoteEditorComponent,
+    NoteContentComponent,
   ],
   imports: [
     CommonModule,
