@@ -7,7 +7,8 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class NoteTextComponent implements OnInit {
 
-  @Input() content: string;
+  @Input()
+  content: string;
 
   constructor() { }
 

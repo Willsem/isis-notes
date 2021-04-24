@@ -7,8 +7,11 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 })
 export class NoteEditorComponent implements OnInit {
 
-  @Input() inputModel: string;
-  @Output() inputModelChange = new EventEmitter<string>();
+  @Input()
+  inputModel: string;
+
+  @Output()
+  inputModelChange = new EventEmitter<string>();
 
   constructor() { }
 
