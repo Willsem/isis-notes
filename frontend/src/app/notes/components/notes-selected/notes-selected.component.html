@@ -1,1 +1,19 @@
 <isis-note-content [(value)]="content1"></isis-note-content>
+
+<div class="note-user-permission note-interface-icon">
+    <mat-icon *ngIf="isWriter">edit</mat-icon>
+    <mat-icon *ngIf="note.mode === 'read'">menu_book</mat-icon>
+</div>
+
+<div class="note-settings-button note-interface-icon" *ngIf="isWriter">
+    <button mat-icon-button [matMenuTriggerFor]="noteMenu"><mat-icon>settings</mat-icon></button>
+    <mat-menu #noteMenu='matMenu'>
+        <button mat-menu-item *ngIf="isWriter">Сохранить</button>
+        <button mat-menu-item *ngIf="isAuthor">Дать доступ</button>
+        <button mat-menu-item *ngIf="isAuthor" class="note-delete">Удалить</button>
+    </mat-menu>
+</div>
+
+<div class="note-sync-date note-interface-icon">
+    <span>Последняя синхронизация: {{syncTime | date:'dd/mm/yyyy h:mm a'}}</span>
+</div>

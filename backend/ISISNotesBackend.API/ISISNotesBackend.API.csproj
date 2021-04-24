@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DataBase\ISISNotesBackend.DataBase.NpgsqlContext\ISISNotesBackend.DataBase.NpgsqlContext.csproj" />
+    <ProjectReference Include="..\ISISNotesBackend.Core\ISISNotesBackend.Core.csproj" />
   </ItemGroup>
 
   <ItemGroup>

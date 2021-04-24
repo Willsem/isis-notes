@@ -43,5 +43,7 @@ export class AuthPageComponent implements OnInit {
 
   public onForgot(): void {}
 
-  public onCreate(): void {}
+  public async onCreate(): Promise<void> {
+    await this.router.navigateByUrl('/auth/register');
+  }
 }
