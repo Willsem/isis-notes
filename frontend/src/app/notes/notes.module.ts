@@ -13,6 +13,7 @@ import { AutosizeModule } from 'ngx-autosize';
 import { NoteContentComponent } from './components/note-content/note-content.component';
 import { AuthModule } from '../auth/auth.module';
 import { NoteTextFileComponent } from './components/note-text-file/note-text-file.component';
+import { NoteImageFileComponent } from './components/note-image-file/note-image-file.component';
 
 
 @NgModule({
@@ -24,6 +25,7 @@ import { NoteTextFileComponent } from './components/note-text-file/note-text-fil
     NoteEditorComponent,
     NoteContentComponent,
     NoteTextFileComponent,
+    NoteImageFileComponent,
   ],
   imports: [
     CommonModule,

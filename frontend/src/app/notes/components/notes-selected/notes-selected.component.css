@@ -9,6 +9,10 @@
   width: 100%;
 }
 
+.note * {
+  margin-bottom: 1em;
+}
+
 .note-user-permission {
   position: absolute;
   top: 21px;
