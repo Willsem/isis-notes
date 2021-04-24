@@ -14,6 +14,7 @@ import { NoteContentComponent } from './components/note-content/note-content.com
 import { AuthModule } from '../auth/auth.module';
 import { NoteTextFileComponent } from './components/note-text-file/note-text-file.component';
 import { NoteImageFileComponent } from './components/note-image-file/note-image-file.component';
+import { NoteVideoFileComponent } from './components/note-video-file/note-video-file.component';
 
 
 @NgModule({
@@ -26,6 +27,7 @@ import { NoteImageFileComponent } from './components/note-image-file/note-image-
     NoteContentComponent,
     NoteTextFileComponent,
     NoteImageFileComponent,
+    NoteVideoFileComponent,
   ],
   imports: [
     CommonModule,
