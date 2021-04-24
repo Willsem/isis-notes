@@ -18,7 +18,7 @@ export class NoteTextFileComponent implements OnInit {
     type: 'file'
   }; // TODO: remove
   public fileBase64 = '';
-  public fileBlob: Blob | null = null;
+  public fileBlob: File | null = null;
 
   constructor(
     public noteFiles: NoteFilesService,
@@ -33,7 +33,8 @@ export class NoteTextFileComponent implements OnInit {
     //     this.fileBase64 = fileReader.result as string;
     //   };
     // });
-    const blob = new Blob(['asdfgh']);
+    const blob = new File([new Blob(['asdfgh'])], this.file.fileName,
+      {type: this.file.fileType, lastModified: Date.now()});
     this.fileBlob = blob;
 
     const fileReader = new FileReader();
@@ -43,4 +44,11 @@ export class NoteTextFileComponent implements OnInit {
     }; // TODO: remove
   }
 
+  public onClick(): void {
+    // window.open(this.fileBase64, '_blank');
+    const w = window.open('about:blank');
+    w.document.write('<iframe src="'
+      + this.fileBase64
+      + '" frameborder="0" style="border:0; top:0px; left:0px; bottom:0px; right:0px; width:100%; height:100%;" allowfullscreen></iframe>');
+  }
 }
