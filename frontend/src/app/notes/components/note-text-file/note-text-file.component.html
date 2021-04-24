@@ -1,0 +1,11 @@
+<mat-card class="file-card">
+    <mat-icon>description</mat-icon>
+    <div class="file-card-text">
+        <h4>{{file.fileName}}</h4>
+        <div class="file-card-text-properties">
+            <span>{{file.fileType}}</span>
+            <span class="spacer"></span>
+            <span>{{fileBlob ? fileBlob.size + 'B' : '0B'}}</span>
+        </div>
+    </div>
+</mat-card>

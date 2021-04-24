@@ -1,3 +1,14 @@
+.note {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.note isis-note-content {
+  width: 100%;
+}
+
 .note-user-permission {
   position: absolute;
   top: 21px;
