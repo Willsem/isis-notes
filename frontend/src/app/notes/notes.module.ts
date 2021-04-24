@@ -9,7 +9,7 @@ import { NoteTextComponent } from './components/note-text/note-text.component';
 import {MarkdownModule} from 'ngx-markdown';
 import {FormsModule} from '@angular/forms';
 import { NoteEditorComponent } from './components/note-editor/note-editor.component';
-
+import { AutosizeModule } from 'ngx-autosize';
 
 
 @NgModule({
@@ -26,6 +26,7 @@ import { NoteEditorComponent } from './components/note-editor/note-editor.compon
     MaterialProxyModule,
     MarkdownModule.forRoot(),
     FormsModule,
+    AutosizeModule,
   ]
 })
 export class NotesModule { }
