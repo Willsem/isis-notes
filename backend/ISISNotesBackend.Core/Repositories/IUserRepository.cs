@@ -31,5 +31,11 @@ namespace ISISNotesBackend.Core.Repositories
         /// <param name="password">Password of entering user.</param>
         /// <returns>User or null.</returns>
         User? EnterUser(String name, String password);
+        /// <summary>
+        /// Delete session after logout.
+        /// </summary>
+        /// <param name="id">Id of session.</param>
+        /// <returns>Deleted session.</returns>
+        Session DeleteSession(string id);
     }
 }
