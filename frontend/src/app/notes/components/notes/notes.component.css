@@ -5,3 +5,27 @@
 .notes-sidenav-container mat-sidenav {
   width: 300px;
 }
+
+::ng-deep mat-sidenav .mat-drawer-inner-container {
+  display: flex;
+  flex-direction: column;
+}
+
+isis-notes-list {
+  flex: 1;
+}
+
+.notes-logout-button {
+  height: 70px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  color: #bbbbbb;
+  border-top: solid 1px #bbbbbb;
+  cursor: pointer;
+}
+
+.notes-logout-button mat-icon {
+  margin-left: 39px;
+  margin-right: 14px;
+}
