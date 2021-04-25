@@ -25,23 +25,25 @@ export class NoteTextFileComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    // this.noteFiles.getFileData(this.file.fileId).then(blob => {
-    //   this.fileBlob = blob;
-    //   const fileReader = new FileReader();
-    //   fileReader.readAsDataURL(blob);
-    //   fileReader.onloadend = () => {
-    //     this.fileBase64 = fileReader.result as string;
-    //   };
-    // });
-    const blob = new File([new Blob(['asdfgh'])], this.file.fileName,
-      {type: this.file.fileType, lastModified: Date.now()});
-    this.fileBlob = blob;
+    this.noteFiles.getFileData(this.file.fileId).then(blob => {
+      this.fileBlob = new File([blob], this.file.fileName,
+        {type: this.file.fileType, lastModified: Date.now()});
 
-    const fileReader = new FileReader();
-    fileReader.readAsDataURL(blob);
-    fileReader.onloadend = () => {
-      this.fileBase64 = fileReader.result as string;
-    }; // TODO: remove
+      const fileReader = new FileReader();
+      fileReader.readAsDataURL(blob);
+      fileReader.onloadend = () => {
+        this.fileBase64 = fileReader.result as string;
+      };
+    });
+    // const blob = new File([new Blob(['asdfgh'])], this.file.fileName,
+    //   {type: this.file.fileType, lastModified: Date.now()});
+    // this.fileBlob = blob;
+    //
+    // const fileReader = new FileReader();
+    // fileReader.readAsDataURL(blob);
+    // fileReader.onloadend = () => {
+    //   this.fileBase64 = fileReader.result as string;
+    // }; // TODO: remove
   }
 
   public onClick(): void {

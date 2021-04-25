@@ -24,15 +24,14 @@ export class NoteImageFileComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    // this.noteFiles.getFileData(this.file.fileId).then(blob => {
-    //   this.fileBlob = blob;
-    //   const fileReader = new FileReader();
-    //   fileReader.readAsDataURL(blob);
-    //   fileReader.onloadend = () => {
-    //     this.fileBase64 = fileReader.result as string;
-    //   };
-    // });
-    this.fileBase64 = 'https://img5.goodfon.ru/original/1920x1280/1/41/angan-kelana-by-angan-kelana-drakon-sushchestvo-monstr-fanta.jpg'; // TODO: remove
+    this.noteFiles.getFileData(this.file.fileId).then(blob => {
+      const fileReader = new FileReader();
+      fileReader.readAsDataURL(blob);
+      fileReader.onloadend = () => {
+        this.fileBase64 = fileReader.result as string;
+      };
+    });
+    // this.fileBase64 = 'https://img5.goodfon.ru/original/1920x1280/1/41/angan-kelana-by-angan-kelana-drakon-sushchestvo-monstr-fanta.jpg'; // TODO: remove
   }
 
 }

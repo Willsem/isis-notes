@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NoteFileContent } from '../../../shared/models/note-file-content';
+import { NoteFilesService } from '../../services/note-files.service';
 
 @Component({
   selector: 'isis-note-video-file',
@@ -18,18 +19,19 @@ export class NoteVideoFileComponent implements OnInit {
   };
   public fileBase64 = '';
 
-  constructor() { }
+  constructor(
+    public noteFiles: NoteFilesService,
+  ) { }
 
   ngOnInit(): void {
-    // this.noteFiles.getFileData(this.file.fileId).then(blob => {
-    //   this.fileBlob = blob;
-    //   const fileReader = new FileReader();
-    //   fileReader.readAsDataURL(blob);
-    //   fileReader.onloadend = () => {
-    //     this.fileBase64 = fileReader.result as string;
-    //   };
-    // });
-    this.fileBase64 = 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'; // TODO: remove
+    this.noteFiles.getFileData(this.file.fileId).then(blob => {
+      const fileReader = new FileReader();
+      fileReader.readAsDataURL(blob);
+      fileReader.onloadend = () => {
+        this.fileBase64 = fileReader.result as string;
+      };
+    });
+    // this.fileBase64 = 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'; // TODO: remove
   }
 
 }
