@@ -143,7 +143,7 @@ namespace ISISNotesBackend.Core
 
         public User ChangeUser(UserWithLoginAndAvatar userWithLoginAndAvatar, string path)
         {
-            string name = $"{userWithLoginAndAvatar.User.Username}_" +
+            string name = $"{userWithLoginAndAvatar.User.Username}" +
                    $".{userWithLoginAndAvatar.User.Avatar.Split('.').Last()}";
             path += "/avatars";
                 
@@ -191,6 +191,21 @@ namespace ISISNotesBackend.Core
                 return _userNoteRepository.DeleteUserNote(Guid.Parse(changeUserId), Guid.Parse(userId), Guid.Parse(noteId));
             else
                 throw new Exception("No access to delete user from note.\n");
+        }
+
+        public byte[] GetAvatar(string userId, string path)
+        {
+            var user = _userRepository.GetUser(userId);
+            
+            if (user.Avatar == null)
+                throw new Exception("No avatar.\n");
+
+            path += "/avatars";
+            FileInfo fileInfo = new FileInfo($"{path}/{user.Avatar}");
+            if (fileInfo.Exists) 
+                return File.ReadAllBytes($"{path}/{user.Avatar}");
+            else
+                throw new Exception("No file");
         }
 
         private string GetFilePath(string path, string type)
