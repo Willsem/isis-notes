@@ -35,7 +35,7 @@ namespace ISISNotesBackend.API.Controllers
         [Route("{userId}/{fileId}")]
         public NoteFileContent DeleteFile(string userId, string fileId)
         {
-            return _facade.DeleteFile(userId, fileId);
+            return _facade.DeleteFile(userId, fileId, Path);
         }
     }
 }
