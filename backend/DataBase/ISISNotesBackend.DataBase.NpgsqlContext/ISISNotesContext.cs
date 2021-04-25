@@ -19,6 +19,7 @@ namespace ISISNotesBackend.DataBase.NpgsqlContext
         public DbSet<User> Users { get; set; }
         public DbSet<UserNote> UserNotes { get; set; }
         public DbSet<UserPhoto> UserPhotos { get; set; }
+        public DbSet<Session> Sessions { get; set; }
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

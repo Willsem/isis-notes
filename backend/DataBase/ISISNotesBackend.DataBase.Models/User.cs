@@ -14,6 +14,7 @@ namespace ISISNotesBackend.DataBase.Models
         public UserPhoto? UserPhoto { get; set; }
         
         public ICollection<UserNote> UserNotes { get; set; }
+        public ICollection<Session> Sessions { get; set; }
 
         public User()
         {
