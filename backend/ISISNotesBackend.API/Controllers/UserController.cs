@@ -19,18 +19,21 @@ namespace ISISNotesBackend.API.Controllers
         }
         
         [Route("")]
+        [HttpGet]
         public User[] GetUsers()
         {
             return _facade.GetAllUsers();
         }
         
         [Route("")]
+        [HttpPost]
         public User CreateUser([FromBody] UserWithLogin userWithLogin)
         {
             return _facade.CreateUser(userWithLogin);
         }
         
         [Route("")]
+        [HttpPatch]
         public User ChangeUser([FromBody]  UserWithLoginAndAvatar userWithLoginAndAvatar)
         {
             return _facade.ChangeUser(userWithLoginAndAvatar, Path);

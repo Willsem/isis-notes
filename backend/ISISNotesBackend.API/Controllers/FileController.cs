@@ -23,6 +23,7 @@ namespace ISISNotesBackend.API.Controllers
 
         [Authorize]
         [Route("{userId}")]
+        [HttpPost]
         public NoteFileContent AddFile(string userId, [FromBody] FileWithContent file)
         {
             return _facade.AddFile(userId, file, Path);
@@ -30,6 +31,7 @@ namespace ISISNotesBackend.API.Controllers
         
         [Authorize]
         [Route("{userId}/{fileId}")]
+        [HttpGet]
         public byte[] GetFile(string userId, string fileId)
         {
             return _facade.GetFile(userId, fileId, Path);
@@ -37,6 +39,7 @@ namespace ISISNotesBackend.API.Controllers
         
         [Authorize]
         [Route("{userId}/{fileId}")]
+        [HttpDelete]
         public NoteFileContent DeleteFile(string userId, string fileId)
         {
             return _facade.DeleteFile(userId, fileId, Path);
