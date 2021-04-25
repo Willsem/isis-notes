@@ -155,6 +155,11 @@ namespace ISISNotesBackend.Core
             return _userRepository.ChangeUser(userWithLoginAndAvatar, $"{path}/{name}");
         }
 
+        public Session DeleteSession(string id)
+        {
+            return _userRepository.DeleteSession(id);
+        }
+
         public User? EnterUser(string name, string password)
         {
             return _userRepository.EnterUser(name, password);
