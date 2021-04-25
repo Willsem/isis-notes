@@ -32,13 +32,5 @@ namespace ISISNotesBackend.Core.Repositories
         /// <param name="noteId">Note.</param>
         /// <returns>If can - true, else - false.</returns>
         bool CanUserAddUsersToNote(Guid userId, Guid noteId);
-
-        /// <summary>
-        /// Can user add users to note?
-        /// </summary>
-        /// <param name="name">Username.</param>
-        /// <param name="password">Password.</param>
-        /// <returns>If correct - true, else - false.</returns>
-        bool CorrectUsernameAndPassword(String name, String password);
     }
 }

@@ -157,10 +157,7 @@ namespace ISISNotesBackend.Core
 
         public User? EnterUser(string name, string password)
         {
-            if (_rightsRepository.CorrectUsernameAndPassword(name, password))
-                return _userRepository.GetUserByName(name);
-            else
-                return null;
+            return _userRepository.EnterUser(name, password);
         }
 
         public NoteAccessRight CreateUserNote(string changeUserId, string userId, string noteId, UserRights userRights)
