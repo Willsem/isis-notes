@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using ISISNotesBackend.Core.Repositories;
@@ -36,6 +37,24 @@ namespace ISISNotesBackend.DataBase.Repositories
             throw new System.NotImplementedException();
         }
 
+        public CoreModels.Session CreateSession(string token, string userId)
+        {
+            var session = new DbModels.Session(Guid.NewGuid(), Guid.Parse(userId), token, DateTime.Now, true);
+            
+            var user = _dbContext.Users
+                .Include(u => u.Sessions)
+                .Include(u => u.UserPhoto)
+                .First(u => u.Id == session.UserId);
+            
+            _dbContext.Sessions.Add(session);
+            _dbContext.SaveChanges();
+
+            return new CoreModels.Session(session.Id.ToString(),
+                token, 
+                new CoreModels.User(user.Id.ToString(), user.Name, user.Email, user.UserPhoto.Image), 
+                session.CreatedAt);
+        }
+        
         public CoreModels.Session DeleteSession(string id)
         {
             var session = _dbContext.Sessions
