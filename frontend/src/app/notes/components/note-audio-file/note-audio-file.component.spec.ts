@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { NoteContentComponent } from './note-content.component';
+import { NoteAudioFileComponent } from './note-audio-file.component';
 
-describe('NoteContentComponent', () => {
-  // let component: NoteContentComponent;
-  // let fixture: ComponentFixture<NoteContentComponent>;
+describe('NoteAudioFileComponent', () => {
+  // let component: NoteAudioFileComponent;
+  // let fixture: ComponentFixture<NoteAudioFileComponent>;
   //
   // beforeEach(async () => {
   //   await TestBed.configureTestingModule({
-  //     declarations: [ NoteContentComponent ]
+  //     declarations: [ NoteAudioFileComponent ]
   //   })
   //   .compileComponents();
   // });
   //
   // beforeEach(() => {
-  //   fixture = TestBed.createComponent(NoteContentComponent);
+  //   fixture = TestBed.createComponent(NoteAudioFileComponent);
   //   component = fixture.componentInstance;
   //   fixture.detectChanges();
   // });

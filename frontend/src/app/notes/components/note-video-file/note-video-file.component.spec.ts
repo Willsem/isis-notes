@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { NoteContentComponent } from './note-content.component';
+import { NoteVideoFileComponent } from './note-video-file.component';
 
-describe('NoteContentComponent', () => {
-  // let component: NoteContentComponent;
-  // let fixture: ComponentFixture<NoteContentComponent>;
+describe('NoteVideoFileComponent', () => {
+  // let component: NoteVideoFileComponent;
+  // let fixture: ComponentFixture<NoteVideoFileComponent>;
   //
   // beforeEach(async () => {
   //   await TestBed.configureTestingModule({
-  //     declarations: [ NoteContentComponent ]
+  //     declarations: [ NoteVideoFileComponent ]
   //   })
   //   .compileComponents();
   // });
   //
   // beforeEach(() => {
-  //   fixture = TestBed.createComponent(NoteContentComponent);
+  //   fixture = TestBed.createComponent(NoteVideoFileComponent);
   //   component = fixture.componentInstance;
   //   fixture.detectChanges();
   // });

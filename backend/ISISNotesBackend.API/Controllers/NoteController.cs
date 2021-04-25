@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Text.RegularExpressions;
 using ISISNotesBackend.Core;
 using ISISNotesBackend.Core.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -13,13 +10,10 @@ namespace ISISNotesBackend.API.Controllers
     public class NoteController : Controller
     {
         private readonly IFacade _facade;
-        private readonly IConfiguration _configuration;
-        private string Path => _configuration["Database:StoredFilesPath"];
 
         public NoteController(IFacade facade, IConfiguration configuration)
         {
             _facade = facade;
-            _configuration = configuration;
         }
         
         [Authorize]
@@ -40,7 +34,7 @@ namespace ISISNotesBackend.API.Controllers
         [Route("{userId}/{noteId}")]
         public NoteContent[] GetNoteContent(string userId, string noteId)
         {
-            return _facade.GetNoteContent(userId, noteId, Path);
+            return _facade.GetNoteContent(userId, noteId);
         }
         
         [Authorize]
@@ -48,7 +42,7 @@ namespace ISISNotesBackend.API.Controllers
         public NoteWithContent ChangeNote(string userId, string noteId, [FromBody] NoteWithContent note)
         {
             _facade.ChangeNoteName(userId, noteId, note.Note.Name);
-            return _facade.ChangeNoteText(userId, noteId, note.NoteContent, Path);
+            return _facade.ChangeNoteText(userId, noteId, note.NoteContent);
         }
         
         [Authorize]
