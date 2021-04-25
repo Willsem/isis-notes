@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Note } from '../../../shared/models/note';
-import { ActivatedRoute } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import { NotesService } from '../../services/notes.service';
 import * as moment from 'moment';
 import { NoteContent } from '../../../shared/models/note-content';
@@ -34,6 +34,7 @@ export class NotesSelectedComponent implements OnInit {
     public notes: NotesService,
     public noteFiles: NoteFilesService,
     public route: ActivatedRoute,
+    public router: Router,
   ) { }
 
   ngOnInit(): void {
@@ -72,5 +73,18 @@ export class NotesSelectedComponent implements OnInit {
     });
 
     this.noteContent.push(newFileContent);
+    this.noteContent.push({ noteId: this.note.id, type: 'text', text: ''} as NoteTextContent);
+
+    await this.saveNote();
+  }
+
+  public async grantAccess(): Promise<void> {
+
+  }
+
+  public async deleteNote(): Promise<void> {
+    await this.notes.deleteNote(this.note.id);
+
+    await this.router.navigateByUrl('/notes');
   }
 }

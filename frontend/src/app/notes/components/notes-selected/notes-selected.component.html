@@ -24,10 +24,10 @@
 <div class="note-settings-button note-interface-icon" *ngIf="isWriter">
     <button mat-icon-button [matMenuTriggerFor]="noteMenu"><mat-icon>settings</mat-icon></button>
     <mat-menu #noteMenu='matMenu'>
-        <button mat-menu-item *ngIf="isWriter">Save</button>
+        <button mat-menu-item *ngIf="isWriter" (click)="saveNote()">Save</button>
         <button mat-menu-item *ngIf="isWriter" (click)="fileInput.click()">Add file</button>
         <button mat-menu-item *ngIf="isAuthor">Grant access</button>
-        <button mat-menu-item *ngIf="isAuthor" class="note-delete">Delete</button>
+        <button mat-menu-item *ngIf="isAuthor" class="note-delete" (click)="deleteNote()">Delete</button>
     </mat-menu>
 </div>
 
