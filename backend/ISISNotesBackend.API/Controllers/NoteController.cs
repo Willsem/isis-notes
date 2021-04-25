@@ -18,6 +18,7 @@ namespace ISISNotesBackend.API.Controllers
         
         [Authorize]
         [Route("{userId}")]
+        [HttpGet]
         public Note[] GetNotes(string userId)
         {
             return _facade.GetUserNotes(userId);
@@ -25,6 +26,7 @@ namespace ISISNotesBackend.API.Controllers
         
         [Authorize]
         [Route("{userId}")]
+        [HttpPost]
         public Note CreateNote(string userId, [FromBody] Note note)
         {
             return _facade.CreateNote(userId, note.Name);
@@ -32,6 +34,7 @@ namespace ISISNotesBackend.API.Controllers
         
         [Authorize]
         [Route("{userId}/{noteId}")]
+        [HttpGet]
         public NoteContent[] GetNoteContent(string userId, string noteId)
         {
             return _facade.GetNoteContent(userId, noteId);
@@ -39,6 +42,7 @@ namespace ISISNotesBackend.API.Controllers
         
         [Authorize]
         [Route("{userId}/{noteId}")]
+        [HttpPatch]
         public NoteWithContent ChangeNote(string userId, string noteId, [FromBody] NoteWithContent note)
         {
             _facade.ChangeNoteName(userId, noteId, note.Note.Name);
@@ -47,6 +51,7 @@ namespace ISISNotesBackend.API.Controllers
         
         [Authorize]
         [Route("{userId}/{noteId}")]
+        [HttpDelete]
         public Note DeleteNote(string userId, string noteId)
         {
             return _facade.DeleteNote(userId, noteId);
@@ -54,6 +59,7 @@ namespace ISISNotesBackend.API.Controllers
         
         [Authorize]
         [Route("{userId}/{noteId}/permission")]
+        [HttpPost]
         public NoteAccessRight AddUserRights(string userId, string noteId, [FromBody] NoteAccessRight noteAccessRight)
         {
             return _facade.CreateUserNote(userId, noteAccessRight.UserId, noteAccessRight.NoteId, noteAccessRight.Rights);
@@ -61,6 +67,7 @@ namespace ISISNotesBackend.API.Controllers
         
         [Authorize]
         [Route("{userId}/{noteId}/permission")]
+        [HttpPatch]
         public NoteAccessRight EditUserRights(string userId, string noteId, [FromBody] NoteAccessRight noteAccessRight)
         {
             return _facade.ChangeUserNote(userId, noteAccessRight.UserId, noteAccessRight.NoteId, noteAccessRight.Rights);
@@ -68,6 +75,7 @@ namespace ISISNotesBackend.API.Controllers
         
         [Authorize]
         [Route("{userId}/{noteId}/permission/{toUserId}")]
+        [HttpDelete]
         public NoteAccessRight DeleteUserRights(string userId, string noteId, string toUserId)
         {
             return _facade.DeleteUserNote(userId, toUserId, noteId);

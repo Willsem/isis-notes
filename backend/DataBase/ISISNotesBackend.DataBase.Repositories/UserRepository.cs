@@ -43,6 +43,25 @@ namespace ISISNotesBackend.DataBase.Repositories
             return coreUsers;
         }
 
+        public CoreModels.User GetUser(string userId)
+        {
+            var user = _dbContext.Users
+                .Include(u => u.Passcode)
+                .Include(u => u.UserPhoto)
+                .First(u => u.Id.ToString() == userId);
+
+            if (user.UserPhoto != null)
+                return new CoreModels.User(user.Id.ToString(),
+                    user.Name,
+                    user.Email,
+                    user.UserPhoto.Image);
+            else
+                return new CoreModels.User(user.Id.ToString(),
+                    user.Name,
+                    user.Email,
+                    null);
+        }
+
         public CoreModels.User CreateUser(CoreModels.UserWithLogin userWithLogin)
         {
             var user = new DbModels.User(userWithLogin.User.Username,

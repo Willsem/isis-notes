@@ -12,6 +12,12 @@ namespace ISISNotesBackend.Core.Repositories
         /// <returns>All users.</returns>
         IEnumerable<User> GetAllUsers();
         /// <summary>
+        /// Gets user by Id.
+        /// </summary>
+        /// <param name="userId">User id.</param>
+        /// <returns>User.</returns>
+        User GetUser(String userId);
+        /// <summary>
         /// Creates new user.
         /// </summary>
         /// <param name="userWithLogin">User.</param>
