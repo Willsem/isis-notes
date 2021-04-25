@@ -1,4 +1,10 @@
-<isis-note-content [(value)]="content1"></isis-note-content>
+<div class="note">
+    <isis-note-content [(value)]="content1" [mode]="note.mode"></isis-note-content>
+    <isis-note-text-file></isis-note-text-file>
+    <isis-note-image-file></isis-note-image-file>
+    <isis-note-video-file></isis-note-video-file>
+    <isis-note-audio-file></isis-note-audio-file>
+</div>
 
 <div class="note-user-permission note-interface-icon">
     <mat-icon *ngIf="isWriter">edit</mat-icon>

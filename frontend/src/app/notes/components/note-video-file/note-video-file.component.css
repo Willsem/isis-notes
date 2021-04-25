@@ -1,0 +1,8 @@
+.note-video {
+  min-width: 200px;
+  max-width: 500px;
+}
+
+.note-video video {
+  width: 100%;
+}

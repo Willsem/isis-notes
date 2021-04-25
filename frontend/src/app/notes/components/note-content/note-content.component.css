@@ -10,6 +10,13 @@
   max-width: 50%;
 }
 
+.selected-note-readonly isis-note-text {
+  max-width: 100%;
+  width: 100%;
+  flex: 1;
+  padding: 1em 5em;
+}
+
 .selected-note isis-note-text {
   word-wrap: break-word;
 }

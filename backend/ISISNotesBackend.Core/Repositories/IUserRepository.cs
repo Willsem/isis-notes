@@ -21,7 +21,15 @@ namespace ISISNotesBackend.Core.Repositories
         /// Changes user.
         /// </summary>
         /// <param name="userWithLoginAndAvatar">User.</param>
+        /// <param name="image">Path to image.</param>
         /// <returns>User.</returns>
-        User ChangeUser(UserWithLoginAndAvatar userWithLoginAndAvatar);
+        User ChangeUser(UserWithLoginAndAvatar userWithLoginAndAvatar, String image);
+        /// <summary>
+        /// Correct name and password of user?
+        /// </summary>
+        /// <param name="name">Name of entering user.</param>
+        /// <param name="password">Password of entering user.</param>
+        /// <returns>User or null.</returns>
+        User? EnterUser(String name, String password);
     }
 }

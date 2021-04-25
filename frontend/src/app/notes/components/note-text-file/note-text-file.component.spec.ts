@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { NoteContentComponent } from './note-content.component';
+import { NoteTextFileComponent } from './note-text-file.component';
 
-describe('NoteContentComponent', () => {
-  // let component: NoteContentComponent;
-  // let fixture: ComponentFixture<NoteContentComponent>;
+describe('NoteTextFileComponent', () => {
+  // let component: NoteTextFileComponent;
+  // let fixture: ComponentFixture<NoteTextFileComponent>;
   //
   // beforeEach(async () => {
   //   await TestBed.configureTestingModule({
-  //     declarations: [ NoteContentComponent ]
+  //     declarations: [ NoteTextFileComponent ]
   //   })
   //   .compileComponents();
   // });
   //
   // beforeEach(() => {
-  //   fixture = TestBed.createComponent(NoteContentComponent);
+  //   fixture = TestBed.createComponent(NoteTextFileComponent);
   //   component = fixture.componentInstance;
   //   fixture.detectChanges();
   // });

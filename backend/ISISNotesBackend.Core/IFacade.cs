@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using ISISNotesBackend.Core.Models;
 using ISISNotesBackend.Core.Models.Enums;
 
@@ -29,7 +28,7 @@ namespace ISISNotesBackend.Core
         /// <param name="noteId">Id of note.</param>
         /// <param name="path">Path to folder with files.</param>
         /// <returns>Text of note.</returns>
-        NoteContent[] GetNoteContent(string userId, string noteId, string path);
+        NoteContent[] GetNoteContent(string userId, string noteId);
         /// <summary>
         /// Changes text content of note.
         /// </summary>
@@ -38,7 +37,7 @@ namespace ISISNotesBackend.Core
         /// <param name="noteContent">New content of note.</param>
         /// <param name="path">Path to folder with files.</param>
         /// <returns>Note.</returns>
-        NoteWithContent ChangeNoteText(string userId, string noteId, NoteContent[] noteContent, string path);
+        NoteWithContent ChangeNoteText(string userId, string noteId, NoteContent[] noteContent);
         /// <summary>
         /// Changes name of note.
         /// </summary>
@@ -77,8 +76,9 @@ namespace ISISNotesBackend.Core
         /// </summary>
         /// <param name="userId">Id of user, who wants to delete file.</param>
         /// <param name="fileId">Id of file.</param>
+        /// <param name="path">Path to folder with files.</param>
         /// <returns>Deleted file.</returns>
-        NoteFileContent DeleteFile(string userId, string fileId);
+        NoteFileContent DeleteFile(string userId, string fileId, string path);
         #endregion
 
         #region UserRepository

@@ -1,0 +1,8 @@
+.note-image {
+  min-width: 200px;
+  max-width: 500px;
+}
+
+.note-image img {
+  width: 100%;
+}
