@@ -32,14 +32,16 @@ namespace ISISNotesBackend.API.Controllers
         public IActionResult Login([FromBody] Login request)
         {
             var user = _facade.EnterUser(request.Username, request.Password);
-
+            
             if (user == null)
             {
                 return Unauthorized();
             }
 
             var token = GenerateJwt(user);
-            return Ok(new Session(Guid.NewGuid().ToString(), token, user, DateTime.Now));
+            var session = _facade.CreateSession(token, user.Id);
+            
+            return Ok(session);
         }
 
         [Route("{id}")]
