@@ -1,7 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NoteFileContent } from '../../../shared/models/note-file-content';
-import {NoteFilesService} from '../../services/note-files.service';
+import { NoteFilesService } from '../../services/note-files.service';
 
+/**
+ * Компонент отображения изображения
+ */
 @Component({
   selector: 'isis-note-image-file',
   templateUrl: './note-image-file.component.html',
@@ -9,6 +12,9 @@ import {NoteFilesService} from '../../services/note-files.service';
 })
 export class NoteImageFileComponent implements OnInit {
 
+  /**
+   * Метаданные файла
+   */
   @Input()
   public file: NoteFileContent = {
     fileType: 'image/jpg',
@@ -17,12 +23,23 @@ export class NoteImageFileComponent implements OnInit {
     type: 'file',
     noteId: 'asd',
   };
+  /**
+   * Файл в формате base64
+   */
   public fileBase64 = '';
 
+  /**
+   * Конструктор
+   *
+   * @param noteFiles Сервис файлов заметки
+   */
   constructor(
     public noteFiles: NoteFilesService,
   ) { }
 
+  /**
+   * Обработчик событий инициализации компонента
+   */
   ngOnInit(): void {
     // this.noteFiles.getFileData(this.file.fileId).then(blob => {
     //   this.fileBlob = blob;
