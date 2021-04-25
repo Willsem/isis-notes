@@ -45,7 +45,7 @@ export class ApiService {
     return this.http.delete<Note>(url);
   }
 
-  public loadFile(userId: string, fileData: FileData): Observable<NoteFileContent> {
+  public addFile(userId: string, fileData: FileData): Observable<NoteFileContent> {
     const url = `${environment.backendUrl}/file/${userId}`;
     return this.http.post<NoteFileContent>(url, fileData);
   }
@@ -80,9 +80,13 @@ export class ApiService {
     return this.http.post<User>(url, userLogin);
   }
 
-  public editUser(userLogin: UserLogin): Observable<User> {
+  public editUser(userLogin: UserLogin, avatarBinary?: Blob): Observable<User> {
     const url = `${environment.backendUrl}/users`;
-    return this.http.patch<User>(url, userLogin);
+    return this.http.patch<User>(url, {
+      user: userLogin.user,
+      login: userLogin.login,
+      avatar_content: avatarBinary,
+    });
   }
 
   public addPermissionsToUser(userId: string, noteId: string, noteAccessRight: NoteAccessRight): Observable<NoteAccessRight> {
