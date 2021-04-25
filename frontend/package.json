@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build && cp documentation dist/frontend/docs",
+    "build": "ng build && cp -r documentation dist/frontend/docs",
     "test": "ng test --watch=false --browsers=ChromeHeadlessCustom",
     "lint": "ng lint",
     "e2e": "ng e2e",
