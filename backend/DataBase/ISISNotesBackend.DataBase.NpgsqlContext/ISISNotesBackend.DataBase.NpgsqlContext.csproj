@@ -5,20 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Reference Include="Microsoft.EntityFrameworkCore, Version=5.0.4.0, Culture=neutral, PublicKeyToken=adb9793829ddae60">
-      <HintPath>..\..\..\..\..\..\.nuget\packages\microsoft.entityframeworkcore\5.0.4\lib\netstandard2.1\Microsoft.EntityFrameworkCore.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\ISISNotesBackend.DataBase.Models\ISISNotesBackend.DataBase.Models.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.4">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="5.0.2" />
   </ItemGroup>
 

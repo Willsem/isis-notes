@@ -95,7 +95,7 @@ namespace ISISNotesBackend.Core
             File.WriteAllBytes($"{path}/{name}", file.Content);
 
             file.File.FileName = name;
-            return _noteRepository.AddFile(Guid.Parse(userId), file);
+            return _noteRepository.AddFile(Guid.Parse(userId), file.File);
         }
 
         public byte[] GetFile(string userId, string fileId, string path)
