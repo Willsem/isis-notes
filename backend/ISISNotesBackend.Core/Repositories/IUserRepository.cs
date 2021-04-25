@@ -21,7 +21,14 @@ namespace ISISNotesBackend.Core.Repositories
         /// Changes user.
         /// </summary>
         /// <param name="userWithLoginAndAvatar">User.</param>
+        /// <param name="image">Path to image.</param>
         /// <returns>User.</returns>
-        User ChangeUser(UserWithLoginAndAvatar userWithLoginAndAvatar);
+        User ChangeUser(UserWithLoginAndAvatar userWithLoginAndAvatar, String image);
+        /// <summary>
+        /// Gets user by name.
+        /// </summary>
+        /// <param name="name">Username.</param>
+        /// <returns>User.</returns>
+        User GetUserByName(String name);
     }
 }

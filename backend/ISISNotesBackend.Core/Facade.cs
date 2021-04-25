@@ -112,22 +112,34 @@ namespace ISISNotesBackend.Core
 
         public User[] GetAllUsers()
         {
-            throw new System.NotImplementedException();
+            return _userRepository.GetAllUsers() as User[];
         }
 
         public User CreateUser(UserWithLogin userWithLogin)
         {
-            throw new System.NotImplementedException();
+            return _userRepository.CreateUser(userWithLogin);
         }
 
         public User ChangeUser(UserWithLoginAndAvatar userWithLoginAndAvatar, string path)
         {
-            throw new System.NotImplementedException();
+            string name = $"{userWithLoginAndAvatar.User.Username}_" +
+                   $".{userWithLoginAndAvatar.User.Avatar.Split('.').Last()}";
+            path += "/avatars";
+                
+            DirectoryInfo dirInfo = new DirectoryInfo(path);
+            if (!dirInfo.Exists)
+                dirInfo.Create();
+            File.WriteAllBytes($"{path}/{name}", userWithLoginAndAvatar.AvatarContent);
+
+            return _userRepository.ChangeUser(userWithLoginAndAvatar, $"{path}/{name}");
         }
 
         public User? EnterUser(string name, string password)
         {
-            throw new System.NotImplementedException();
+            if (_rightsRepository.CorrectUsernameAndPassword(name, password))
+                return _userRepository.GetUserByName(name);
+            else
+                return null;
         }
 
         public NoteAccessRight CreateUserNote(string changeUserId, string userId, string noteId, UserRights userRights)
