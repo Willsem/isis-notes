@@ -145,10 +145,8 @@ namespace ISISNotesBackend.DataBase.Repositories
                 else if (content.Type == Core.Models.Enums.Type.File)
                 {
                     var fileContent = (CoreModels.NoteFileContent) content;
-                    dbContent += $"![{fileContent.FileId}]({fileContent.FileName})";
+                    dbContent += $"![{fileContent.FileId}]({fileContent.FileName})\n";
                 }
-
-                dbContent += '\n';
             }
 
             var userNote = _dbContext.UserNotes
@@ -204,30 +202,86 @@ namespace ISISNotesBackend.DataBase.Repositories
 
             _dbContext.UserNotes.Remove(userNote);
             _dbContext.Notes.Remove(userNote.Note);
+            _dbContext.SaveChanges();
             
             return new CoreModels.Note(userNote.NoteId.ToString(), 
                 userNote.Note.Header,
                 (CoreModels.Enums.UserRights) Enum.Parse(typeof(CoreModels.Enums.UserRights), userNote.Rights.ToString()));
         }
 
-        public CoreModels.NoteFileContent AddFile(Guid userId, CoreModels.FileWithContent file)
+        public CoreModels.NoteFileContent AddFile(Guid userId, CoreModels.NoteFileContent file)
         {
-            throw new NotImplementedException();
+            var typeFile = _dbContext.FileTypes
+                .First(ft => ft.Type == file.FileType);
+
+            if (typeFile == null)
+            {
+                typeFile = new DbModels.FileType(file.FileType);
+                _dbContext.FileTypes.Add(typeFile);
+            }
+
+            var dbFile = new DbModels.File(file.FileName, 
+                typeFile.Id, 
+                typeFile, 
+                Guid.Parse(file.NoteId));
+
+            var textNote = _dbContext.TextNotes
+                .Include(tn => tn.Note)
+                .First(tn => tn.Id == Guid.Parse(file.NoteId));
+            
+            textNote.Text += $"![{file.FileId}]({file.FileName})\n";
+            
+            _dbContext.Entry(textNote).State = EntityState.Modified;
+            _dbContext.Files.Add(dbFile);
+            _dbContext.SaveChanges();
+            
+            return new CoreModels.NoteFileContent(dbFile.TextNoteId.ToString(),
+                CoreModels.Enums.Type.File,
+                dbFile.FilePath,
+                dbFile.FileType.Type,
+                dbFile.Id.ToString());
         }
 
         public CoreModels.NoteFileContent GetFile(Guid userId, Guid fileId)
         {
-            throw new NotImplementedException();
+            DbModels.File file = _dbContext.Files
+                .Include(f => f.FileType)
+                .First(f => f.Id == fileId);
+            
+            return new CoreModels.NoteFileContent(file.TextNoteId.ToString(),
+                CoreModels.Enums.Type.File,
+                file.FilePath,
+                file.FileType.Type,
+                file.Id.ToString());
         }
 
         public CoreModels.NoteFileContent GetFileByName(string filename)
         {
-            throw new NotImplementedException();
+            DbModels.File file = _dbContext.Files
+                .Include(f => f.FileType)
+                .First(f => f.FilePath == filename);
+            
+            return new CoreModels.NoteFileContent(file.TextNoteId.ToString(),
+                CoreModels.Enums.Type.File,
+                file.FilePath,
+                file.FileType.Type,
+                file.Id.ToString());
         }
 
         public CoreModels.NoteFileContent DeleteFile(Guid userId, Guid fileId)
         {
-            throw new NotImplementedException();
+            DbModels.File file = _dbContext.Files
+                .Include(f => f.FileType)
+                .First(f => f.Id == fileId);
+
+            _dbContext.Files.Remove(file);
+            _dbContext.SaveChanges();
+            
+            return new CoreModels.NoteFileContent(file.TextNoteId.ToString(),
+                CoreModels.Enums.Type.File,
+                file.FilePath,
+                file.FileType.Type,
+                file.Id.ToString());
         }
     }
 }
