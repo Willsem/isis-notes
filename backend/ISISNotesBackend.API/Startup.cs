@@ -1,4 +1,6 @@
+using System;
 using ISISNotesBackend.Core;
+using ISISNotesBackend.Core.Models;
 using ISISNotesBackend.Core.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -7,8 +9,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using ISISNotesBackend.DataBase.NpgsqlContext;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using ISISNotesBackend.DataBase.Repositories;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 namespace ISISNotesBackend.API
 {
@@ -28,9 +32,42 @@ namespace ISISNotesBackend.API
             string connection = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<ISISNotesContext>(options => 
                 options.UseNpgsql(connection));
+            var authOptionsConfiguration = Configuration.GetSection("Auth");
+            services.Configure<JwtAuthentication>(authOptionsConfiguration);
+
+            var authOptions = Configuration.GetSection("Auth").Get<JwtAuthentication>();
+
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(
+                    builder =>
+                    {
+                        builder.AllowAnyOrigin()
+                            .AllowAnyMethod()
+                            .AllowAnyHeader();
+                    });
+            });
+
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.RequireHttpsMetadata = false;
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidIssuer = authOptions.Issuer,
+                        ValidateAudience = true,
+                        ValidAudience = authOptions.Audience,
+                        ValidateLifetime = true,
+                        ClockSkew = TimeSpan.Zero,
+                        IssuerSigningKey = authOptions.GetSymmetricSecurityKey(),
+                        ValidateIssuerSigningKey = true,
+                    };
+                });
             
             services.AddSingleton<INoteRepository, NoteRepository>();
             services.AddSingleton<IRightsRepository, RightsRepository>();
+            services.AddSingleton<IUserRepository, UserRepository>();
             services.AddSingleton<IFacade, Facade>();
         }
 
@@ -43,6 +80,9 @@ namespace ISISNotesBackend.API
             }
 
             app.UseRouting();
+            app.UseAuthentication();
+            app.UseAuthorization();
+            app.UseCors();
 
             app.UseEndpoints(endpoints =>
             {
@@ -50,6 +90,7 @@ namespace ISISNotesBackend.API
                 {
                     await context.Response.WriteAsync("ISIS NOTES");
                 });
+                endpoints.MapControllers();
             });
         }
     }
