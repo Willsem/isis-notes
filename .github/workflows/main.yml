@@ -45,6 +45,7 @@ jobs:
       - name: 'Build frontend project'
         run: |
           cd frontend
+          npm run compodoc
           npm run build
 
       - name: 'Upload Artifact'
