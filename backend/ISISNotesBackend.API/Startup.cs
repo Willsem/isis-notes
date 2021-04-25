@@ -1,9 +1,7 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using ISISNotesBackend.Core;
 using ISISNotesBackend.Core.Models;
+using ISISNotesBackend.Core.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -12,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using ISISNotesBackend.DataBase.NpgsqlContext;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using ISISNotesBackend.DataBase.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 
@@ -66,6 +65,7 @@ namespace ISISNotesBackend.API
                     };
                 });
             
+            services.AddSingleton<INoteRepository, NoteRepository>();
             services.AddSingleton<IFacade, Facade>();
         }
 
