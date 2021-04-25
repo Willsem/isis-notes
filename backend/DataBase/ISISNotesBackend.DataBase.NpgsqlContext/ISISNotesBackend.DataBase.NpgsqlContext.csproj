@@ -5,12 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Reference Include="Microsoft.EntityFrameworkCore, Version=5.0.4.0, Culture=neutral, PublicKeyToken=adb9793829ddae60">
-      <HintPath>..\..\..\..\..\..\.nuget\packages\microsoft.entityframeworkcore\5.0.4\lib\netstandard2.1\Microsoft.EntityFrameworkCore.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\ISISNotesBackend.DataBase.Models\ISISNotesBackend.DataBase.Models.csproj" />
   </ItemGroup>
 
