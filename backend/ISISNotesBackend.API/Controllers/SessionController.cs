@@ -47,7 +47,14 @@ namespace ISISNotesBackend.API.Controllers
         [HttpDelete]
         public IActionResult Logout(string id)
         {
-            return Ok(new Session(null, null, null, DateTime.Now));
+            var session = _facade.DeleteSession(id);
+
+            if (session == null)
+            {
+                return Unauthorized();
+            }
+            
+            return Ok(session);
         }
 
         private string GenerateJwt(User user)
