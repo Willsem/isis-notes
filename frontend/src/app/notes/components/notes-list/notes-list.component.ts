@@ -23,4 +23,8 @@ export class NotesListComponent implements OnInit {
     await this.router.navigateByUrl('/notes/' + id);
   }
 
+  public async onNewNote(): Promise<void> {
+    const newNote = await this.notes.createNewNote();
+    await this.navigate(newNote.id);
+  }
 }

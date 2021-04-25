@@ -58,4 +58,20 @@ export class NotesService {
   public async getNoteContent(noteId: string): Promise<NoteContent[]> {
     return this.api.getNoteContent(this.auth.currentSessionValue.user.id, noteId).toPromise();
   }
+
+  public async createNewNote(): Promise<Note> {
+    let newNote = {
+      id: '',
+      mode: 'author',
+      name: 'Unnamed note',
+    } as Note;
+
+    newNote = await this.api.createNote(this.auth.currentSessionValue.user.id, newNote).toPromise();
+
+    const allNotes = this.notes.value;
+    allNotes.push(newNote);
+    this.notes.next(allNotes);
+
+    return newNote;
+  }
 }
