@@ -4,4 +4,10 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\ISISNotesBackend.Core\ISISNotesBackend.Core.csproj" />
+    <ProjectReference Include="..\ISISNotesBackend.DataBase.Models\ISISNotesBackend.DataBase.Models.csproj" />
+    <ProjectReference Include="..\ISISNotesBackend.DataBase.NpgsqlContext\ISISNotesBackend.DataBase.NpgsqlContext.csproj" />
+  </ItemGroup>
+
 </Project>
