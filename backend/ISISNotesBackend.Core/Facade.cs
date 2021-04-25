@@ -32,7 +32,14 @@ namespace ISISNotesBackend.Core
 
         public Note CreateNote(string userId, string name)
         {
-            return _noteRepository.CreateNote(Guid.Parse(userId), name);
+            try
+            {
+                return _noteRepository.CreateNote(Guid.Parse(userId), name);
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Cannot create note.\n");
+            }
         }
 
         public NoteContent[] GetNoteContent(string userId, string noteId, string path)
@@ -73,7 +80,14 @@ namespace ISISNotesBackend.Core
                           $"{DateTime.UtcNow:yyyy-MM-dd_h-mm-ss_tt}" +
                           $".{file.File.FileName.Split('.').Last()}";
             
-            path = GetFilePath(path, file.File.FileType);
+            try
+            {
+                path = GetFilePath(path, file.File.FileType);
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Incorrect file type.\n");
+            }
 
             DirectoryInfo dirInfo = new DirectoryInfo(path);
             if (!dirInfo.Exists)
@@ -87,7 +101,7 @@ namespace ISISNotesBackend.Core
         public byte[] GetFile(string userId, string fileId, string path)
         {
             NoteFileContent file = _noteRepository.GetFile(Guid.Parse(userId), Guid.Parse(fileId));
-
+            
             path = GetFilePath(path, file.FileType);
 
             FileInfo fileInfo = new FileInfo($"{path}/{file.FileName}");
@@ -117,7 +131,14 @@ namespace ISISNotesBackend.Core
 
         public User CreateUser(UserWithLogin userWithLogin)
         {
-            return _userRepository.CreateUser(userWithLogin);
+            try
+            {
+                return _userRepository.CreateUser(userWithLogin);
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Cannot create user.\n");
+            }
         }
 
         public User ChangeUser(UserWithLoginAndAvatar userWithLoginAndAvatar, string path)
