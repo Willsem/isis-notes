@@ -19,13 +19,14 @@ namespace ISISNotesBackend.Core.Repositories
         /// <param name="name">Name of a note.</param>
         /// <returns>Created note.</returns>
         Note CreateNote(Guid userId, String name);
+
         /// <summary>
-        /// Gets text content of note.
+        /// Gets content of note.
         /// </summary>
         /// <param name="userId">Id of user, who wants to get the content.</param>
         /// <param name="noteId">Id of note.</param>
         /// <returns>Text of note.</returns>
-        NoteContent[] GetNoteContent(Guid userId, Guid noteId);
+        IEnumerable<NoteContent> GetNoteContent(Guid userId, Guid noteId);
         /// <summary>
         /// Changes text content of note.
         /// </summary>
@@ -62,7 +63,13 @@ namespace ISISNotesBackend.Core.Repositories
         /// <param name="userId">Id of user, who wants to get file.</param>
         /// <param name="fileId">Id of file.</param>
         /// <returns>File.</returns>
-        byte[] GetFile(Guid userId, Guid fileId);
+        NoteFileContent GetFile(Guid userId, Guid fileId);
+        /// <summary>
+        /// Gets file by Name.
+        /// </summary>
+        /// <param name="filename">File name.</param>
+        /// <returns>File.</returns>
+        NoteFileContent GetFileByName(String filename);
         /// <summary>
         /// Deletes file.
         /// </summary>
