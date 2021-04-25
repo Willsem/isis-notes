@@ -67,6 +67,7 @@ namespace ISISNotesBackend.API
             
             services.AddSingleton<INoteRepository, NoteRepository>();
             services.AddSingleton<IRightsRepository, RightsRepository>();
+            services.AddSingleton<IUserRepository, UserRepository>();
             services.AddSingleton<IFacade, Facade>();
         }
 
