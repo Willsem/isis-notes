@@ -30,6 +30,17 @@ export class UserEditComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.api.getUserAvatar(this.user.id).subscribe(blob => {
+      this.fileBinary = blob;
+
+      const fileReader = new FileReader();
+
+      fileReader.onloadend = (e) => {
+        this.file = this.user.avatar = fileReader.result as string;
+      };
+
+      fileReader.readAsDataURL(blob);
+    });
   }
 
   onAvatarChange(event: Event): void {

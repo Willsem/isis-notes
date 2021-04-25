@@ -103,4 +103,9 @@ export class ApiService {
     const url = `${environment.backendUrl}/notes/${userId}/${noteId}/permission/${toUserId}`;
     return this.http.delete<NoteAccessRight>(url);
   }
+
+  public getUserAvatar(userId: string): Observable<Blob> {
+    const url = `${environment.backendUrl}/avatar/${userId}`;
+    return this.http.get<Blob>(url);
+  }
 }

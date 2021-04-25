@@ -1,14 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Note } from '../../../shared/models/note';
-import {ActivatedRoute, Router} from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NotesService } from '../../services/notes.service';
 import * as moment from 'moment';
-import { NoteContent } from '../../../shared/models/note-content';
-import {NoteTextContent} from '../../../shared/models/note-text-content';
-import {NoteFileContent} from '../../../shared/models/note-file-content';
-import {NoteFilesService} from '../../services/note-files.service';
-import {MatDialog} from '@angular/material/dialog';
-import {NoteGrantRightsComponent} from '../note-grant-rights/note-grant-rights.component';
+import { NoteTextContent } from '../../../shared/models/note-text-content';
+import { NoteFileContent } from '../../../shared/models/note-file-content';
+import { NoteFilesService } from '../../services/note-files.service';
+import { MatDialog } from '@angular/material/dialog';
+import { NoteGrantRightsComponent } from '../note-grant-rights/note-grant-rights.component';
 
 @Component({
   selector: 'isis-notes-selected',
@@ -23,8 +22,6 @@ export class NotesSelectedComponent implements OnInit {
 
   public isWriter = this.note.mode === 'author' || this.note.mode === 'write';
   public isAuthor = this.note.mode === 'author';
-
-  public content1: string = '';
 
   public noteContent: (NoteTextContent | NoteFileContent)[] = [];
 
