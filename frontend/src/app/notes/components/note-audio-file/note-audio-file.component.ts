@@ -1,5 +1,5 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {NoteFileContent} from '../../../shared/models/note-file-content';
+import { Component, Input, OnInit } from '@angular/core';
+import { NoteFileContent } from '../../../shared/models/note-file-content';
 
 @Component({
   selector: 'isis-note-audio-file',
