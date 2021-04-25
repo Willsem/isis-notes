@@ -8,6 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatCardModule } from '@angular/material/card';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 const materialModules = [
   MatInputModule,
@@ -19,6 +20,7 @@ const materialModules = [
   MatMenuModule,
   MatDialogModule,
   MatCardModule,
+  MatTooltipModule,
 ];
 
 @NgModule({

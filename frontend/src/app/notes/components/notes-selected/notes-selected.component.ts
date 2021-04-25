@@ -7,6 +7,8 @@ import { NoteContent } from '../../../shared/models/note-content';
 import {NoteTextContent} from '../../../shared/models/note-text-content';
 import {NoteFileContent} from '../../../shared/models/note-file-content';
 import {NoteFilesService} from '../../services/note-files.service';
+import {MatDialog} from '@angular/material/dialog';
+import {NoteGrantRightsComponent} from '../note-grant-rights/note-grant-rights.component';
 
 @Component({
   selector: 'isis-notes-selected',
@@ -35,6 +37,7 @@ export class NotesSelectedComponent implements OnInit {
     public noteFiles: NoteFilesService,
     public route: ActivatedRoute,
     public router: Router,
+    public dialog: MatDialog,
   ) { }
 
   ngOnInit(): void {
@@ -79,7 +82,7 @@ export class NotesSelectedComponent implements OnInit {
   }
 
   public async grantAccess(): Promise<void> {
-
+    this.dialog.open(NoteGrantRightsComponent, { data: this.note.id });
   }
 
   public async deleteNote(): Promise<void> {
