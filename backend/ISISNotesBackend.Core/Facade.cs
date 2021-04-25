@@ -95,7 +95,7 @@ namespace ISISNotesBackend.Core
             File.WriteAllBytes($"{path}/{name}", file.Content);
 
             file.File.FileName = name;
-            return _noteRepository.AddFile(Guid.Parse(userId), file);
+            return _noteRepository.AddFile(Guid.Parse(userId), file.File);
         }
 
         public byte[] GetFile(string userId, string fileId, string path)
@@ -153,6 +153,15 @@ namespace ISISNotesBackend.Core
             File.WriteAllBytes($"{path}/{name}", userWithLoginAndAvatar.AvatarContent);
 
             return _userRepository.ChangeUser(userWithLoginAndAvatar, $"{path}/{name}");
+        }
+
+        public Session CreateSession(string token, string userId)
+        {
+            return _userRepository.CreateSession(token, userId);
+        }
+        public Session DeleteSession(string id)
+        {
+            return _userRepository.DeleteSession(id);
         }
 
         public User? EnterUser(string name, string password)

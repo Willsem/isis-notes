@@ -101,6 +101,19 @@ namespace ISISNotesBackend.Core
         /// <param name="Path">Path to folder with files.</param>
         /// <returns>User.</returns>
         User ChangeUser(UserWithLoginAndAvatar userWithLoginAndAvatar, string path);
+        /// <summary>
+        /// Create session after login.
+        /// </summary>
+        /// <param name="token">JSON Web Token of session.</param>
+        /// <param name="user">Id of user that logged in.</param>
+        /// <returns>Deleted session.</returns>
+        Session CreateSession(String token, String userId);
+        /// <summary>
+        /// Delete session after logout.
+        /// </summary>
+        /// <param name="id">Id of session.</param>
+        /// <returns>Deleted session.</returns>
+        Session DeleteSession(String id);
         #endregion
 
         #region UserNoteRepository

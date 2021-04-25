@@ -6,16 +6,19 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DataBase\ISISNotesBackend.DataBase.NpgsqlContext\ISISNotesBackend.DataBase.NpgsqlContext.csproj" />
+    <ProjectReference Include="..\DataBase\ISISNotesBackend.DataBase.Repositories\ISISNotesBackend.DataBase.Repositories.csproj" />
     <ProjectReference Include="..\ISISNotesBackend.Core\ISISNotesBackend.Core.csproj" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.4">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="5.0.2" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.10.2" />
   </ItemGroup>
 
 </Project>

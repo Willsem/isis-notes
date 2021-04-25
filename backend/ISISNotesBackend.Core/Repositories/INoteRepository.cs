@@ -56,7 +56,7 @@ namespace ISISNotesBackend.Core.Repositories
         /// <param name="userId">Id of user, who wants to add file to note.</param>
         /// <param name="file">File.</param>
         /// <returns>Added file.</returns>
-        NoteFileContent AddFile(Guid userId, FileWithContent file);
+        NoteFileContent AddFile(Guid userId, NoteFileContent file);
         /// <summary>
         /// Gets file by Id.
         /// </summary>
