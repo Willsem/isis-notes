@@ -39,7 +39,7 @@ namespace ISISNotesBackend.DataBase.Repositories
 
         public CoreModels.Session CreateSession(string token, string userId)
         {
-            var session = new DbModels.Session(Guid.NewGuid(), Guid.Parse(userId), token, DateTime.Now, true);
+            var session = new DbModels.Session(Guid.Parse(userId), token, DateTime.Now, true);
             
             var user = _dbContext.Users
                 .Include(u => u.Sessions)
