@@ -12,6 +12,9 @@ export class NoteContentComponent implements OnInit {
   public contentFromEditor: string = '';
 
   @Input()
+  public mode: 'read' | 'write' | 'author' = 'read';
+
+  @Input()
   set value(content: string) {
     this.contentFromEditor = content;
   }

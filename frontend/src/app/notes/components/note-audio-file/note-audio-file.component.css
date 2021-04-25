@@ -1,0 +1,9 @@
+.note-audio {
+  min-width: 200px;
+  max-width: 500px;
+}
+
+.note-audio audio {
+  width: 100%;
+  min-width: 400px;
+}
