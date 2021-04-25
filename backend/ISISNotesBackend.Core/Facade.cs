@@ -42,7 +42,7 @@ namespace ISISNotesBackend.Core
             }
         }
 
-        public NoteContent[] GetNoteContent(string userId, string noteId, string path)
+        public NoteContent[] GetNoteContent(string userId, string noteId)
         {
             if (_rightsRepository.CanUserReadNote(Guid.Parse(userId), Guid.Parse(noteId)))
                 return _noteRepository.GetNoteContent(Guid.Parse(userId), Guid.Parse(noteId)) as NoteContent[];
@@ -50,7 +50,7 @@ namespace ISISNotesBackend.Core
                 throw new Exception("No access to read note.\n");
         }
 
-        public NoteWithContent ChangeNoteText(string userId, string noteId, NoteContent[] noteContent, string path)
+        public NoteWithContent ChangeNoteText(string userId, string noteId, NoteContent[] noteContent)
         {
             if (_rightsRepository.CanUserEditNote(Guid.Parse(userId), Guid.Parse(noteId)))
                 return _noteRepository.ChangeNoteText(Guid.Parse(userId), Guid.Parse(noteId), noteContent);
