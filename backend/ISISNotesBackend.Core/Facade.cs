@@ -36,7 +36,7 @@ namespace ISISNotesBackend.Core
             {
                 return _noteRepository.CreateNote(Guid.Parse(userId), name);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 throw new Exception("Cannot create note.\n");
             }
@@ -84,7 +84,7 @@ namespace ISISNotesBackend.Core
             {
                 path = GetFilePath(path, file.File.FileType);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 throw new Exception("Incorrect file type.\n");
             }
@@ -135,7 +135,7 @@ namespace ISISNotesBackend.Core
             {
                 return _userRepository.CreateUser(userWithLogin);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 throw new Exception("Cannot create user.\n");
             }
@@ -162,17 +162,26 @@ namespace ISISNotesBackend.Core
 
         public NoteAccessRight CreateUserNote(string changeUserId, string userId, string noteId, UserRights userRights)
         {
-            throw new System.NotImplementedException();
+            if (_rightsRepository.CanUserAddUsersToNote(Guid.Parse(userId), Guid.Parse(noteId)))
+                return _userNoteRepository.CreateUserNote(Guid.Parse(changeUserId), Guid.Parse(userId), Guid.Parse(noteId), userRights);
+            else
+                throw new Exception("No access to add users to note.\n");
         }
 
         public NoteAccessRight ChangeUserNote(string changeUserId, string userId, string noteId, UserRights userRights)
         {
-            throw new System.NotImplementedException();
+            if (_rightsRepository.CanUserDeleteNote(Guid.Parse(userId), Guid.Parse(noteId)))
+                return _userNoteRepository.ChangeUserNote(Guid.Parse(changeUserId), Guid.Parse(userId), Guid.Parse(noteId), userRights);
+            else
+                throw new Exception("No access to edit user rights to note.\n");
         }
 
         public NoteAccessRight DeleteUserNote(string changeUserId, string userId, string noteId)
         {
-            throw new System.NotImplementedException();
+            if (_rightsRepository.CanUserDeleteNote(Guid.Parse(userId), Guid.Parse(noteId)))
+                return _userNoteRepository.DeleteUserNote(Guid.Parse(changeUserId), Guid.Parse(userId), Guid.Parse(noteId));
+            else
+                throw new Exception("No access to delete user from note.\n");
         }
 
         private string GetFilePath(string path, string type)
