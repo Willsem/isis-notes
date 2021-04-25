@@ -38,7 +38,21 @@ namespace ISISNotesBackend.DataBase.Repositories
 
         public CoreModels.Session DeleteSession(string id)
         {
-            throw new System.NotImplementedException();
+            var session = _dbContext.Sessions
+                .First(s => s.Id.ToString() == id);
+
+            var user = _dbContext.Users
+                .Include(u => u.Sessions)
+                .Include(u => u.UserPhoto)
+                .First(u => u.Id == session.UserId);
+
+            _dbContext.Sessions.Remove(session);
+            _dbContext.SaveChanges();
+
+            return new CoreModels.Session(session.Id.ToString(), 
+                session.Token, 
+                new CoreModels.User(user.Id.ToString(), user.Name, user.Email, user.UserPhoto.Image), 
+                session.CreatedAt);
         }
     }
 }
