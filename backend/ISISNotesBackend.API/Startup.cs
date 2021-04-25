@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ISISNotesBackend.Core;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -29,6 +30,8 @@ namespace ISISNotesBackend.API
             string connection = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<ISISNotesContext>(options => 
                 options.UseNpgsql(connection));
+            
+            services.AddSingleton<IFacade, Facade>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
