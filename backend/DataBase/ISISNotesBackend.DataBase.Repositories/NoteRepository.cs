@@ -52,7 +52,7 @@ namespace ISISNotesBackend.DataBase.Repositories
                 .Include(u => u.Passcode)
                 .Include(u => u.UserPhoto)
                 .First(u => u.Id == userId);
-            var userNote = new DbModels.UserNote(DbModels.Enums.UserRights.Author, 
+            var userNote = new DbModels.UserNote(DbModels.Enums.UserRights.Author | DbModels.Enums.UserRights.Read | DbModels.Enums.UserRights.Write, 
                 userId, user, 
                 note.Id, 
                 note);
@@ -64,7 +64,7 @@ namespace ISISNotesBackend.DataBase.Repositories
             
             return new CoreModels.Note(note.Id.ToString(), 
                 note.Header, 
-                CoreModels.Enums.UserRights.Author);
+                CoreModels.Enums.UserRights.Author | CoreModels.Enums.UserRights.Read | CoreModels.Enums.UserRights.Write);
         }
 
         public IEnumerable<CoreModels.NoteContent> GetNoteContent(Guid userId, Guid noteId)

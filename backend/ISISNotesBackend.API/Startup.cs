@@ -30,6 +30,7 @@ namespace ISISNotesBackend.API
                 options.UseNpgsql(connection));
             
             services.AddSingleton<INoteRepository, NoteRepository>();
+            services.AddSingleton<IRightsRepository, RightsRepository>();
             services.AddSingleton<IFacade, Facade>();
         }
 
