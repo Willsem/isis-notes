@@ -54,3 +54,7 @@
 .note-delete {
   color: #f44336;
 }
+
+.note-add-file {
+  display: none;
+}

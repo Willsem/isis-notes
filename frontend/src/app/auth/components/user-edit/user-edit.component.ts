@@ -51,6 +51,10 @@ export class UserEditComponent implements OnInit {
   }
 
   public async onUpdate(): Promise<void> {
+    if (this.fullUserDataForm.invalid) {
+      return;
+    }
+
     const newUser = await this.api.editUser({
       user: {
         id: this.user.id,

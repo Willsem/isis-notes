@@ -4,6 +4,7 @@ import { BehaviorSubject } from 'rxjs';
 import { Note } from '../../shared/models/note';
 import { AuthService } from '../../auth/services/auth.service';
 import { NoteContent } from '../../shared/models/note-content';
+import {NoteData} from '../../shared/models/note-data';
 
 @Injectable({
   providedIn: 'root'
@@ -73,5 +74,9 @@ export class NotesService {
     this.notes.next(allNotes);
 
     return newNote;
+  }
+
+  public async editNoteContent(noteData: NoteData): Promise<NoteData> {
+    return this.api.editNoteContent(this.auth.currentSessionValue.user.id, noteData).toPromise();
   }
 }
