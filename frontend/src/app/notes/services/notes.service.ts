@@ -77,7 +77,14 @@ export class NotesService {
   }
 
   public async editNoteContent(noteData: NoteData): Promise<NoteData> {
-    return this.api.editNoteContent(this.auth.currentSessionValue.user.id, noteData).toPromise();
+    const newNoteData = await this.api.editNoteContent(this.auth.currentSessionValue.user.id, noteData).toPromise();
+    const newNote = newNoteData.note;
+
+    let notes = this.notes.value;
+    notes = notes.splice(notes.findIndex(n => n.id === noteData.note.id), 1, newNote);
+    this.notes.next(notes);
+
+    return newNoteData;
   }
 
   public async deleteNote(noteId: string): Promise<void> {

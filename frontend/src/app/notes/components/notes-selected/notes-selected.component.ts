@@ -44,12 +44,22 @@ export class NotesSelectedComponent implements OnInit {
       this.isAuthor = this.note.mode === 'author';
 
       this.noteContent = (await this.notes.getNoteContent(this.note.id)) as (NoteTextContent | NoteFileContent)[];
+
+      if (this.noteContent.length === 0) {
+        this.noteContent.push({ noteId: this.note.id, type: 'text', text: ''} as NoteTextContent);
+        this.saveNote();
+      }
     });
 
     this.syncTimer = setInterval(this.saveNote.bind(this), 30000);
   }
 
   public async saveNote(): Promise<void> {
+    const headerRegExp = new RegExp(/# .*\n/);
+    const noteHeader = (this.noteContent[0] as NoteTextContent).text.match(headerRegExp)[0];
+    console.log(noteHeader);
+    this.note.name = noteHeader ? noteHeader : this.note.name;
+
     await this.notes.editNoteContent({
       note: this.note,
       content: this.noteContent
