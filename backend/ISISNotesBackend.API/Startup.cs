@@ -93,6 +93,13 @@ namespace ISISNotesBackend.API
                 });
                 endpoints.MapControllers();
             });
+            
+            app.UseCors(x => x
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader());
+
+            app.UseHttpsRedirection(); 
         }
     }
 }
