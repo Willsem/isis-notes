@@ -7,75 +7,75 @@ namespace ISISNotesBackend.Core.Repositories
     public interface INoteRepository
     {
         /// <summary>
-        /// Gets all notes of user.
+        /// Получает все заметки пользователяы.
         /// </summary>
-        /// <param name="userId">Id of user.</param>
-        /// <returns>Notes of user.</returns>
+        /// <param name="userId">Идентификатор пользователя.</param>
+        /// <returns>Заметки пользователя.</returns>
         IEnumerable<Note> GetUserNotes(Guid userId);
         /// <summary>
-        /// Creates a new note.
+        /// Создает новую заметку.
         /// </summary>
-        /// <param name="userId">Id of user, who creates a note.</param>
-        /// <param name="name">Name of a note.</param>
-        /// <returns>Created note.</returns>
+        /// <param name="userId">Идентификатор пользователя, создающего заметку.</param>
+        /// <param name="name">Имя заметки.</param>
+        /// <returns>Созданная заметка.</returns>
         Note CreateNote(Guid userId, String name);
 
         /// <summary>
-        /// Gets content of note.
+        /// Получает содержимое заметки.
         /// </summary>
-        /// <param name="userId">Id of user, who wants to get the content.</param>
-        /// <param name="noteId">Id of note.</param>
-        /// <returns>Text of note.</returns>
+        /// <param name="userId">Идентификатор пользователя, который хочет получить содержимое заметки.</param>
+        /// <param name="noteId">Идентификатор заметки.</param>
+        /// <returns>Текст заметки.</returns>
         IEnumerable<INoteContent> GetNoteContent(Guid userId, Guid noteId);
         /// <summary>
-        /// Changes text content of note.
+        /// Изменяет текстовое содержимое заметки.
         /// </summary>
-        /// <param name="userId">Id of user, who wants to change the content.</param>
-        /// <param name="noteId">Id of note.</param>
-        /// <param name="noteContent">New content.</param>
-        /// <returns>Text of note.</returns>
+        /// <param name="userId">Идентификатор пользователя, который хочет изменить содержимое заметки..</param>
+        /// <param name="noteId">Идентификатор заметки.</param>
+        /// <param name="noteContent">Новое содержимое заметки.</param>
+        /// <returns>Текст заметки.</returns>
         NoteAllContent ChangeNoteText(Guid userId, Guid noteId, INoteContent[] noteContent);
         /// <summary>
-        /// Changes name of note.
+        /// Изменяет имя заметки.
         /// </summary>
-        /// <param name="userId">Id of user, who wants to edit the content.</param>
-        /// <param name="noteId">Id of note.</param>
-        /// <param name="name">New name.</param>
-        /// <returns>Note.</returns>
+        /// <param name="userId">Идентификатор пользователя, который хочет изменить имя.</param>
+        /// <param name="noteId">Идентификатор заметки.</param>
+        /// <param name="name">Новое имя.</param>
+        /// <returns>Заметка.</returns>
         NoteAllContent ChangeNoteName(Guid userId, Guid noteId, String name);
         /// <summary>
-        /// Deletes note.
+        /// Удаляет заметку.
         /// </summary>
-        /// <param name="userId">Id of user, who wants to delete note.</param>
-        /// <param name="noteId">Id of note.</param>
-        /// <returns>Deleted note.</returns>
+        /// <param name="userId">Идентификатор пользователя, который хочет удалить заметку.</param>
+        /// <param name="noteId">Идeнтификатор заметки.</param>
+        /// <returns>Удаленная заметка.</returns>
         Note DeleteNote(Guid userId, Guid noteId);
         /// <summary>
-        /// Adds file to note.
+        /// Прикрепляет файл к заметке.
         /// </summary>
-        /// <param name="userId">Id of user, who wants to add file to note.</param>
-        /// <param name="file">File.</param>
-        /// <returns>Added file.</returns>
+        /// <param name="userId">Идентификатор пользователя, который хочет добавить файл к заметке.</param>
+        /// <param name="file">Файл.</param>
+        /// <returns>Добавленный файл.</returns>
         NoteFileContent AddFile(Guid userId, NoteFileContent file);
         /// <summary>
-        /// Gets file by Id.
+        /// Получает файл по его идентификатору.
         /// </summary>
-        /// <param name="userId">Id of user, who wants to get file.</param>
-        /// <param name="fileId">Id of file.</param>
-        /// <returns>File.</returns>
+        /// <param name="userId">Идентификатор пользователя, который хочет получить файл.</param>
+        /// <param name="fileId">Идентификатор файла.</param>
+        /// <returns>Файл.</returns>
         NoteFileContent GetFile(Guid userId, Guid fileId);
         /// <summary>
-        /// Gets file by Name.
+        /// Получает файл по имени.
         /// </summary>
-        /// <param name="filename">File name.</param>
+        /// <param name="filename">Имя файла.</param>
         /// <returns>File.</returns>
         NoteFileContent GetFileByName(String filename);
         /// <summary>
-        /// Deletes file.
+        /// Удаляет файл.
         /// </summary>
-        /// <param name="userId">Id of user, who wants to delete file.</param>
-        /// <param name="fileId">Id of file.</param>
-        /// <returns>Deleted file.</returns>
+        /// <param name="userId">Идентификатор польщователя, который хочет удалить заметку.</param>
+        /// <param name="fileId">Идентификатор файла.</param>
+        /// <returns>Удаленный файл.</returns>
         NoteFileContent DeleteFile(Guid userId, Guid fileId);
     }
 }

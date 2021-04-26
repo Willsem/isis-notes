@@ -20,6 +20,12 @@ namespace ISISNotesBackend.API.Controllers
             _configuration = configuration;
         }
 
+        /// <summary>
+        /// Добавляет файл в хранилище.
+        /// </summary>
+        /// <param name="userId">Идентификатор пользователя, который добавил файл.</param>
+        /// <param name="file">Файл, полученный из POST-запроса.</param>
+        /// <returns>Результат действия Ok с информацией о добавленном файле в случае успеха, иначе - NotFound.</returns>
         [Authorize]
         [Route("{userId}")]
         [HttpPost]
@@ -36,6 +42,12 @@ namespace ISISNotesBackend.API.Controllers
             }
         }
         
+        /// <summary>
+        /// Возвращает содержимое файла.
+        /// </summary>
+        /// <param name="userId">Идентификатор пользователя, который хочет получить содержимое файла.</param>
+        /// <param name="fileId">Идентификатор файла, содержимое которого нужно получить.</param>
+        /// <returns>Результат действия Ok с содержимым файла в случае успеха, иначе - NotFound.</returns>
         [Authorize]
         [Route("{userId}/{fileId}")]
         [HttpGet]
@@ -51,6 +63,12 @@ namespace ISISNotesBackend.API.Controllers
             }
         }
         
+        /// <summary>
+        /// Удаляет файл из хранилища.
+        /// </summary>
+        /// <param name="userId">Идентификатор пользователя, который хочет удалить файл.</param>
+        /// <param name="fileId">Идентификатор файла, который нужно удалить.</param>
+        /// <returns>Результат действия Ok с информацией об удаленном файле в случае успеха, иначе - NotFound.</returns>
         [Authorize]
         [Route("{userId}/{fileId}")]
         [HttpDelete]

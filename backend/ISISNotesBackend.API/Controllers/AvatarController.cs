@@ -20,6 +20,11 @@ namespace ISISNotesBackend.API.Controllers
             _configuration = configuration;
         }
         
+        /// <summary>
+        /// Возвращает аватар пользователя по его идентификатору.
+        /// </summary>
+        /// <param name="userId">Идентификатор пользователя, чей аватар надо вернуть.</param>
+        /// <returns>Результат действия Ok с аватаром пользователя в случае успеха, иначе - NotFound.</returns>
         [Authorize]
         [Route("{userId}")]
         [HttpGet]

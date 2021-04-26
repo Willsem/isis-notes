@@ -19,6 +19,10 @@ namespace ISISNotesBackend.API.Controllers
             _configuration = configuration;
         }
         
+        /// <summary>
+        /// Получает всех пользователей.
+        /// </summary>
+        /// <returns>Массив всех пользователей.</returns>
         [Route("")]
         [HttpGet]
         public User[] GetUsers()
@@ -26,6 +30,11 @@ namespace ISISNotesBackend.API.Controllers
             return _facade.GetAllUsers();
         }
         
+        /// <summary>
+        /// Создает пользователя.
+        /// </summary>
+        /// <param name="userWithLogin">Информация о пользователе и его входные данные.</param>
+        /// <returns>Результат действия Ok с информацией о созданном пользователе в случае успеха, иначе - NotFound.</returns>
         [Route("")]
         [HttpPost]
         public IActionResult CreateUser([FromBody] UserWithLogin userWithLogin)
@@ -41,6 +50,11 @@ namespace ISISNotesBackend.API.Controllers
             }
         }
         
+        /// <summary>
+        /// Изменяет информацию о пользователе.
+        /// </summary>
+        /// <param name="userWithLoginAndAvatar">Новая информация о пользователе и его входные данные.</param>
+        /// <returns>Результат действия Ok с информацией об измененном пользователе в случае успеха, иначе - NotFound.</returns>
         [Route("")]
         [HttpPatch]
         public IActionResult ChangeUser([FromBody]  UserWithLoginAndAvatar userWithLoginAndAvatar)

@@ -7,30 +7,30 @@ namespace ISISNotesBackend.Core.Repositories
     public interface IUserNoteRepository
     {
         /// <summary>
-        /// New user of note.
+        /// Создает пользователя заметки.
         /// </summary>
-        /// <param name="changeUserId">Id of user, who wants to create new user of note.</param>
-        /// <param name="userId">Id of created user.</param>
-        /// <param name="noteId">Id of note.</param>
-        /// <param name="userRights">Rights of user.</param>
-        /// <returns>New user of note.</returns>
+        /// <param name="changeUserId">Идентификатор пользователя, который хочет создать нового пользователя заметки.</param>
+        /// <param name="userId">Идентификатор созданной заметки.</param>
+        /// <param name="noteId">Идентификатор заметки.</param>
+        /// <param name="userRights">Права пользователя.</param>
+        /// <returns>Информация о заметке, на которые распространяются права.</returns>
         NoteAccessRight CreateUserNote(Guid changeUserId, Guid userId, Guid noteId, String userRights);
         /// <summary>
-        /// Changes user rights.
+        /// Изменяет права пользователя на заметку.
         /// </summary>
-        /// <param name="changeUserId">Id of user, who wants to change user rights.</param>
-        /// <param name="userId">Id of changed user.</param>
-        /// <param name="noteId">Id of note.</param>
-        /// <param name="userRights">New rights of user.</param>
-        /// <returns>Changed user of note.</returns>
+        /// <param name="changeUserId">Идентификатор пользователя, который хочет изменить права пользователя.</param>
+        /// <param name="userId">Идентификатор измененного пользователя.</param>
+        /// <param name="noteId">Идентификатор заметки.</param>
+        /// <param name="userRights">Новые права пользователя.</param>
+        /// <returns>Информация о заметке, на которые распространяются права.</returns>
         NoteAccessRight ChangeUserNote(Guid changeUserId, Guid userId, Guid noteId, String userRights);
         /// <summary>
-        /// Deletes user of note.
+        /// Удаляет пользователя заметки.
         /// </summary>
-        /// <param name="changeUserId">Id of user, who wants to delete user of note.</param>
-        /// <param name="userId">Id of deleted user.</param>
-        /// <param name="noteId">Id of note.</param>
-        /// <returns>Deleted user of note.</returns>
+        /// <param name="changeUserId">Идентификатор пользователя, который хочет удалить пользователя заметки.</param>
+        /// <param name="userId">Идентификатор удаленного пользователя.</param>
+        /// <param name="noteId">Идентификатор заметки.</param>
+        /// <returns>Информация о заметке, на которые распространяются права.</returns>
         NoteAccessRight DeleteUserNote(Guid changeUserId, Guid userId, Guid noteId);
     }
 }
