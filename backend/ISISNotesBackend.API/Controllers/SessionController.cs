@@ -26,6 +26,11 @@ namespace ISISNotesBackend.API.Controllers
             _configuration = configuration;  
         }
         
+        /// <summary>
+        /// Производит вход пользователя в систему.
+        /// </summary>
+        /// <param name="request">Запрос, содержащий имя пользователя, входящего в систему, и его пароль.</param>
+        /// <returns>Результат действия Ok с созданной сессией в случае успеха, иначе - Unauthorized.</returns>
         [Route("")]
         [AllowAnonymous]
         [HttpPost]
@@ -44,6 +49,11 @@ namespace ISISNotesBackend.API.Controllers
             return Ok(session);
         }
 
+        /// <summary>
+        /// Производит выход пользователя из системы.
+        /// </summary>
+        /// <param name="id">Идентификатор удаляемоой сессии.</param>
+        /// <returns>Результат действия Ok с удаленной сессией в случае успеха, иначе - Unauthorized.</returns>
         [Route("{id}")]
         [Authorize]
         [HttpDelete]
@@ -59,6 +69,11 @@ namespace ISISNotesBackend.API.Controllers
             return Ok(session);
         }
 
+        /// <summary>
+        /// Производит генерацию jwt-токена.
+        /// </summary>
+        /// <param name="user">Информация о пользователе, для которого производится генерация токена.</param>
+        /// <returns>Созданный токен.</returns>
         private string GenerateJwt(User user)
         {
             var authParams = _authOptions.Value;
