@@ -1,0 +1,23 @@
+<mat-dialog-content class="user-edit-wrapper">
+    <h2>Change account information</h2>
+    <div class="user-details-avatar">
+        <div class="user-details-avatar-images">
+            <img [src]="file" class="avatar-big">
+            <img [src]="file" class="avatar-medium">
+            <img [src]="file" class="avatar-small">
+        </div>
+        <button mat-button class="user-details-button" (click)="fileInput.click()">
+            Choose photo
+            <input type="file" #fileInput class="user-details-avatar-input" (change)="onAvatarChange($event)">
+        </button>
+    </div>
+    <isis-user-data-form [formControl]="fullUserDataForm"></isis-user-data-form>
+
+    <button mat-button class="user-details-button"
+            (click)="onUpdate()" mat-dialog-close
+            [disabled]="isChangingActive">
+        Update
+    </button>
+
+    <button mat-icon-button class="user-details-close" mat-dialog-close><mat-icon>close</mat-icon></button>
+</mat-dialog-content>

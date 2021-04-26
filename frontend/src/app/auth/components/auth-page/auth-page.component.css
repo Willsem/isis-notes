@@ -1,0 +1,59 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.auth-box {
+  background-color: #eee;
+  border-radius: 5px;
+  box-sizing: border-box;
+  padding: 20px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+::ng-deep .auth-box mat-form-field {
+  font-family: 'Poppins', sans-serif;
+  width: 400px;
+}
+
+::ng-deep .opaque-form-field .mat-form-field-outline {
+  background-color: #fff;
+  border-radius: 5px;
+}
+
+::ng-deep .mat-form-field-wrapper {
+  padding-bottom: 0;
+}
+
+.auth-box button {
+  font-family: 'Poppins', sans-serif;
+  cursor: pointer;
+}
+
+.auth-box .btns-under-password {
+  display: flex;
+  justify-content: space-between;
+}
+
+.auth-box .less-visible-btn {
+  text-decoration: underline;
+  color: #888;
+  background: none;
+  border: none;
+  transition: 0.2s all;
+}
+
+.auth-box .less-visible-btn:hover {
+  color: #bbb;
+}
+
+.auth-box .sign {
+  color: rgba(0,0,0,.6);
+}

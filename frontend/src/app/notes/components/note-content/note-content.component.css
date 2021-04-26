@@ -1,0 +1,22 @@
+.selected-note {
+  display: flex;
+  justify-content: space-around;
+}
+
+.selected-note isis-note-editor, isis-note-text {
+  padding: 1em;
+  flex: 0.5;
+  height: 100%;
+  max-width: 50%;
+}
+
+.selected-note-readonly isis-note-text {
+  max-width: 100%;
+  width: 100%;
+  flex: 1;
+  padding: 1em 5em;
+}
+
+.selected-note isis-note-text {
+  word-wrap: break-word;
+}

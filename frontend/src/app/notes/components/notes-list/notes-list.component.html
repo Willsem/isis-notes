@@ -1,0 +1,12 @@
+<mat-list>
+    <mat-list-item role="link" *ngFor="let note of notes.notesObservable | async"
+                   routerLink='/notes/{{note.id}}'
+                   routerLinkActive="note-active">
+        <mat-icon mat-list-icon>insert_drive_file</mat-icon>
+        <div mat-line>{{note.name}}</div>
+    </mat-list-item>
+    <mat-list-item>
+        <mat-icon mat-list-icon>add</mat-icon>
+        <div mat-line class="note-new" (click)="onNewNote()">New note</div>
+    </mat-list-item>
+</mat-list>
