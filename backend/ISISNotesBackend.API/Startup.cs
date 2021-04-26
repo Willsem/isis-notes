@@ -81,9 +81,9 @@ namespace ISISNotesBackend.API
             }
 
             app.UseRouting();
+            app.UseCors();
             app.UseAuthentication();
             app.UseAuthorization();
-            app.UseCors();
 
             app.UseEndpoints(endpoints =>
             {
@@ -93,13 +93,6 @@ namespace ISISNotesBackend.API
                 });
                 endpoints.MapControllers();
             });
-            
-            app.UseCors(x => x
-                .AllowAnyOrigin()
-                .AllowAnyMethod()
-                .AllowAnyHeader());
-
-            app.UseHttpsRedirection(); 
         }
     }
 }
