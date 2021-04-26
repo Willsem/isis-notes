@@ -7,11 +7,12 @@
 
     <ng-container *ngFor="let nc of noteContent">
         <isis-note-content *ngIf="nc.type === 'text'; else noteFile" [(value)]="nc.text" [mode]="note.mode"></isis-note-content>
-        <ng-template #noteFile>
+        <ng-template #noteFile class="note-file">
             <isis-note-text-file *ngIf="documentFileTypes.includes(nc.fileType)" [file]="nc"></isis-note-text-file>
             <isis-note-image-file *ngIf="nc.fileType.includes('image/')" [file]="nc"></isis-note-image-file>
             <isis-note-video-file *ngIf="nc.fileType.includes('video/')" [file]="nc"></isis-note-video-file>
             <isis-note-audio-file *ngIf="nc.fileType.includes('audio/')" [file]="nc"></isis-note-audio-file>
+            <button mat-icon-button (click)="removeFile(nc.fileId)"><mat-icon>remove</mat-icon></button>
         </ng-template>
     </ng-container>
 </div>
@@ -32,7 +33,7 @@
 </div>
 
 <div class="note-sync-date note-interface-icon">
-    <span>Последняя синхронизация: {{syncTime | date:'dd/mm/yyyy h:mm a'}}</span>
+    <span>Последняя синхронизация: {{syncTime | date:'dd/MM/yyyy h:mm a'}}</span>
 </div>
 
 <input type="file" #fileInput class="note-add-file" (change)="addFile($event)">

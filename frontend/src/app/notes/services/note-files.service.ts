@@ -21,4 +21,8 @@ export class NoteFilesService {
   public async addFile(fileDate: FileData): Promise<NoteFileContent> {
     return this.api.addFile(this.auth.currentSessionValue.user.id, fileDate).toPromise();
   }
+
+  public async deleteFile(fileId: string): Promise<NoteFileContent> {
+    return this.api.deleteFile(this.auth.currentSessionValue.user.id, fileId).toPromise();
+  }
 }

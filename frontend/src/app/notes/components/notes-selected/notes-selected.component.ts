@@ -78,6 +78,21 @@ export class NotesSelectedComponent implements OnInit {
     await this.saveNote();
   }
 
+  public async removeFile(fileId: string): Promise<void> {
+    const index = this.noteContent.findIndex((nc: any) => nc.fileId && nc.fileId === fileId);
+    await this.noteFiles.deleteFile(fileId);
+
+    let textBeforeIndex = index - 1;
+    let textAfterIndex = index + 1;
+    while (this.noteContent[textBeforeIndex].type !== 'text' && textBeforeIndex >= 0) { textBeforeIndex--; }
+    while (this.noteContent[textAfterIndex].type !== 'text' && textBeforeIndex < this.noteContent.length) { textAfterIndex++; }
+
+    (this.noteContent[textBeforeIndex] as NoteTextContent).text += (this.noteContent[textAfterIndex] as NoteTextContent).text;
+    this.noteContent = this.noteContent.splice(index, 2);
+
+    await this.saveNote();
+  }
+
   public async grantAccess(): Promise<void> {
     this.dialog.open(NoteGrantRightsComponent, { data: this.note.id });
   }
