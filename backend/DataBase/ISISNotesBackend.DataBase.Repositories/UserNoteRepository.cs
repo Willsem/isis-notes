@@ -37,7 +37,22 @@ namespace ISISNotesBackend.DataBase.Repositories
 
         public NoteAccessRight ChangeUserNote(Guid changeUserId, Guid userId, Guid noteId, UserRights userRights)
         {
-            throw new NotImplementedException();
+            var userNote = _dbContext.UserNotes
+                .Include(un => un.Note)
+                .ThenInclude(n => n.TextNote)
+                .Include(un => un.User)
+                .ThenInclude(u => u.Passcode)
+                .Include(un => un.User)
+                .ThenInclude(u => u.UserPhoto)
+                .First(un => un.UserId == userId && un.NoteId == noteId);
+
+            userNote.Rights = (DbModels.Enums.UserRights) Enum.Parse(typeof(DbModels.Enums.UserRights), userRights.ToString());
+            _dbContext.Entry(userNote).State = EntityState.Modified;
+            _dbContext.SaveChanges();
+            
+            return new CoreModels.NoteAccessRight(userNote.NoteId.ToString(), 
+                userNote.UserId.ToString(),
+                userRights);
         }
 
         public NoteAccessRight DeleteUserNote(Guid changeUserId, Guid userId, Guid noteId)
