@@ -64,12 +64,12 @@ namespace ISISNotesBackend.API
                         ValidateIssuerSigningKey = true,
                     };
                 });
-            
-            services.AddSingleton<INoteRepository, NoteRepository>();
-            services.AddSingleton<IRightsRepository, RightsRepository>();
-            services.AddSingleton<IUserRepository, UserRepository>();
-            services.AddSingleton<IUserNoteRepository, UserNoteRepository>();
-            services.AddSingleton<IFacade, Facade>();
+
+            services.AddTransient<INoteRepository, NoteRepository>();
+            services.AddTransient<IRightsRepository, RightsRepository>();
+            services.AddTransient<IUserRepository, UserRepository>();
+            services.AddTransient<IUserNoteRepository, UserNoteRepository>();
+            services.AddTransient<IFacade, Facade>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
