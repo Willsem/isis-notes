@@ -42,6 +42,10 @@ export class NotesService {
         this.notes.next([]);
       }
     });
+
+    if (this.auth.isAuthed) {
+      this.loadNotes();
+    }
     // this.loadNotes(); // TODO: remove
   }
 
