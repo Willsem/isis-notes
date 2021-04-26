@@ -1,6 +1,5 @@
 using System;
 using System.Linq;
-using ISISNotesBackend.Core.Models;
 using ISISNotesBackend.Core.Models.Enums;
 using ISISNotesBackend.Core.Repositories;
 using ISISNotesBackend.DataBase.NpgsqlContext;
@@ -19,23 +18,27 @@ namespace ISISNotesBackend.DataBase.Repositories
             _dbContext = chatServiceContext;
         }
         
-        public NoteAccessRight CreateUserNote(Guid changeUserId, Guid userId, Guid noteId, UserRights userRights)
+        public CoreModels.NoteAccessRight CreateUserNote(Guid changeUserId, Guid userId, Guid noteId, 
+            CoreModels.Enums.UserRights userRights)
         {
             var user = _dbContext.Users
                 .First(u => u.Id == userId);
             var note = _dbContext.Notes
                 .First(n => n.Id == noteId);
-            var userNote = new DbModels.UserNote((DbModels.Enums.UserRights) userRights, userId, user, noteId, note);
+            var dbUserRights =
+                (DbModels.Enums.UserRights) Enum.Parse(typeof(DbModels.Enums.UserRights), userRights.ToString());
+            var userNote = new DbModels.UserNote(dbUserRights, userId, user, noteId, note);
 
             _dbContext.UserNotes.Add(userNote);
             _dbContext.SaveChanges();
             
-            return new NoteAccessRight(noteId.ToString(), 
-                userId.ToString(),
+            return new CoreModels.NoteAccessRight(userNote.NoteId.ToString(), 
+                userNote.UserId.ToString(),
                 userRights);
         }
 
-        public NoteAccessRight ChangeUserNote(Guid changeUserId, Guid userId, Guid noteId, UserRights userRights)
+        public CoreModels.NoteAccessRight ChangeUserNote(Guid changeUserId, Guid userId, Guid noteId, 
+            CoreModels.Enums.UserRights userRights)
         {
             var userNote = _dbContext.UserNotes
                 .Include(un => un.Note)
@@ -55,20 +58,22 @@ namespace ISISNotesBackend.DataBase.Repositories
                 userRights);
         }
 
-        public NoteAccessRight DeleteUserNote(Guid changeUserId, Guid userId, Guid noteId)
+        public CoreModels.NoteAccessRight DeleteUserNote(Guid changeUserId, Guid userId, Guid noteId)
         {
             var userNote = _dbContext.UserNotes
                 .Include(un => un.Note)
+                .ThenInclude(n => n.TextNote)
                 .Include(un => un.User)
+                .ThenInclude(u => u.Passcode)
+                .Include(un => un.User)
+                .ThenInclude(u => u.UserPhoto)
                 .First(un => un.UserId == userId && un.NoteId == noteId);
 
             _dbContext.UserNotes.Remove(userNote);
-            _dbContext.Notes.Remove(userNote.Note);
-            _dbContext.Users.Remove(userNote.User);
             _dbContext.SaveChanges();
             
-            return new NoteAccessRight(noteId.ToString(), 
-                userId.ToString(), 
+            return new CoreModels.NoteAccessRight(userNote.NoteId.ToString(), 
+                userNote.UserId.ToString(), 
                 (UserRights) userNote.Rights);
         }
     }
