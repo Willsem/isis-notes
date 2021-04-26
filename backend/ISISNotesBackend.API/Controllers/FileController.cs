@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using ISISNotesBackend.Core;
 using ISISNotesBackend.Core.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 
@@ -20,19 +21,25 @@ namespace ISISNotesBackend.API.Controllers
             _configuration = configuration;
         }
 
+        [Authorize]
         [Route("{userId}")]
+        [HttpPost]
         public NoteFileContent AddFile(string userId, [FromBody] FileWithContent file)
         {
             return _facade.AddFile(userId, file, Path);
         }
         
+        [Authorize]
         [Route("{userId}/{fileId}")]
+        [HttpGet]
         public byte[] GetFile(string userId, string fileId)
         {
             return _facade.GetFile(userId, fileId, Path);
         }
         
+        [Authorize]
         [Route("{userId}/{fileId}")]
+        [HttpDelete]
         public NoteFileContent DeleteFile(string userId, string fileId)
         {
             return _facade.DeleteFile(userId, fileId, Path);

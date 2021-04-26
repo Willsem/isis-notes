@@ -20,7 +20,6 @@ namespace ISISNotesBackend.Core
         /// <param name="name">Name of a note.</param>
         /// <returns>Created note.</returns>
         Note CreateNote(string userId, String name);
-
         /// <summary>
         /// Gets text content of note.
         /// </summary>
@@ -53,7 +52,6 @@ namespace ISISNotesBackend.Core
         /// <param name="noteId">Id of note.</param>
         /// <returns>Deleted note.</returns>
         Note DeleteNote(string userId, string noteId);
-
         /// <summary>
         /// Adds file to note.
         /// </summary>
@@ -62,7 +60,6 @@ namespace ISISNotesBackend.Core
         /// <param name="path">Path to folder with files.</param>
         /// <returns>Added file.</returns>
         NoteFileContent AddFile(string userId, FileWithContent file, string path);
-
         /// <summary>
         /// Gets file by Id.
         /// </summary>
@@ -93,7 +90,6 @@ namespace ISISNotesBackend.Core
         /// <param name="userWithLogin">User.</param>
         /// <returns>Created user.</returns>
         User CreateUser(UserWithLogin userWithLogin);
-
         /// <summary>
         /// Changes user.
         /// </summary>
@@ -101,6 +97,19 @@ namespace ISISNotesBackend.Core
         /// <param name="Path">Path to folder with files.</param>
         /// <returns>User.</returns>
         User ChangeUser(UserWithLoginAndAvatar userWithLoginAndAvatar, string path);
+        /// <summary>
+        /// Create session after login.
+        /// </summary>
+        /// <param name="token">JSON Web Token of session.</param>
+        /// <param name="user">Id of user that logged in.</param>
+        /// <returns>Deleted session.</returns>
+        Session CreateSession(String token, String userId);
+        /// <summary>
+        /// Delete session after logout.
+        /// </summary>
+        /// <param name="id">Id of session.</param>
+        /// <returns>Deleted session.</returns>
+        Session DeleteSession(String id);
         #endregion
 
         #region UserNoteRepository
@@ -137,6 +146,16 @@ namespace ISISNotesBackend.Core
         /// <param name="noteId">Id of note.</param>
         /// <returns>Deleted user of note.</returns>
         NoteAccessRight DeleteUserNote(String changeUserId, String userId, String noteId);
+        #endregion
+        
+        #region AvatarRepository
+        /// <summary>
+        /// Gets avatar by userId.
+        /// </summary>
+        /// <param name="userId">Id of user.</param>
+        /// <param name="path">Path to folder with files.</param>
+        /// <returns>Image.</returns>
+        byte[] GetAvatar(string userId, string path);
         #endregion
     }
 }
