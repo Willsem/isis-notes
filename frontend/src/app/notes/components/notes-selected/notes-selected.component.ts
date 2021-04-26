@@ -71,6 +71,16 @@ export class NotesSelectedComponent implements OnInit {
   public async addFile(event: Event): Promise<void> {
     const file = (event.target as HTMLInputElement).files[0] as File;
 
+    if (file.type.includes('video/') && file.size > 1024 * 1024 * 1024) {
+      return;
+    } else if (file.type.includes('audio/') && file.size > 1024 * 1024 * 30) {
+      return;
+    } else if (file.type.includes('image/') && file.size > 1024 * 1024 * 10) {
+      return;
+    } else if (file.size > 1024 * 1024 * 100) {
+      return;
+    }
+
     const newFileContent = await this.noteFiles.addFile({
       file: {
         noteId: this.note.id,
