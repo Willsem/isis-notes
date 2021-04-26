@@ -37,6 +37,9 @@ export class UserEditComponent implements OnInit {
    */
   public fileBinary;
 
+  /**
+   * Флаг подгрузки изображения аватара
+   */
   public isChangingActive = false;
 
   /**
@@ -50,6 +53,9 @@ export class UserEditComponent implements OnInit {
     public api: ApiService,
   ) { }
 
+  /**
+   * Обработчик событий инициализации компонента
+   */
   ngOnInit(): void {
     this.api.getUserAvatar(this.user.id).subscribe(blob => {
       this.fileBinary = blob;

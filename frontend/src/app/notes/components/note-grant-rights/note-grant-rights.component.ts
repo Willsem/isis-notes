@@ -5,6 +5,9 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AuthService } from '../../../auth/services/auth.service';
 import { of } from 'rxjs';
 
+/**
+ * Компонент управления правами доступа
+ */
 @Component({
   selector: 'isis-note-grant-rights',
   templateUrl: './note-grant-rights.component.html',
@@ -12,6 +15,9 @@ import { of } from 'rxjs';
 })
 export class NoteGrantRightsComponent implements OnInit {
 
+  /**
+   * Список пользователей
+   */
   public users: { user: User, rights: 'read' | 'write' | 'author' | '' }[] = [];
     // [
     //   {
@@ -34,12 +40,22 @@ export class NoteGrantRightsComponent implements OnInit {
     //   }
     // ];
 
+  /**
+   * Конструктор
+   *
+   * @param api Сервис API
+   * @param auth Сервис авторизации
+   * @param noteId Id заметки, передаваемое в диалог
+   */
   constructor(
     public api: ApiService,
     public auth: AuthService,
     @Inject(MAT_DIALOG_DATA) public noteId: string,
   ) { }
 
+  /**
+   * Обработчик событий инициализации компонента
+   */
   ngOnInit(): void {
     this.api.getUsers().subscribe(users => {
       this.users = users.map(u => ({user: u, rights: ''}));
@@ -52,6 +68,12 @@ export class NoteGrantRightsComponent implements OnInit {
     });
   }
 
+  /**
+   * Добавить права пользователю
+   *
+   * @param user Объект пользователя
+   * @param rights Права пользователя
+   */
   public async addRights(user: User, rights: 'read' | 'write'): Promise<void> {
     const userNotes = (await this.api.getUserNotes(user.id).toPromise()).map(n => n.id); // TODO: create route for getting rights
 
@@ -70,6 +92,11 @@ export class NoteGrantRightsComponent implements OnInit {
     }
   }
 
+  /**
+   * Отобрать права у пользователя
+   *
+   * @param user Объект пользователя
+   */
   public async revokeRights(user: User): Promise<void> {
     await this.api.removeUserPermissions(this.auth.currentSessionValue.user.id, this.noteId, user.id).toPromise();
   }

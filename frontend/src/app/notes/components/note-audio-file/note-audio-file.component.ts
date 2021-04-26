@@ -30,6 +30,8 @@ export class NoteAudioFileComponent implements OnInit {
 
   /**
    * Конструктор
+   *
+   * @param noteFiles Сервис управления файлами заметок
    */
   constructor(
     public noteFiles: NoteFilesService,

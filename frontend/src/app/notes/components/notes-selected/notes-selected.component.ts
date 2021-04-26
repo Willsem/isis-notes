@@ -38,17 +38,29 @@ export class NotesSelectedComponent implements OnInit {
    */
   public isAuthor = this.note.mode === 'author';
 
+  /**
+   * Фрагменты содержимого заметок
+   */
   public noteContent: (NoteTextContent | NoteFileContent)[] = [];
 
+  /**
+   * Типы файла, соответствующие поддерживаемым документам
+   */
   public readonly documentFileTypes = ['text/plain', 'application/pdf'];
 
+  /**
+   * Таймер синхронизации
+   */
   public syncTimer;
 
   /**
    * Конструктор
    *
    * @param notes Сервис заметок
+   * @param noteFiles Сервис файлов заметок
    * @param route Сервис управления текущим путем
+   * @param router Сервис Ангуляра для роутинга
+   * @param dialog Сервис управления диалоговыми окнами Material
    */
   constructor(
     public notes: NotesService,
@@ -78,6 +90,9 @@ export class NotesSelectedComponent implements OnInit {
     this.syncTimer = setInterval(this.saveNote.bind(this), 30000);
   }
 
+  /**
+   * Сохранить заметку
+   */
   public async saveNote(): Promise<void> {
     const headerRegExp = new RegExp(/# .*\n/);
     const noteHeader = (this.noteContent[0] as NoteTextContent).text.match(headerRegExp)[0];
@@ -92,6 +107,11 @@ export class NotesSelectedComponent implements OnInit {
     this.syncTime = moment(Date.now()).toDate();
   }
 
+  /**
+   * Добавить файл к заметке
+   *
+   * @param event Событие добавления файла
+   */
   public async addFile(event: Event): Promise<void> {
     const file = (event.target as HTMLInputElement).files[0] as File;
 
@@ -122,6 +142,11 @@ export class NotesSelectedComponent implements OnInit {
     await this.saveNote();
   }
 
+  /**
+   * Удалить файл из заметки
+   *
+   * @param fileId Id файла
+   */
   public async removeFile(fileId: string): Promise<void> {
     const index = this.noteContent.findIndex((nc: any) => nc.fileId && nc.fileId === fileId);
     await this.noteFiles.deleteFile(fileId);
@@ -137,10 +162,16 @@ export class NotesSelectedComponent implements OnInit {
     await this.saveNote();
   }
 
+  /**
+   * Открыть диалог управления правами доступа
+   */
   public async grantAccess(): Promise<void> {
     this.dialog.open(NoteGrantRightsComponent, { data: this.note.id });
   }
 
+  /**
+   * Удалить заметку
+   */
   public async deleteNote(): Promise<void> {
     await this.notes.deleteNote(this.note.id);
 

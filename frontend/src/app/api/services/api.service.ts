@@ -202,6 +202,11 @@ export class ApiService {
     return this.http.delete<NoteAccessRight>(url);
   }
 
+  /**
+   * Получить файл аватара пользователя
+   *
+   * @param userId Id пользователя
+   */
   public getUserAvatar(userId: string): Observable<Blob> {
     const url = `${environment.backendUrl}/avatar/${userId}`;
     return this.http.get<Blob>(url);
