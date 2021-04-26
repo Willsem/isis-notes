@@ -9,8 +9,8 @@ const routes: Routes = [
   {
     path: 'auth',
     loadChildren: () => import('../auth/auth.module').then(m => m.AuthModule),
-    // canActivate: [NotAuthGuard],
-    // canActivateChild: [NotAuthGuard],
+    canActivate: [NotAuthGuard],
+    canActivateChild: [NotAuthGuard],
     data: {
       title: 'Авторизация'
     }
@@ -18,8 +18,8 @@ const routes: Routes = [
   {
     path: 'notes',
     loadChildren: () => import('../notes/notes.module').then(m => m.NotesModule),
-    // canActivate: [AuthGuard],
-    // canActivateChild: [AuthGuard],
+    canActivate: [AuthGuard],
+    canActivateChild: [AuthGuard],
     data: {
       title: 'ISIS Notes'
     }

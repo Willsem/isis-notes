@@ -38,17 +38,18 @@ export class AuthService {
   constructor(
     private api: ApiService,
   ) {
-    const storedSession = {
-      id: 'orpr',
-      user: {
-        id: 'kek',
-        username: 'OverldAndrey',
-        avatar: 'https://izobrazhenie.net/photo/1536-95-1/1736_609925118.jpg',
-        email: 'andrey3000.99@mail.ru',
-      },
-      token: 'qwerty',
-      timestamp: moment(Date.now()), // TODO: Remove
-    } as Session; // JSON.parse(localStorage.getItem(this.SESSION_STORAGE_KEY)) as Session | null;
+    const storedSession = JSON.parse(localStorage.getItem(this.SESSION_STORAGE_KEY)) as Session | null;
+    //   {
+    //   id: 'orpr',
+    //   user: {
+    //     id: 'kek',
+    //     username: 'OverldAndrey',
+    //     avatar: 'https://izobrazhenie.net/photo/1536-95-1/1736_609925118.jpg',
+    //     email: 'andrey3000.99@mail.ru',
+    //   },
+    //   token: 'qwerty',
+    //   timestamp: moment(Date.now()), // TODO: Remove
+    // } as Session; // JSON.parse(localStorage.getItem(this.SESSION_STORAGE_KEY)) as Session | null;
 
     if (storedSession) {
       this.currentSession.next(storedSession);

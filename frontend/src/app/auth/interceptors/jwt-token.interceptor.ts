@@ -22,12 +22,14 @@ export class JwtTokenInterceptor implements HttpInterceptor {
       request = request.clone({
         setHeaders: {
           'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Methods': '*',
           Authorization: `Bearer ${this.auth.jwtTokenValue}`,
         },
         url: request.url,
       });
     }
 
+    console.log(this.auth.jwtTokenValue);
     return next.handle(request);
   }
 }
