@@ -35,7 +35,9 @@ export class UserDetailsComponent implements OnInit {
   }
 
   public onEditUser(): void {
-    this.dialog.open(UserEditComponent, { disableClose: true });
+    this.dialog.open(UserEditComponent, { disableClose: true }).afterClosed().subscribe(() => {
+      this.ngOnInit();
+    });
   }
 
 }
