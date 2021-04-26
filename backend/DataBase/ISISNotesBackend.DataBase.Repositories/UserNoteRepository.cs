@@ -21,8 +21,11 @@ namespace ISISNotesBackend.DataBase.Repositories
             CoreModels.Enums.UserRights userRights)
         {
             var user = _dbContext.Users
+                .Include(un => un.Passcode)
+                .Include(un => un.UserPhoto)
                 .First(u => u.Id == userId);
             var note = _dbContext.Notes
+                .Include((un => un.TextNote))
                 .First(n => n.Id == noteId);
             var dbUserRights =
                 (DbModels.Enums.UserRights) Enum.Parse(typeof(DbModels.Enums.UserRights), userRights.ToString());
@@ -41,11 +44,11 @@ namespace ISISNotesBackend.DataBase.Repositories
         {
             var userNote = _dbContext.UserNotes
                 .Include(un => un.Note)
-                .ThenInclude(n => n.TextNote)
+                    .ThenInclude(n => n.TextNote)
                 .Include(un => un.User)
-                .ThenInclude(u => u.Passcode)
+                    .ThenInclude(u => u.Passcode)
                 .Include(un => un.User)
-                .ThenInclude(u => u.UserPhoto)
+                    .ThenInclude(u => u.UserPhoto)
                 .First(un => un.UserId == userId && un.NoteId == noteId);
 
             userNote.Rights = (DbModels.Enums.UserRights) Enum.Parse(typeof(DbModels.Enums.UserRights), userRights.ToString());
@@ -61,11 +64,11 @@ namespace ISISNotesBackend.DataBase.Repositories
         {
             var userNote = _dbContext.UserNotes
                 .Include(un => un.Note)
-                .ThenInclude(n => n.TextNote)
+                    .ThenInclude(n => n.TextNote)
                 .Include(un => un.User)
-                .ThenInclude(u => u.Passcode)
+                    .ThenInclude(u => u.Passcode)
                 .Include(un => un.User)
-                .ThenInclude(u => u.UserPhoto)
+                    .ThenInclude(u => u.UserPhoto)
                 .First(un => un.UserId == userId && un.NoteId == noteId);
 
             var userRights = (CoreModels.Enums.UserRights) Enum.Parse(typeof(CoreModels.Enums.UserRights), userNote.Rights.ToString());
