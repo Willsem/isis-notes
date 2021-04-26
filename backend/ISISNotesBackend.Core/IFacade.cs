@@ -8,153 +8,151 @@ namespace ISISNotesBackend.Core
     {
         #region NoteRepository
         /// <summary>
-        /// Gets all notes of user.
+        /// Получение все заметок пользователя.
         /// </summary>
-        /// <param name="userId">Id of user.</param>
-        /// <returns>Notes of user.</returns>
+        /// <param name="userId">Id пользователя.</param>
+        /// <returns>Список замето.</returns>
         Note[] GetUserNotes(string userId);
         /// <summary>
-        /// Creates a new note.
+        /// Создание новой заметки.
         /// </summary>
-        /// <param name="userId">Id of user, who creates a note.</param>
-        /// <param name="name">Name of a note.</param>
-        /// <returns>Created note.</returns>
+        /// <param name="userId">Id пользователя - автора.</param>
+        /// <param name="name">Имя заметки..</param>
+        /// <returns>Созданная заметка.</returns>
         Note CreateNote(string userId, String name);
         /// <summary>
-        /// Gets text content of note.
+        /// Получение содержания заметки.
         /// </summary>
-        /// <param name="userId">Id of user, who wants to get the content.</param>
-        /// <param name="noteId">Id of note.</param>
-        /// <param name="path">Path to folder with files.</param>
-        /// <returns>Text of note.</returns>
+        /// <param name="userId">Id пользователя - кто хочет получить.</param>
+        /// <param name="noteId">Id заметки.</param>
+        /// <returns>Содержание заметки.</returns>
         NoteContent[] GetNoteContent(string userId, string noteId);
         /// <summary>
-        /// Changes text content of note.
+        /// Изменение текста заметки.
         /// </summary>
-        /// <param name="userId">Id of user, who wants to change the content.</param>
-        /// <param name="noteId">Id of note.</param>
-        /// <param name="noteContent">New content of note.</param>
-        /// <param name="path">Path to folder with files.</param>
-        /// <returns>Note.</returns>
+        /// <param name="userId">Id пользователя - кто хочет изменить.</param>
+        /// <param name="noteId">Id заметки.</param>
+        /// <param name="noteContent">Новый контент.</param>
+        /// <returns>Измененная заметка.</returns>
         NoteWithContent ChangeNoteText(string userId, string noteId, NoteContent[] noteContent);
         /// <summary>
-        /// Changes name of note.
+        /// Изменение имени заметки.
         /// </summary>
-        /// <param name="userId">Id of user, who wants to edit the content.</param>
-        /// <param name="noteId">Id of note.</param>
-        /// <param name="name">New name.</param>
-        /// <returns>Note.</returns>
+        /// <param name="userId">Id пользователя - кто хочет изменить.</param>
+        /// <param name="noteId">Id заметки.</param>
+        /// <param name="name">Новое имя.</param>
+        /// <returns>Измененная заметка.</returns>
         NoteWithContent ChangeNoteName(string userId, string noteId, String name);
         /// <summary>
-        /// Deletes note.
+        /// Удаление заметку.
         /// </summary>
-        /// <param name="userId">Id of user, who wants to delete note.</param>
-        /// <param name="noteId">Id of note.</param>
-        /// <returns>Deleted note.</returns>
+        /// <param name="userId">Id пользователя - кто хочет удалить.</param>
+        /// <param name="noteId">Id заметки.</param>
+        /// <returns>Удаленная заметка.</returns>
         Note DeleteNote(string userId, string noteId);
         /// <summary>
-        /// Adds file to note.
+        /// Добавление файла.
         /// </summary>
-        /// <param name="userId">Id of user, who wants to add file to note.</param>
-        /// <param name="file">File.</param>
-        /// <param name="path">Path to folder with files.</param>
-        /// <returns>Added file.</returns>
+        /// <param name="userId">Id пользователя - кто хочет добавить файл.</param>
+        /// <param name="file">Файл.</param>
+        /// <param name="path">Путь до хранилища файлов.</param>
+        /// <returns>Добавленный файл..</returns>
         NoteFileContent AddFile(string userId, FileWithContent file, string path);
         /// <summary>
-        /// Gets file by Id.
+        /// Получение файла по Id.
         /// </summary>
-        /// <param name="userId">Id of user, who wants to get file.</param>
-        /// <param name="fileId">Id of file.</param>
-        /// <param name="path">Path to folder with files.</param>
-        /// <returns>File.</returns>
+        /// <param name="userId">Id пользователя - кто хочет получить файл.</param>
+        /// <param name="fileId">Id файла.</param>
+        /// <param name="path">Путь до хранилища файлов.</param>
+        /// <returns>Содержимое файла.</returns>
         byte[] GetFile(string userId, string fileId, string path);
         /// <summary>
-        /// Deletes file.
+        /// Удаление файла.
         /// </summary>
-        /// <param name="userId">Id of user, who wants to delete file.</param>
-        /// <param name="fileId">Id of file.</param>
-        /// <param name="path">Path to folder with files.</param>
-        /// <returns>Deleted file.</returns>
+        /// <param name="userId">Id пользователя - кто хочет удалить файл.</param>
+        /// <param name="fileId">Id файла.</param>
+        /// <param name="path">Путь до хранилища файлов.</param>
+        /// <returns>Содержимое файла.</returns>
         NoteFileContent DeleteFile(string userId, string fileId, string path);
         #endregion
 
         #region UserRepository
         /// <summary>
-        /// Gets all users of ISISNotes.
+        /// Получение всех пользователей ISISNotes.
         /// </summary>
-        /// <returns>All users.</returns>
+        /// <returns>Пользователи.</returns>
         User[] GetAllUsers();
         /// <summary>
-        /// Creates new user.
+        /// Создание пользователя.
         /// </summary>
-        /// <param name="userWithLogin">User.</param>
-        /// <returns>Created user.</returns>
+        /// <param name="userWithLogin">Данные пользователя.</param>
+        /// <returns>Созданный пользователь.</returns>
         User CreateUser(UserWithLogin userWithLogin);
         /// <summary>
-        /// Changes user.
+        /// Изменение пользователя.
         /// </summary>
-        /// <param name="userWithLoginAndAvatar">User.</param>
-        /// <param name="Path">Path to folder with files.</param>
-        /// <returns>User.</returns>
+        /// <param name="userWithLoginAndAvatar">Новые данные пользователя.</param>
+        /// <param name="path">Путь до хранилища файлов.</param>
+        /// <returns>Пользователь.</returns>
         User ChangeUser(UserWithLoginAndAvatar userWithLoginAndAvatar, string path);
         /// <summary>
-        /// Create session after login.
+        /// Создание сессии.
         /// </summary>
-        /// <param name="token">JSON Web Token of session.</param>
-        /// <param name="user">Id of user that logged in.</param>
-        /// <returns>Deleted session.</returns>
+        /// <param name="token">JSON веб токен сессии.</param>
+        /// <param name="userId">Id пользователя, который пытается залогиниться.</param>
+        /// <returns>Сессия.</returns>
         Session CreateSession(String token, String userId);
         /// <summary>
-        /// Delete session after logout.
+        /// Удаление сессии, после завершения сеанса пользователе.
         /// </summary>
-        /// <param name="id">Id of session.</param>
-        /// <returns>Deleted session.</returns>
+        /// <param name="id">Id сессии.</param>
+        /// <returns>Удаленная сессия.</returns>
         Session DeleteSession(String id);
         #endregion
 
         #region UserNoteRepository
         /// <summary>
-        /// Correct name and password of user?
+        /// Проверка корректности имени пользователя и пароля.
         /// </summary>
-        /// <param name="name">Name of entering user.</param>
-        /// <param name="password">Password of entering user.</param>
-        /// <returns>User or null.</returns>
+        /// <param name="name">Имя пользователя.</param>
+        /// <param name="password">Пароль.</param>
+        /// <returns>Пользователь или null.</returns>
         User? EnterUser(String name, String password);
         /// <summary>
-        /// New user of note.
+        /// Предоставление прав доступа к заметке новому пользователю.
         /// </summary>
-        /// <param name="changeUserId">Id of user, who wants to create new user of note.</param>
-        /// <param name="userId">Id of created user.</param>
-        /// <param name="noteId">Id of note.</param>
-        /// <param name="userRights">Rights of user.</param>
-        /// <returns>New user of note.</returns>
+        /// <param name="changeUserId">Id пользователя, который предоставляет.</param>
+        /// <param name="userId">Id нового пользователя.</param>
+        /// <param name="noteId">Id заметки.</param>
+        /// <param name="userRights">Права доступа.</param>
+        /// <returns>Новый пользователь.</returns>
         NoteAccessRight CreateUserNote(String changeUserId, String userId, String noteId, UserRights userRights);
         /// <summary>
-        /// Changes user rights.
+        /// Изменение прав доступа к заметке пользователю.
         /// </summary>
-        /// <param name="changeUserId">Id of user, who wants to change user rights.</param>
-        /// <param name="userId">Id of changed user.</param>
-        /// <param name="noteId">Id of note.</param>
-        /// <param name="userRights">New rights of user.</param>
-        /// <returns>Changed user of note.</returns>
+        /// <param name="changeUserId">Id пользователя, который меняет.</param>
+        /// <param name="userId">Id изменяемого пользователя.</param>
+        /// <param name="noteId">Id заметки.</param>
+        /// <param name="userRights">Права доступа.</param>
+        /// <returns>Измененный пользователь.</returns>
         NoteAccessRight ChangeUserNote(String changeUserId, String userId, String noteId, UserRights userRights);
         /// <summary>
-        /// Deletes user of note.
+        /// Удаление прав доступа к заметке пользователя.
         /// </summary>
-        /// <param name="changeUserId">Id of user, who wants to delete user of note.</param>
-        /// <param name="userId">Id of deleted user.</param>
-        /// <param name="noteId">Id of note.</param>
-        /// <returns>Deleted user of note.</returns>
+        /// <param name="changeUserId">Id пользователя, который удаляет.</param>
+        /// <param name="userId">Id удаляемого пользователя.</param>
+        /// <param name="noteId">Id заметки.</param>
+        /// <returns>Удаленный пользователь.</returns>
         NoteAccessRight DeleteUserNote(String changeUserId, String userId, String noteId);
         #endregion
         
         #region AvatarRepository
         /// <summary>
-        /// Gets avatar by userId.
+        /// Получение автарки по Id пользователя.
         /// </summary>
-        /// <param name="userId">Id of user.</param>
-        /// <param name="path">Path to folder with files.</param>
-        /// <returns>Image.</returns>
+        /// <param name="userId">Id пользователя.</param>
+        /// <param name="path">Путь до хранилища файлов.</param>
+        /// <returns>Изображение.</returns>
         byte[] GetAvatar(string userId, string path);
         #endregion
     }
