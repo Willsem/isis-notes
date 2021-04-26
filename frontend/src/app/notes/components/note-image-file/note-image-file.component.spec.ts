@@ -29,6 +29,6 @@ describe('NoteImageFileComponent', () => {
   });
 
   it('should create', () => {
-    expect(true).toBeTruthy();
+    expect(component).toBeTruthy();
   });
 });
