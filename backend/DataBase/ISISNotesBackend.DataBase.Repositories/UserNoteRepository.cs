@@ -74,7 +74,7 @@ namespace ISISNotesBackend.DataBase.Repositories
             
             return new CoreModels.NoteAccessRight(userNote.NoteId.ToString(), 
                 userNote.UserId.ToString(), 
-                (UserRights) userNote.Rights);
+                (CoreModels.Enums.UserRights) userNote.Rights);
         }
     }
 }
