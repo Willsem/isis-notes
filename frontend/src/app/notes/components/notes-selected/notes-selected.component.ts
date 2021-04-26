@@ -77,7 +77,7 @@ export class NotesSelectedComponent implements OnInit {
       return;
     } else if (file.type.includes('image/') && file.size > 1024 * 1024 * 10) {
       return;
-    } else if (file.size > 1024 * 1024 * 100) {
+    } else if (!file.type.includes('video/') && file.size > 1024 * 1024 * 100) {
       return;
     }
 
