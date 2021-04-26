@@ -39,15 +39,19 @@ export class UserDetailsComponent implements OnInit {
   ngOnInit(): void {
     this.user = this.auth.currentSessionValue.user ?? {id: '', username: '', email: '', avatar: ''};
 
-    this.api.getUserAvatar(this.user.id).subscribe(blob => {
-      const fileReader = new FileReader();
+    try {
+      this.api.getUserAvatar(this.user.id).subscribe(blob => {
+        const fileReader = new FileReader();
 
-      fileReader.onloadend = (e) => {
-        this.user.avatar = fileReader.result as string;
-      };
+        fileReader.onloadend = (e) => {
+          this.user.avatar = fileReader.result as string;
+        };
 
-      fileReader.readAsDataURL(blob);
-    });
+        fileReader.readAsDataURL(blob);
+      });
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   /**
