@@ -91,6 +91,9 @@ export class NotesService {
     return this.api.getNoteContent(this.auth.currentSessionValue.user.id, noteId).toPromise();
   }
 
+  /**
+   * Создать новую заметку
+   */
   public async createNewNote(): Promise<Note> {
     let newNote = {
       id: '',
@@ -107,6 +110,11 @@ export class NotesService {
     return newNote;
   }
 
+  /**
+   * Редактировать заметку
+   *
+   * @param noteData Полные данные заметки
+   */
   public async editNoteContent(noteData: NoteData): Promise<NoteData> {
     const newNoteData = await this.api.editNoteContent(this.auth.currentSessionValue.user.id, noteData).toPromise();
     const newNote = newNoteData.note;
@@ -118,6 +126,11 @@ export class NotesService {
     return newNoteData;
   }
 
+  /**
+   * Удалить заметку
+   *
+   * @param noteId Id заметки
+   */
   public async deleteNote(noteId: string): Promise<void> {
     const deletedNote = await this.api.deleteNote(this.auth.currentSessionValue.user.id, noteId).toPromise();
 

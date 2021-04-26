@@ -25,6 +25,7 @@ export class UserDetailsComponent implements OnInit {
    *
    * @param auth Сервис авторизации
    * @param dialog Контроллер диалогов Material
+   * @param api Сервис API
    */
   constructor(
     public auth: AuthService,

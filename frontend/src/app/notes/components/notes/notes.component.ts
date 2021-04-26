@@ -14,12 +14,18 @@ export class NotesComponent {
 
   /**
    * Конструктор
+   *
+   * @param auth Сервис авторизации
+   * @param router Сервис Ангуляра для роутинга
    */
   constructor(
     public auth: AuthService,
     public router: Router,
   ) { }
 
+  /**
+   * Обработчик выхода пользователя из сессии
+   */
   public async onLogout(): Promise<void> {
     await this.auth.logout();
 
