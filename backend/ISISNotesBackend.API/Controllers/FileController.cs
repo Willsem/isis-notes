@@ -1,5 +1,4 @@
 using System;
-using System.IO;
 using ISISNotesBackend.Core;
 using ISISNotesBackend.Core.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -24,25 +23,46 @@ namespace ISISNotesBackend.API.Controllers
         [Authorize]
         [Route("{userId}")]
         [HttpPost]
-        public NoteFileContent AddFile(string userId, [FromBody] FileWithContent file)
+        public IActionResult AddFile(string userId, [FromBody] FileWithContent file)
         {
-            return _facade.AddFile(userId, file, Path);
+            try
+            {
+                return Ok(_facade.AddFile(userId, file, Path));
+            }
+            catch (Exception)
+            {
+                return NotFound();
+            }
         }
         
         [Authorize]
         [Route("{userId}/{fileId}")]
         [HttpGet]
-        public byte[] GetFile(string userId, string fileId)
+        public IActionResult GetFile(string userId, string fileId)
         {
-            return _facade.GetFile(userId, fileId, Path);
+            try
+            {
+                return Ok(_facade.GetFile(userId, fileId, Path));
+            }
+            catch (Exception)
+            {
+                return NotFound();
+            }
         }
         
         [Authorize]
         [Route("{userId}/{fileId}")]
         [HttpDelete]
-        public NoteFileContent DeleteFile(string userId, string fileId)
+        public IActionResult DeleteFile(string userId, string fileId)
         {
-            return _facade.DeleteFile(userId, fileId, Path);
+            try
+            {
+                return Ok(_facade.DeleteFile(userId, fileId, Path));
+            }
+            catch (Exception)
+            {
+                return NotFound();
+            }
         }
     }
 }
