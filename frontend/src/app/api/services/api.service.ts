@@ -69,7 +69,22 @@ export class ApiService {
    */
   public editNoteContent(userId: string, noteData: NoteData): Observable<NoteData> {
     const url = `${environment.backendUrl}/notes/${userId}/${noteData.note.id}`;
-    return this.http.patch<NoteData>(url, noteData);
+    const textFragments = [];
+    const fileFragments = [];
+
+    for (let i = 0; i < noteData.content.length; i++) {
+      if (i % 2 === 0) {
+        textFragments.push(noteData.content[i]);
+      } else {
+        fileFragments.push(noteData.content[i]);
+      }
+    }
+
+    return this.http.patch<NoteData>(url, {
+      note: noteData.note,
+      textContent: textFragments,
+      fileContent: fileFragments,
+    });
   }
 
   /**
