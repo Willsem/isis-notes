@@ -1,3 +1,4 @@
+using System;
 using ISISNotesBackend.Core;
 using ISISNotesBackend.Core.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -27,58 +28,107 @@ namespace ISISNotesBackend.API.Controllers
         [Authorize]
         [Route("{userId}")]
         [HttpPost]
-        public Note CreateNote(string userId, [FromBody] Note note)
+        public IActionResult CreateNote(string userId, [FromBody] Note note)
         {
-            return _facade.CreateNote(userId, note.Name);
+            try
+            {
+                return Ok(_facade.CreateNote(userId, note.Name));
+            }
+            catch (Exception)
+            {
+                return NotFound();
+            }
         }
         
         [Authorize]
         [Route("{userId}/{noteId}")]
         [HttpGet]
-        public NoteContent[] GetNoteContent(string userId, string noteId)
+        public IActionResult GetNoteContent(string userId, string noteId)
         {
-            return _facade.GetNoteContent(userId, noteId);
+            try
+            {
+                return Ok(_facade.GetNoteContent(userId, noteId));
+            }
+            catch (Exception)
+            {
+                return Forbid();
+            }
         }
         
         [Authorize]
         [Route("{userId}/{noteId}")]
         [HttpPatch]
-        public NoteWithContent ChangeNote(string userId, string noteId, [FromBody] NoteWithContent note)
+        public IActionResult ChangeNote(string userId, string noteId, [FromBody] NoteWithContent note)
         {
-            _facade.ChangeNoteName(userId, noteId, note.Note.Name);
-            return _facade.ChangeNoteText(userId, noteId, note.NoteContent);
+            try
+            {
+                _facade.ChangeNoteName(userId, noteId, note.Note.Name);
+                return Ok(_facade.ChangeNoteText(userId, noteId, note.NoteContent));
+            }
+            catch (Exception)
+            {
+                return Forbid();
+            }
         }
         
         [Authorize]
         [Route("{userId}/{noteId}")]
         [HttpDelete]
-        public Note DeleteNote(string userId, string noteId)
+        public IActionResult DeleteNote(string userId, string noteId)
         {
-            return _facade.DeleteNote(userId, noteId);
+            try
+            {
+                return Ok(_facade.DeleteNote(userId, noteId));
+            }
+            catch (Exception)
+            {
+                return Forbid();
+            }
         }
         
         [Authorize]
         [Route("{userId}/{noteId}/permission")]
         [HttpPost]
-        public NoteAccessRight AddUserRights(string userId, string noteId, [FromBody] NoteAccessRight noteAccessRight)
+        public IActionResult AddUserRights(string userId, string noteId, [FromBody] NoteAccessRight noteAccessRight)
         {
-            return _facade.CreateUserNote(userId, noteAccessRight.UserId, noteAccessRight.NoteId, noteAccessRight.Rights);
+            try
+            {
+                return Ok(_facade.CreateUserNote(userId, noteAccessRight.UserId, noteAccessRight.NoteId, noteAccessRight.Rights));
+            }
+            catch (Exception)
+            {
+                return Forbid();
+            }
         }
         
         [Authorize]
         [Route("{userId}/{noteId}/permission")]
         [HttpPatch]
-        public NoteAccessRight EditUserRights(string userId, string noteId, [FromBody] NoteAccessRight noteAccessRight)
+        public IActionResult EditUserRights(string userId, string noteId, [FromBody] NoteAccessRight noteAccessRight)
         {
-            return _facade.ChangeUserNote(userId, noteAccessRight.UserId, noteAccessRight.NoteId, noteAccessRight.Rights);
+            try
+            {
+                return Ok(_facade.ChangeUserNote(userId, noteAccessRight.UserId, noteAccessRight.NoteId, noteAccessRight.Rights));
+            }
+            catch (Exception)
+            {
+                return Forbid();
+            }
         }
         
         [Authorize]
         [Route("{userId}/{noteId}/permission/{toUserId}")]
         [HttpDelete]
-        public NoteAccessRight DeleteUserRights(string userId, string noteId, string toUserId)
+        public IActionResult DeleteUserRights(string userId, string noteId, string toUserId)
         {
-            return _facade.DeleteUserNote(userId, toUserId, noteId);
+            try
+            {
+                return Ok(_facade.DeleteUserNote(userId, toUserId, noteId));
+            }
+            catch (Exception)
+            {
+                return Forbid();
+            }
         }
     }
 }

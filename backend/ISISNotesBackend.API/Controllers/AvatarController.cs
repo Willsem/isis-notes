@@ -1,3 +1,4 @@
+using System;
 using ISISNotesBackend.Core;
 using ISISNotesBackend.Core.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -22,9 +23,16 @@ namespace ISISNotesBackend.API.Controllers
         [Authorize]
         [Route("{userId}")]
         [HttpGet]
-        public byte[] GetAvatar(string userId)
+        public IActionResult GetAvatar(string userId)
         {
-            return _facade.GetAvatar(userId, Path);
+            try
+            {
+                return Ok(_facade.GetAvatar(userId, Path));
+            }
+            catch (Exception)
+            {
+                return NotFound();
+            }
         }
     }
 }
