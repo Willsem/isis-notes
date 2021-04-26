@@ -1,15 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ApiService } from '../../../api/services/api.service';
-import {Router} from '@angular/router';
-import {AbstractControl, FormControl, ValidatorFn} from '@angular/forms';
+import { Router } from '@angular/router';
+import { AbstractControl, FormControl, ValidatorFn } from '@angular/forms';
 
+/**
+ * Компонент регистрации нового пользователя
+ */
 @Component({
   selector: 'isis-register-page',
   templateUrl: './register-page.component.html',
   styleUrls: ['./register-page.component.css']
 })
-export class RegisterPageComponent implements OnInit {
+export class RegisterPageComponent {
 
+  /**
+   * Контроллер формы ввода данных пользователя
+   */
   userRegisterDataForm = new FormControl({
     login: '',
     email: '',
@@ -17,14 +23,20 @@ export class RegisterPageComponent implements OnInit {
     confirmPassword: ''
   }, [this.validatePassword()]);
 
+  /**
+   * Конструктор
+   *
+   * @param api Сервис API
+   * @param router Сервис Ангуляра для роутинга
+   */
   constructor(
     public api: ApiService,
     public router: Router,
   ) { }
 
-  ngOnInit(): void {
-  }
-
+  /**
+   * Валидация равенства паролей, введенных в оба поля
+   */
   public validatePassword(): ValidatorFn {
     return (control: AbstractControl): { [key: string]: boolean } | null => {
       return control.value.password === control.value.confirmPassword
@@ -32,6 +44,9 @@ export class RegisterPageComponent implements OnInit {
     };
   }
 
+  /**
+   * Обработчик регистрации нового пользователя
+   */
   public async onRegister(): Promise<void> {
     if (this.userRegisterDataForm.value.email === '' || this.userRegisterDataForm.value.login === ''
       || this.userRegisterDataForm.value.password === '' || this.userRegisterDataForm.value.confirmPassword === ''

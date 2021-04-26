@@ -12,6 +12,12 @@ namespace ISISNotesBackend.Core.Repositories
         /// <returns>All users.</returns>
         IEnumerable<User> GetAllUsers();
         /// <summary>
+        /// Gets user by Id.
+        /// </summary>
+        /// <param name="userId">User id.</param>
+        /// <returns>User.</returns>
+        User GetUser(String userId);
+        /// <summary>
         /// Creates new user.
         /// </summary>
         /// <param name="userWithLogin">User.</param>
@@ -31,5 +37,18 @@ namespace ISISNotesBackend.Core.Repositories
         /// <param name="password">Password of entering user.</param>
         /// <returns>User or null.</returns>
         User? EnterUser(String name, String password);
+        /// <summary>
+        /// Create session after login.
+        /// </summary>
+        /// <param name="token">JSON Web Token of session.</param>
+        /// <param name="userId">User that logged in.</param>
+        /// <returns>Deleted session.</returns>
+        Session CreateSession(String token, String userId);
+        /// <summary>
+        /// Delete session after logout.
+        /// </summary>
+        /// <param name="id">Id of session.</param>
+        /// <returns>Deleted session.</returns>
+        Session DeleteSession(string id);
     }
 }

@@ -61,7 +61,8 @@ jobs:
       - name: 'Build frontend project'
         run: |
           cd frontend
-          npm run ng build
+          npm run compodoc
+          npm run build
 
       - name: 'Upload Artifact'
         uses: actions/upload-artifact@v2

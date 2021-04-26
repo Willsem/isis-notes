@@ -1,3 +1,4 @@
+using System;
 using ISISNotesBackend.Core;
 using ISISNotesBackend.Core.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -19,21 +20,38 @@ namespace ISISNotesBackend.API.Controllers
         }
         
         [Route("")]
+        [HttpGet]
         public User[] GetUsers()
         {
             return _facade.GetAllUsers();
         }
         
         [Route("")]
-        public User CreateUser([FromBody] UserWithLogin userWithLogin)
+        [HttpPost]
+        public IActionResult CreateUser([FromBody] UserWithLogin userWithLogin)
         {
-            return _facade.CreateUser(userWithLogin);
+            try
+            {
+                return Ok(_facade.CreateUser(userWithLogin));
+            }
+            catch (Exception)
+            {
+                return NotFound();
+            }
         }
         
         [Route("")]
-        public User ChangeUser([FromBody]  UserWithLoginAndAvatar userWithLoginAndAvatar)
+        [HttpPatch]
+        public IActionResult ChangeUser([FromBody]  UserWithLoginAndAvatar userWithLoginAndAvatar)
         {
-            return _facade.ChangeUser(userWithLoginAndAvatar, Path);
+            try
+            {
+                return Ok(_facade.ChangeUser(userWithLoginAndAvatar, Path));
+            }
+            catch (Exception)
+            {
+                return NotFound();
+            }
         }
     }
 }
