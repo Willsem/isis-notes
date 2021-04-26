@@ -144,14 +144,18 @@ namespace ISISNotesBackend.Core
 
         public User ChangeUser(UserWithLoginAndAvatar userWithLoginAndAvatar, string path)
         {
-            string name = $"{userWithLoginAndAvatar.User.Username}" +
-                   $".{userWithLoginAndAvatar.User.Avatar.Split('.').Last()}";
-            path += "/avatars";
-                
-            DirectoryInfo dirInfo = new DirectoryInfo(path);
-            if (!dirInfo.Exists)
-                dirInfo.Create();
-            File.WriteAllBytes($"{path}/{name}", userWithLoginAndAvatar.AvatarContent);
+            string name = "";
+            if (userWithLoginAndAvatar.AvatarContent != null)
+            {
+                name = $"{userWithLoginAndAvatar.User.Username}" +
+                              $".{userWithLoginAndAvatar.User.Avatar.Split('.').Last()}";
+                path += "/avatars";
+
+                DirectoryInfo dirInfo = new DirectoryInfo(path);
+                if (!dirInfo.Exists)
+                    dirInfo.Create();
+                File.WriteAllBytes($"{path}/{name}", userWithLoginAndAvatar.AvatarContent);
+            }
 
             return _userRepository.ChangeUser(userWithLoginAndAvatar, $"{path}/{name}");
         }
