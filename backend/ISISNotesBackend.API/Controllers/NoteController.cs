@@ -34,8 +34,9 @@ namespace ISISNotesBackend.API.Controllers
             {
                 return Ok(_facade.CreateNote(userId, note.Name));
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                Console.WriteLine(e.ToString());
                 return NotFound();
             }
         }

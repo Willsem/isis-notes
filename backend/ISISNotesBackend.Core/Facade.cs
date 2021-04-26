@@ -36,8 +36,9 @@ namespace ISISNotesBackend.Core
             {
                 return _noteRepository.CreateNote(Guid.Parse(userId), name);
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                Console.WriteLine(e.ToString());
                 throw new Exception("Cannot create note.\n");
             }
         }

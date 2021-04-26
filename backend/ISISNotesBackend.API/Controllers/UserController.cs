@@ -34,8 +34,9 @@ namespace ISISNotesBackend.API.Controllers
             {
                 return Ok(_facade.CreateUser(userWithLogin));
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                Console.WriteLine(e.ToString());
                 return NotFound();
             }
         }
@@ -48,8 +49,9 @@ namespace ISISNotesBackend.API.Controllers
             {
                 return Ok(_facade.ChangeUser(userWithLoginAndAvatar, Path));
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                Console.WriteLine(e.ToString());
                 return NotFound();
             }
         }
