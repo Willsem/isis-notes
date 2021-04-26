@@ -4,7 +4,7 @@ import { BehaviorSubject } from 'rxjs';
 import { Note } from '../../shared/models/note';
 import { AuthService } from '../../auth/services/auth.service';
 import { NoteContent } from '../../shared/models/note-content';
-import {NoteData} from '../../shared/models/note-data';
+import { NoteData } from '../../shared/models/note-data';
 
 @Injectable({
   providedIn: 'root'
@@ -25,27 +25,28 @@ export class NotesService {
         this.notes.next([]);
       }
     });
-    this.loadNotes(); // TODO: remove
+    // this.loadNotes(); // TODO: remove
   }
 
   public async loadNotes(): Promise<void> {
-    const notes = [ // TODO: remove
-      {
-        id: 'asd',
-        name: 'KEK',
-        mode: 'author'
-      },
-      {
-        id: 'qwe',
-        name: 'LOL',
-        mode: 'write'
-      },
-      {
-        id: 'zxc',
-        name: 'BOGOMOL',
-        mode: 'read'
-      }
-    ] as Note[]; // await this.api.getUserNotes(this.auth.currentSessionValue.user.id).toPromise();
+    const notes = await this.api.getUserNotes(this.auth.currentSessionValue.user.id).toPromise();
+    //   [ // TODO: remove
+    //   {
+    //     id: 'asd',
+    //     name: 'KEK',
+    //     mode: 'author'
+    //   },
+    //   {
+    //     id: 'qwe',
+    //     name: 'LOL',
+    //     mode: 'write'
+    //   },
+    //   {
+    //     id: 'zxc',
+    //     name: 'BOGOMOL',
+    //     mode: 'read'
+    //   }
+    // ] as Note[]; // await this.api.getUserNotes(this.auth.currentSessionValue.user.id).toPromise();
 
     this.notes.next(notes);
   }
