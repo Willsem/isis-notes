@@ -7,6 +7,7 @@ using ISISNotesBackend.Core.Repositories;
 
 namespace ISISNotesBackend.Core
 {
+    /// <inheritdoc cref="IFacade"/>
     public class Facade : IFacade
     {
         private readonly INoteRepository _noteRepository;
