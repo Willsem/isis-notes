@@ -33,6 +33,7 @@ namespace ISISNotesBackend.API.Controllers
         {
             try
             {
+                Console.WriteLine(file.Content);
                 return Ok(_facade.AddFile(userId, file, Path));
             }
             catch (Exception)

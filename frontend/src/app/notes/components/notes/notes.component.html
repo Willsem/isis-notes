@@ -2,6 +2,10 @@
     <mat-sidenav opened mode="side">
         <isis-user-details></isis-user-details>
         <isis-notes-list></isis-notes-list>
+        <div class="notes-logout-button" (click)="onLogout()">
+            <mat-icon>exit_to_app</mat-icon>
+            <span>Exit from account</span>
+        </div>
     </mat-sidenav>
 
     <mat-sidenav-content>

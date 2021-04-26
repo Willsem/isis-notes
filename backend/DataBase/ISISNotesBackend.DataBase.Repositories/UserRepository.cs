@@ -126,7 +126,7 @@ namespace ISISNotesBackend.DataBase.Repositories
             var passcode = _dbContext.Passcodes
                 .First(p => p.Id == user.Id);
             
-            if (user != null)
+            if (user != null && passcode != null)
                 if (passcode.Password == password)
                     if (user.UserPhoto != null)
                         return new CoreModels.User(user.Id.ToString(),

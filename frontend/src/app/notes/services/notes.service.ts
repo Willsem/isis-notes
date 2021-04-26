@@ -4,6 +4,7 @@ import { BehaviorSubject } from 'rxjs';
 import { Note } from '../../shared/models/note';
 import { AuthService } from '../../auth/services/auth.service';
 import { NoteContent } from '../../shared/models/note-content';
+import { NoteData } from '../../shared/models/note-data';
 
 /**
  * Сервис управления заметками текущего пользователя
@@ -41,30 +42,35 @@ export class NotesService {
         this.notes.next([]);
       }
     });
-    this.loadNotes(); // TODO: remove
+
+    if (this.auth.isAuthed) {
+      this.loadNotes();
+    }
+    // this.loadNotes(); // TODO: remove
   }
 
   /**
    * Загрузить список заметок пользователя
    */
   public async loadNotes(): Promise<void> {
-    const notes = [ // TODO: remove
-      {
-        id: 'asd',
-        name: 'KEK',
-        mode: 'author'
-      },
-      {
-        id: 'qwe',
-        name: 'LOL',
-        mode: 'write'
-      },
-      {
-        id: 'zxc',
-        name: 'BOGOMOL',
-        mode: 'read'
-      }
-    ] as Note[]; // await this.api.getUserNotes(this.auth.currentSessionValue.user.id).toPromise();
+    const notes = await this.api.getUserNotes(this.auth.currentSessionValue.user.id).toPromise();
+    //   [ // TODO: remove
+    //   {
+    //     id: 'asd',
+    //     name: 'KEK',
+    //     mode: 'author'
+    //   },
+    //   {
+    //     id: 'qwe',
+    //     name: 'LOL',
+    //     mode: 'write'
+    //   },
+    //   {
+    //     id: 'zxc',
+    //     name: 'BOGOMOL',
+    //     mode: 'read'
+    //   }
+    // ] as Note[]; // await this.api.getUserNotes(this.auth.currentSessionValue.user.id).toPromise();
 
     this.notes.next(notes);
   }
@@ -87,5 +93,53 @@ export class NotesService {
    */
   public async getNoteContent(noteId: string): Promise<NoteContent[]> {
     return this.api.getNoteContent(this.auth.currentSessionValue.user.id, noteId).toPromise();
+  }
+
+  /**
+   * Создать новую заметку
+   */
+  public async createNewNote(): Promise<Note> {
+    let newNote = {
+      id: '',
+      mode: 'author',
+      name: 'Unnamed note',
+    } as Note;
+
+    newNote = await this.api.createNote(this.auth.currentSessionValue.user.id, newNote).toPromise();
+
+    const allNotes = this.notes.value;
+    allNotes.push(newNote);
+    this.notes.next(allNotes);
+
+    return newNote;
+  }
+
+  /**
+   * Редактировать заметку
+   *
+   * @param noteData Полные данные заметки
+   */
+  public async editNoteContent(noteData: NoteData): Promise<NoteData> {
+    const newNoteData = await this.api.editNoteContent(this.auth.currentSessionValue.user.id, noteData).toPromise();
+    const newNote = newNoteData.note;
+
+    let notes = this.notes.value;
+    notes.splice(notes.findIndex(n => n.id === noteData.note.id), 1, newNote);
+    this.notes.next(notes);
+
+    return newNoteData;
+  }
+
+  /**
+   * Удалить заметку
+   *
+   * @param noteId Id заметки
+   */
+  public async deleteNote(noteId: string): Promise<void> {
+    const deletedNote = await this.api.deleteNote(this.auth.currentSessionValue.user.id, noteId).toPromise();
+
+    let notes = this.notes.value;
+    notes.splice(notes.findIndex(n => n.id === deletedNote.id), 1);
+    this.notes.next(notes);
   }
 }

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using ISISNotesBackend.Core;
 using ISISNotesBackend.Core.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -25,9 +26,9 @@ namespace ISISNotesBackend.API.Controllers
         [Authorize]
         [Route("{userId}")]
         [HttpGet]
-        public Note[] GetNotes(string userId)
+        public IActionResult GetNotes(string userId)
         {
-            return _facade.GetUserNotes(userId);
+            return Ok(_facade.GetUserNotes(userId));
         }
         
         /// <summary>
@@ -43,10 +44,11 @@ namespace ISISNotesBackend.API.Controllers
         {
             try
             {
-                return Ok(_facade.CreateNote(userId, note.Name));
+                return Ok(_facade.CreateNote(userId, "note"));
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                Console.WriteLine(e.ToString());
                 return NotFound();
             }
         }
@@ -86,10 +88,21 @@ namespace ISISNotesBackend.API.Controllers
             try
             {
                 _facade.ChangeNoteName(userId, noteId, note.Note.Name);
-                return Ok(_facade.ChangeNoteText(userId, noteId, note.NoteContent));
+                int i = 0;
+                List<INoteContent> content = new List<INoteContent>();
+                while (i < note.TextContent.Length)
+                {
+                    content.Add(note.TextContent[i]);
+                    if (i < note.FileContent.Length)
+                        content.Add(note.FileContent[i]);
+                    i++;
+                }
+                
+                return Ok(_facade.ChangeNoteText(userId, noteId, content.ToArray()));
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                Console.WriteLine(e.ToString());
                 return Forbid();
             }
         }

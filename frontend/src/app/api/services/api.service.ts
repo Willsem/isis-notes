@@ -69,7 +69,22 @@ export class ApiService {
    */
   public editNoteContent(userId: string, noteData: NoteData): Observable<NoteData> {
     const url = `${environment.backendUrl}/notes/${userId}/${noteData.note.id}`;
-    return this.http.patch<NoteData>(url, noteData);
+    const textFragments = [];
+    const fileFragments = [];
+
+    for (let i = 0; i < noteData.content.length; i++) {
+      if (i % 2 === 0) {
+        textFragments.push(noteData.content[i]);
+      } else {
+        fileFragments.push(noteData.content[i]);
+      }
+    }
+
+    return this.http.patch<NoteData>(url, {
+      note: noteData.note,
+      textContent: textFragments,
+      fileContent: fileFragments,
+    });
   }
 
   /**
@@ -82,14 +97,13 @@ export class ApiService {
     const url = `${environment.backendUrl}/notes/${userId}/${noteId}`;
     return this.http.delete<Note>(url);
   }
-
   /**
    * Загрузить файл на сервер
    *
    * @param userId Id пользователя
    * @param fileData Полные данные файла
    */
-  public loadFile(userId: string, fileData: FileData): Observable<NoteFileContent> {
+  public addFile(userId: string, fileData: FileData): Observable<NoteFileContent> {
     const url = `${environment.backendUrl}/file/${userId}`;
     return this.http.post<NoteFileContent>(url, fileData);
   }
@@ -158,9 +172,13 @@ export class ApiService {
    *
    * @param userLogin Полные данные пользователя
    */
-  public editUser(userLogin: UserLogin): Observable<User> {
+  public editUser(userLogin: UserLogin, avatarBinary?: Blob): Observable<User> {
     const url = `${environment.backendUrl}/users`;
-    return this.http.patch<User>(url, userLogin);
+    return this.http.patch<User>(url, {
+      user: userLogin.user,
+      login: userLogin.login,
+      avatar_content: avatarBinary,
+    });
   }
 
   /**
@@ -197,5 +215,15 @@ export class ApiService {
   public removeUserPermissions(userId: string, noteId: string, toUserId: string): Observable<NoteAccessRight> {
     const url = `${environment.backendUrl}/notes/${userId}/${noteId}/permission/${toUserId}`;
     return this.http.delete<NoteAccessRight>(url);
+  }
+
+  /**
+   * Получить файл аватара пользователя
+   *
+   * @param userId Id пользователя
+   */
+  public getUserAvatar(userId: string): Observable<Blob> {
+    const url = `${environment.backendUrl}/avatar/${userId}`;
+    return this.http.get<Blob>(url);
   }
 }

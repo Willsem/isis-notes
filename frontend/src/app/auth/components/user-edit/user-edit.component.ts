@@ -12,7 +12,7 @@ import { ApiService } from '../../../api/services/api.service';
   templateUrl: './user-edit.component.html',
   styleUrls: ['./user-edit.component.css']
 })
-export class UserEditComponent {
+export class UserEditComponent implements OnInit {
 
   /**
    * Данные пользователя
@@ -38,6 +38,11 @@ export class UserEditComponent {
   public fileBinary;
 
   /**
+   * Флаг подгрузки изображения аватара
+   */
+  public isChangingActive = false;
+
+  /**
    * Конструктор
    *
    * @param auth Сервис авторизации
@@ -49,26 +54,67 @@ export class UserEditComponent {
   ) { }
 
   /**
+   * Обработчик событий инициализации компонента
+   */
+  ngOnInit(): void {
+    this.api.getUserAvatar(this.user.id).subscribe(blob => {
+      this.fileBinary = blob;
+
+      const fileReader = new FileReader();
+
+      fileReader.onloadend = (e) => {
+        this.file = this.user.avatar = fileReader.result as string;
+      };
+
+      fileReader.readAsDataURL(blob);
+    });
+  }
+
+  /**
    * Обработчик загрузки нового аватара
    *
    * @param event Событие загрузки файла
    */
   onAvatarChange(event: Event): void {
-    console.log(event);
+    this.isChangingActive = true;
+
     const file = (event.target as HTMLInputElement).files[0];
     const fileReader = new FileReader();
+
     fileReader.onloadend = (e) => {
       this.file = fileReader.result as string;
-      console.log(this.file);
     };
-    file.arrayBuffer().then(buf => this.fileBinary = new Blob([buf]));
+
+    file.arrayBuffer().then(buf => {
+      this.fileBinary = new Blob([buf]);
+      this.isChangingActive = false;
+    });
+
     fileReader.readAsDataURL(file);
   }
 
   /**
    * Обработчик события обновления данных о пользователе
    */
-  onUpdate(): void {
-    console.log('Update');
+  public async onUpdate(): Promise<void> {
+    if (this.fullUserDataForm.invalid) {
+      return;
+    }
+
+    const newUser = await this.api.editUser({
+      user: {
+        id: this.user.id,
+        email: this.fullUserDataForm.value.email,
+        username: this.fullUserDataForm.value.login,
+        avatar: '',
+      },
+      login: {
+        username: this.fullUserDataForm.value.login,
+        password: this.fullUserDataForm.value.password,
+      }
+    }, this.fileBinary).toPromise();
+
+    await this.auth.logout();
+    await this.auth.login({ username: newUser.username, password: this.fullUserDataForm.value.password });
   }
 }

@@ -1,3 +1,4 @@
+using System;
 using ISISNotesBackend.Core.Models.Enums;
 
 namespace ISISNotesBackend.Core.Models
@@ -6,10 +7,11 @@ namespace ISISNotesBackend.Core.Models
     {
         public string Id { get; set; }
         public string Name { get; set; }
-        public UserRights Mode { get; set; }
+        public string Mode { get; set; }
 
-        public Note(string id, string name, UserRights mode)
+        public Note(string id, string name, string mode)
         {
+            Console.WriteLine("cccc");
             Id = id;
             Name = name;
             Mode = mode;

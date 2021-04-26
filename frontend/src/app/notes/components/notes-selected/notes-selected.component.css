@@ -54,3 +54,13 @@
 .note-delete {
   color: #f44336;
 }
+
+.note-add-file {
+  display: none;
+}
+
+.note-file {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}

@@ -1,9 +1,20 @@
 <div class="note">
-    <isis-note-content [(value)]="content1" [mode]="note.mode"></isis-note-content>
-    <isis-note-text-file></isis-note-text-file>
-    <isis-note-image-file></isis-note-image-file>
-    <isis-note-video-file></isis-note-video-file>
-    <isis-note-audio-file></isis-note-audio-file>
+<!--    <isis-note-content [(value)]="content1" [mode]="note.mode"></isis-note-content>-->
+<!--    <isis-note-text-file></isis-note-text-file>-->
+<!--    <isis-note-image-file></isis-note-image-file>-->
+<!--    <isis-note-video-file></isis-note-video-file>-->
+<!--    <isis-note-audio-file></isis-note-audio-file>-->
+
+    <ng-container *ngFor="let nc of noteContent">
+        <isis-note-content *ngIf="nc.type === 'text'; else noteFile" [(value)]="nc.text" [mode]="note.mode"></isis-note-content>
+        <ng-template #noteFile class="note-file">
+            <isis-note-text-file *ngIf="documentFileTypes.includes(nc.fileType)" [file]="nc"></isis-note-text-file>
+            <isis-note-image-file *ngIf="nc.fileType.includes('image/')" [file]="nc"></isis-note-image-file>
+            <isis-note-video-file *ngIf="nc.fileType.includes('video/')" [file]="nc"></isis-note-video-file>
+            <isis-note-audio-file *ngIf="nc.fileType.includes('audio/')" [file]="nc"></isis-note-audio-file>
+            <button mat-icon-button (click)="removeFile(nc.fileId)"><mat-icon>remove</mat-icon></button>
+        </ng-template>
+    </ng-container>
 </div>
 
 <div class="note-user-permission note-interface-icon">
@@ -14,12 +25,15 @@
 <div class="note-settings-button note-interface-icon" *ngIf="isWriter">
     <button mat-icon-button [matMenuTriggerFor]="noteMenu"><mat-icon>settings</mat-icon></button>
     <mat-menu #noteMenu='matMenu'>
-        <button mat-menu-item *ngIf="isWriter">Сохранить</button>
-        <button mat-menu-item *ngIf="isAuthor">Дать доступ</button>
-        <button mat-menu-item *ngIf="isAuthor" class="note-delete">Удалить</button>
+        <button mat-menu-item *ngIf="isWriter" (click)="saveNote()">Save</button>
+        <button mat-menu-item *ngIf="isWriter" (click)="fileInput.click()">Add file</button>
+        <button mat-menu-item *ngIf="isAuthor" (click)="grantAccess()">Grant access</button>
+        <button mat-menu-item *ngIf="isAuthor" class="note-delete" (click)="deleteNote()">Delete</button>
     </mat-menu>
 </div>
 
 <div class="note-sync-date note-interface-icon">
-    <span>Последняя синхронизация: {{syncTime | date:'dd/mm/yyyy h:mm a'}}</span>
+    <span>Последняя синхронизация: {{syncTime | date:'dd/MM/yyyy h:mm a'}}</span>
 </div>
+
+<input type="file" #fileInput class="note-add-file" (change)="addFile($event)">

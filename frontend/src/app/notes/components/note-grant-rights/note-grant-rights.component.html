@@ -1,0 +1,20 @@
+<mat-dialog-content>
+    <mat-list>
+        <mat-list-item  *ngFor="let user of users" class="rights-user">
+            <div mat-line>{{user.user.username}}</div>
+            <div mat-line>{{user.user.email}}</div>
+            <button mat-icon-button matTooltip="Grant write access"
+                    (click)="addRights(user.user, 'write')" [disabled]="user.rights === 'write'">
+                <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button matTooltip="Grant read access"
+                    (click)="addRights(user.user, 'read')" [disabled]="user.rights === 'read'">
+                <mat-icon>menu_book</mat-icon>
+            </button>
+            <button mat-icon-button matTooltip="Revoke access"
+                    (click)="revokeRights(user.user)" [disabled]="user.rights === ''">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-list-item>
+    </mat-list>
+</mat-dialog-content>

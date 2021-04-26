@@ -14,7 +14,7 @@ namespace ISISNotesBackend.Core.Repositories
         /// <param name="noteId">Идентификатор заметки.</param>
         /// <param name="userRights">Права пользователя.</param>
         /// <returns>Информация о заметке, на которые распространяются права.</returns>
-        NoteAccessRight CreateUserNote(Guid changeUserId, Guid userId, Guid noteId, UserRights userRights);
+        NoteAccessRight CreateUserNote(Guid changeUserId, Guid userId, Guid noteId, String userRights);
         /// <summary>
         /// Изменяет права пользователя на заметку.
         /// </summary>
@@ -23,7 +23,7 @@ namespace ISISNotesBackend.Core.Repositories
         /// <param name="noteId">Идентификатор заметки.</param>
         /// <param name="userRights">Новые права пользователя.</param>
         /// <returns>Информация о заметке, на которые распространяются права.</returns>
-        NoteAccessRight ChangeUserNote(Guid changeUserId, Guid userId, Guid noteId, UserRights userRights);
+        NoteAccessRight ChangeUserNote(Guid changeUserId, Guid userId, Guid noteId, String userRights);
         /// <summary>
         /// Удаляет пользователя заметки.
         /// </summary>

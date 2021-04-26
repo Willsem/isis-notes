@@ -34,4 +34,11 @@ export class NotesListComponent {
     await this.router.navigateByUrl('/notes/' + id);
   }
 
+  /**
+   * Обработчик создания новой заметки
+   */
+  public async onNewNote(): Promise<void> {
+    const newNote = await this.notes.createNewNote();
+    await this.navigate(newNote.id);
+  }
 }

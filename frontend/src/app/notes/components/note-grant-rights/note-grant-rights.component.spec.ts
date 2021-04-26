@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { NotesComponent } from './notes.component';
+import { NoteGrantRightsComponent } from './note-grant-rights.component';
 
-describe('NotesComponent', () => {
-  // let component: NotesComponent;
-  // let fixture: ComponentFixture<NotesComponent>;
+describe('NoteGrantRightsComponent', () => {
+  // let component: NoteGrantRightsComponent;
+  // let fixture: ComponentFixture<NoteGrantRightsComponent>;
   //
   // beforeEach(async () => {
   //   await TestBed.configureTestingModule({
-  //     declarations: [ NotesComponent ]
+  //     declarations: [ NoteGrantRightsComponent ]
   //   })
   //   .compileComponents();
   // });
   //
   // beforeEach(() => {
-  //   fixture = TestBed.createComponent(NotesComponent);
+  //   fixture = TestBed.createComponent(NoteGrantRightsComponent);
   //   component = fixture.componentInstance;
   //   fixture.detectChanges();
   // });

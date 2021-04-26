@@ -30,15 +30,14 @@ namespace ISISNotesBackend.DataBase.Repositories
                 .Where(n => n.UserId == userId)
                 .OrderBy(un => un.Note.ChangingDate)
                 .ToList();
-            
             List<CoreModels.Note> coreNotes = new List<CoreModels.Note>();
             
             foreach (var userNote in userNotes)
             {
                 coreNotes.Add(new CoreModels.Note(userNote.NoteId.ToString(), 
                     userNote.Note.Header,
-                    (CoreModels.Enums.UserRights) Enum.Parse(typeof(CoreModels.Enums.UserRights), userNote.Rights.ToString())
-                    ));
+                    userRightsToStr(userNote.Rights))
+                  );
             }
 
             return coreNotes;
@@ -52,7 +51,7 @@ namespace ISISNotesBackend.DataBase.Repositories
                 .Include(u => u.Passcode)
                 .Include(u => u.UserPhoto)
                 .First(u => u.Id == userId);
-            var userNote = new DbModels.UserNote(DbModels.Enums.UserRights.Author | DbModels.Enums.UserRights.Read | DbModels.Enums.UserRights.Write, 
+            var userNote = new DbModels.UserNote(DbModels.Enums.UserRights.author, 
                 userId, user, 
                 note.Id, 
                 note);
@@ -64,10 +63,10 @@ namespace ISISNotesBackend.DataBase.Repositories
             
             return new CoreModels.Note(note.Id.ToString(), 
                 note.Header, 
-                CoreModels.Enums.UserRights.Author | CoreModels.Enums.UserRights.Read | CoreModels.Enums.UserRights.Write);
+                "author");
         }
 
-        public IEnumerable<CoreModels.NoteContent> GetNoteContent(Guid userId, Guid noteId)
+        public IEnumerable<CoreModels.INoteContent> GetNoteContent(Guid userId, Guid noteId)
         {
             var userNote = _dbContext.UserNotes
                 .Include(un => un.Note)
@@ -85,7 +84,7 @@ namespace ISISNotesBackend.DataBase.Repositories
             
             List<string> noCode = new List<string>(); 
             List<string> code = new List<string>();
-            List<CoreModels.NoteContent> contents = new List<CoreModels.NoteContent>();
+            List<CoreModels.INoteContent> contents = new List<CoreModels.INoteContent>();
             
             int i = 0;
             foreach (Match m in regexCode.Matches(content))
@@ -106,24 +105,24 @@ namespace ISISNotesBackend.DataBase.Repositories
                         .Include(f => f.FileType)
                         .First(f => f.FilePath == m.Groups["pathToFile"].Value);
                     var file = new CoreModels.NoteFileContent(noteId.ToString(),
-                        Core.Models.Enums.Type.File,
+                        "file",
                         dbFile.FilePath,
                         dbFile.FileType.Type,
                         dbFile.Id.ToString());
                     
                     contents.Add(file);
                     contents.Add(new CoreModels.NoteTextContent(noteId.ToString(), 
-                        Core.Models.Enums.Type.Text, 
+                        "text", 
                         noCode[i].Substring(j, m.Groups["allstr"].Index - j)));
                     j = m.Groups["allstr"].Index + m.Groups["allstr"].Length;
                 }
                 contents.Add(new CoreModels.NoteTextContent(noteId.ToString(), 
-                    Core.Models.Enums.Type.Text, 
+                    "text", 
                     noCode[i].Substring(j, noCode[i].Length - j)));
 
                 if (i < code.Count)
                     contents.Add(new CoreModels.NoteTextContent(noteId.ToString(), 
-                        Core.Models.Enums.Type.Text, 
+                        "text", 
                         code[i]));
                 i++;
             }
@@ -131,18 +130,19 @@ namespace ISISNotesBackend.DataBase.Repositories
             return contents.ToArray();
         }
 
-        public CoreModels.NoteWithContent ChangeNoteText(Guid userId, Guid noteId, CoreModels.NoteContent[] noteContent)
+        public CoreModels.NoteAllContent ChangeNoteText(Guid userId, Guid noteId, CoreModels.INoteContent[] noteContent)
         {
             string dbContent = "";
             
             foreach (var content in noteContent)
             {
-                if (content.Type == Core.Models.Enums.Type.Text)
+                if (content.Type == "text")
                 {
                     var textContent = (CoreModels.NoteTextContent) content;
                     dbContent += textContent.Text;
+                    Console.WriteLine(textContent.Text);
                 }
-                else if (content.Type == Core.Models.Enums.Type.File)
+                else if (content.Type == "file")
                 {
                     var fileContent = (CoreModels.NoteFileContent) content;
                     dbContent += $"![{fileContent.FileId}]({fileContent.FileName})\n";
@@ -162,13 +162,13 @@ namespace ISISNotesBackend.DataBase.Repositories
             _dbContext.Entry(userNote).State = EntityState.Modified;
             _dbContext.SaveChanges();
             
-            return new CoreModels.NoteWithContent(new CoreModels.Note(noteId.ToString(), 
+            return new CoreModels.NoteAllContent(new CoreModels.Note(noteId.ToString(), 
                 userNote.Note.Header,
-                (CoreModels.Enums.UserRights) Enum.Parse(typeof(CoreModels.Enums.UserRights), userNote.Rights.ToString())), 
+                userRightsToStr(userNote.Rights)), 
                 noteContent);
         }
 
-        public CoreModels.NoteWithContent ChangeNoteName(Guid userId, Guid noteId, string name)
+        public CoreModels.NoteAllContent ChangeNoteName(Guid userId, Guid noteId, string name)
         {
             var userNote = _dbContext.UserNotes
                 .Include(un => un.Note)
@@ -183,10 +183,10 @@ namespace ISISNotesBackend.DataBase.Repositories
             _dbContext.Entry(userNote).State = EntityState.Modified;
             _dbContext.SaveChanges();
             
-            return new CoreModels.NoteWithContent(new CoreModels.Note(noteId.ToString(), 
+            return new CoreModels.NoteAllContent(new CoreModels.Note(noteId.ToString(), 
                     userNote.Note.Header,
-                    (CoreModels.Enums.UserRights) Enum.Parse(typeof(CoreModels.Enums.UserRights), userNote.Rights.ToString())), 
-                GetNoteContent(userId, noteId) as CoreModels.NoteContent[]);
+                    userRightsToStr(userNote.Rights)), 
+                GetNoteContent(userId, noteId) as CoreModels.INoteContent[]);
         }
 
         public CoreModels.Note DeleteNote(Guid userId, Guid noteId)
@@ -206,7 +206,7 @@ namespace ISISNotesBackend.DataBase.Repositories
             
             return new CoreModels.Note(userNote.NoteId.ToString(), 
                 userNote.Note.Header,
-                (CoreModels.Enums.UserRights) Enum.Parse(typeof(CoreModels.Enums.UserRights), userNote.Rights.ToString()));
+                userRightsToStr(userNote.Rights));
         }
 
         public CoreModels.NoteFileContent AddFile(Guid userId, CoreModels.NoteFileContent file)
@@ -236,7 +236,7 @@ namespace ISISNotesBackend.DataBase.Repositories
             _dbContext.SaveChanges();
             
             return new CoreModels.NoteFileContent(dbFile.TextNoteId.ToString(),
-                CoreModels.Enums.Type.File,
+                "file",
                 dbFile.FilePath,
                 dbFile.FileType.Type,
                 dbFile.Id.ToString());
@@ -249,7 +249,7 @@ namespace ISISNotesBackend.DataBase.Repositories
                 .First(f => f.Id == fileId);
             
             return new CoreModels.NoteFileContent(file.TextNoteId.ToString(),
-                CoreModels.Enums.Type.File,
+                "file",
                 file.FilePath,
                 file.FileType.Type,
                 file.Id.ToString());
@@ -262,7 +262,7 @@ namespace ISISNotesBackend.DataBase.Repositories
                 .First(f => f.FilePath == filename);
             
             return new CoreModels.NoteFileContent(file.TextNoteId.ToString(),
-                CoreModels.Enums.Type.File,
+                "file",
                 file.FilePath,
                 file.FileType.Type,
                 file.Id.ToString());
@@ -278,10 +278,22 @@ namespace ISISNotesBackend.DataBase.Repositories
             _dbContext.SaveChanges();
             
             return new CoreModels.NoteFileContent(file.TextNoteId.ToString(),
-                CoreModels.Enums.Type.File,
+                "file",
                 file.FilePath,
                 file.FileType.Type,
                 file.Id.ToString());
+        }
+
+        private string userRightsToStr(DbModels.Enums.UserRights userRights)
+        {
+            string rights;
+            if (userRights.HasFlag(DbModels.Enums.UserRights.author))
+                rights = "author";
+            else if (userRights.HasFlag(DbModels.Enums.UserRights.write))
+                rights = "write";
+            else
+                rights = "read";
+            return rights;
         }
     }
 }

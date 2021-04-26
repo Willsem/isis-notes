@@ -26,7 +26,7 @@ namespace ISISNotesBackend.Core.Repositories
         /// <param name="userId">Идентификатор пользователя, который хочет получить содержимое заметки.</param>
         /// <param name="noteId">Идентификатор заметки.</param>
         /// <returns>Текст заметки.</returns>
-        IEnumerable<NoteContent> GetNoteContent(Guid userId, Guid noteId);
+        IEnumerable<INoteContent> GetNoteContent(Guid userId, Guid noteId);
         /// <summary>
         /// Изменяет текстовое содержимое заметки.
         /// </summary>
@@ -34,7 +34,7 @@ namespace ISISNotesBackend.Core.Repositories
         /// <param name="noteId">Идентификатор заметки.</param>
         /// <param name="noteContent">Новое содержимое заметки.</param>
         /// <returns>Текст заметки.</returns>
-        NoteWithContent ChangeNoteText(Guid userId, Guid noteId, NoteContent[] noteContent);
+        NoteAllContent ChangeNoteText(Guid userId, Guid noteId, INoteContent[] noteContent);
         /// <summary>
         /// Изменяет имя заметки.
         /// </summary>
@@ -42,7 +42,7 @@ namespace ISISNotesBackend.Core.Repositories
         /// <param name="noteId">Идентификатор заметки.</param>
         /// <param name="name">Новое имя.</param>
         /// <returns>Заметка.</returns>
-        NoteWithContent ChangeNoteName(Guid userId, Guid noteId, String name);
+        NoteAllContent ChangeNoteName(Guid userId, Guid noteId, String name);
         /// <summary>
         /// Удаляет заметку.
         /// </summary>

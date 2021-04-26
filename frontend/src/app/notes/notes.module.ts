@@ -16,6 +16,7 @@ import { NoteTextFileComponent } from './components/note-text-file/note-text-fil
 import { NoteImageFileComponent } from './components/note-image-file/note-image-file.component';
 import { NoteVideoFileComponent } from './components/note-video-file/note-video-file.component';
 import { NoteAudioFileComponent } from './components/note-audio-file/note-audio-file.component';
+import { NoteGrantRightsComponent } from './components/note-grant-rights/note-grant-rights.component';
 
 
 @NgModule({
@@ -30,6 +31,7 @@ import { NoteAudioFileComponent } from './components/note-audio-file/note-audio-
     NoteImageFileComponent,
     NoteVideoFileComponent,
     NoteAudioFileComponent,
+    NoteGrantRightsComponent,
   ],
   imports: [
     CommonModule,

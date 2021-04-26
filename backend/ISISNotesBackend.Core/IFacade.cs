@@ -26,7 +26,7 @@ namespace ISISNotesBackend.Core
         /// <param name="userId">Id пользователя - кто хочет получить.</param>
         /// <param name="noteId">Id заметки.</param>
         /// <returns>Содержание заметки.</returns>
-        NoteContent[] GetNoteContent(string userId, string noteId);
+        INoteContent[] GetNoteContent(string userId, string noteId);
         /// <summary>
         /// Изменение текста заметки.
         /// </summary>
@@ -34,7 +34,7 @@ namespace ISISNotesBackend.Core
         /// <param name="noteId">Id заметки.</param>
         /// <param name="noteContent">Новый контент.</param>
         /// <returns>Измененная заметка.</returns>
-        NoteWithContent ChangeNoteText(string userId, string noteId, NoteContent[] noteContent);
+        NoteAllContent ChangeNoteText(string userId, string noteId, INoteContent[] noteContent);
         /// <summary>
         /// Изменение имени заметки.
         /// </summary>
@@ -42,7 +42,7 @@ namespace ISISNotesBackend.Core
         /// <param name="noteId">Id заметки.</param>
         /// <param name="name">Новое имя.</param>
         /// <returns>Измененная заметка.</returns>
-        NoteWithContent ChangeNoteName(string userId, string noteId, String name);
+        NoteAllContent ChangeNoteName(string userId, string noteId, String name);
         /// <summary>
         /// Удаление заметку.
         /// </summary>
@@ -126,7 +126,7 @@ namespace ISISNotesBackend.Core
         /// <param name="noteId">Id заметки.</param>
         /// <param name="userRights">Права доступа.</param>
         /// <returns>Новый пользователь.</returns>
-        NoteAccessRight CreateUserNote(String changeUserId, String userId, String noteId, UserRights userRights);
+        NoteAccessRight CreateUserNote(String changeUserId, String userId, String noteId, string userRights);
         /// <summary>
         /// Изменение прав доступа к заметке пользователю.
         /// </summary>
@@ -135,7 +135,7 @@ namespace ISISNotesBackend.Core
         /// <param name="noteId">Id заметки.</param>
         /// <param name="userRights">Права доступа.</param>
         /// <returns>Измененный пользователь.</returns>
-        NoteAccessRight ChangeUserNote(String changeUserId, String userId, String noteId, UserRights userRights);
+        NoteAccessRight ChangeUserNote(String changeUserId, String userId, String noteId, string userRights);
         /// <summary>
         /// Удаление прав доступа к заметке пользователя.
         /// </summary>
