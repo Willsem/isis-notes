@@ -1,6 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NoteFileContent } from '../../../shared/models/note-file-content';
 
+/**
+ * Компонент отображения и воспроизведения видео файла
+ */
 @Component({
   selector: 'isis-note-video-file',
   templateUrl: './note-video-file.component.html',
@@ -8,6 +11,9 @@ import { NoteFileContent } from '../../../shared/models/note-file-content';
 })
 export class NoteVideoFileComponent implements OnInit {
 
+  /**
+   * Метаданные файла
+   */
   @Input()
   public file: NoteFileContent = {
     fileType: 'video/mp4',
@@ -16,10 +22,19 @@ export class NoteVideoFileComponent implements OnInit {
     type: 'file',
     noteId: 'asd',
   };
+  /**
+   * Файл в формате base64
+   */
   public fileBase64 = '';
 
+  /**
+   * Конструктор
+   */
   constructor() { }
 
+  /**
+   * Обработчик событий инициализации компонента
+   */
   ngOnInit(): void {
     // this.noteFiles.getFileData(this.file.fileId).then(blob => {
     //   this.fileBlob = blob;
