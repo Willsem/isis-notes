@@ -2,6 +2,9 @@ import { Component, Input, OnInit } from '@angular/core';
 import { NoteFileContent } from '../../../shared/models/note-file-content';
 import { NoteFilesService } from '../../services/note-files.service';
 
+/**
+ * Компонент отображения и воспроизведения аудио файла
+ */
 @Component({
   selector: 'isis-note-audio-file',
   templateUrl: './note-audio-file.component.html',
@@ -9,6 +12,9 @@ import { NoteFilesService } from '../../services/note-files.service';
 })
 export class NoteAudioFileComponent implements OnInit {
 
+  /**
+   * Метаданные файла
+   */
   @Input()
   public file: NoteFileContent = {
     fileType: 'audio/mpeg',
@@ -17,12 +23,21 @@ export class NoteAudioFileComponent implements OnInit {
     type: 'file',
     noteId: 'asd',
   };
+  /**
+   * Файл в формате base64
+   */
   public fileBase64 = '';
 
+  /**
+   * Конструктор
+   */
   constructor(
     public noteFiles: NoteFilesService,
   ) { }
 
+  /**
+   * Обработчик событий инициализации компонента
+   */
   ngOnInit(): void {
     this.noteFiles.getFileData(this.file.fileId).then(blob => {
       const fileReader = new FileReader();

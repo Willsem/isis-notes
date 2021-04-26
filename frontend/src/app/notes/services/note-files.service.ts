@@ -4,16 +4,30 @@ import { AuthService } from '../../auth/services/auth.service';
 import { FileData } from '../../shared/models/file-data';
 import { NoteFileContent } from '../../shared/models/note-file-content';
 
+/**
+ * Сервис управления файлами заметок
+ */
 @Injectable({
   providedIn: 'root'
 })
 export class NoteFilesService {
 
+  /**
+   * Конструктор
+   *
+   * @param api Сервис API
+   * @param auth Сервис авторизации
+   */
   constructor(
     private api: ApiService,
     private auth: AuthService,
   ) { }
 
+  /**
+   * Получить файл в бинарном формате
+   *
+   * @param fileId Id файла
+   */
   public async getFileData(fileId: string): Promise<Blob> {
     return this.api.getFile(this.auth.currentSessionValue.user.id, fileId).toPromise();
   }
