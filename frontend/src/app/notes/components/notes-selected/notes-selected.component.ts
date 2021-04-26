@@ -9,6 +9,9 @@ import { NoteFilesService } from '../../services/note-files.service';
 import { MatDialog } from '@angular/material/dialog';
 import { NoteGrantRightsComponent } from '../note-grant-rights/note-grant-rights.component';
 
+/**
+ * Компонент отображения выбранной заметки
+ */
 @Component({
   selector: 'isis-notes-selected',
   templateUrl: './notes-selected.component.html',
@@ -16,11 +19,23 @@ import { NoteGrantRightsComponent } from '../note-grant-rights/note-grant-rights
 })
 export class NotesSelectedComponent implements OnInit {
 
+  /**
+   * Время последней синхронизации заметки
+   */
   public syncTime = moment(Date.now()).toDate();
 
+  /**
+   * Данные заметки
+   */
   public note: Note = { id: '', mode: 'read', name: '' };
 
+  /**
+   * Проверка прав пользователя на запись
+   */
   public isWriter = this.note.mode === 'author' || this.note.mode === 'write';
+  /**
+   * Проверка авторства пользователя
+   */
   public isAuthor = this.note.mode === 'author';
 
   public noteContent: (NoteTextContent | NoteFileContent)[] = [];
@@ -29,6 +44,12 @@ export class NotesSelectedComponent implements OnInit {
 
   public syncTimer;
 
+  /**
+   * Конструктор
+   *
+   * @param notes Сервис заметок
+   * @param route Сервис управления текущим путем
+   */
   constructor(
     public notes: NotesService,
     public noteFiles: NoteFilesService,
@@ -37,6 +58,9 @@ export class NotesSelectedComponent implements OnInit {
     public dialog: MatDialog,
   ) { }
 
+  /**
+   * Обработчик событий инициализации компонента
+   */
   ngOnInit(): void {
     this.route.paramMap.subscribe(async params => {
       this.note = this.notes.getNoteById(params.get('id'));
@@ -70,6 +94,16 @@ export class NotesSelectedComponent implements OnInit {
 
   public async addFile(event: Event): Promise<void> {
     const file = (event.target as HTMLInputElement).files[0] as File;
+
+    if (file.type.includes('video/') && file.size > 1024 * 1024 * 1024) {
+      return;
+    } else if (file.type.includes('audio/') && file.size > 1024 * 1024 * 30) {
+      return;
+    } else if (file.type.includes('image/') && file.size > 1024 * 1024 * 10) {
+      return;
+    } else if (!file.type.includes('video/') && file.size > 1024 * 1024 * 100) {
+      return;
+    }
 
     const newFileContent = await this.noteFiles.addFile({
       file: {

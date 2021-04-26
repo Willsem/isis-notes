@@ -6,35 +6,74 @@ import { ApiService } from '../../api/services/api.service';
 import { map } from 'rxjs/operators';
 import * as moment from 'moment';
 
+/**
+ * Сервис предоставления возможностей, связанных с авторизацией и текущим пользователем
+ */
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+
+  /**
+   * Ключ для хранения текущей сессии в localStorage
+   * @private
+   */
   private readonly SESSION_STORAGE_KEY = 'isisCurrentSession';
 
+  /**
+   * Текущая сессия
+   * @private
+   */
   private currentSession = new BehaviorSubject<Session | null>(null);
+  /**
+   * Объект асинхронного предоставления текущей сессии
+   */
   public currentSessionObservable = this.currentSession.asObservable();
 
+  /**
+   * JWT токен
+   * @private
+   */
   private jwtToken = '';
+  /**
+   * Канал передачи данных о сессии между вкладками
+   * @private
+   */
   private sessionChannel = new BroadcastChannel('auth');
 
+  /**
+   * Асинхронный уведомитель о событии появления новой сессии в канале {@link sessionChannel}
+   */
   public onSessionRenew = fromEvent<MessageEvent>(this.sessionChannel, 'message').pipe(
     map(msg => JSON.parse(msg.data) as Session | null)
   );
 
-
+  /**
+   * Получить значение JWT токена
+   */
   public get jwtTokenValue(): string {
     return this.jwtToken;
   }
 
+  /**
+   * Проверка авторизованности пользователя
+   */
   public get isAuthed(): boolean {
     return !!this.currentSession.value;
   }
 
+  /**
+   * Получить значение текущей сессии пользователя
+   */
   public get currentSessionValue(): Session | null {
     return this.currentSession.value;
   }
 
+  /**
+   * Конструктор
+   *
+   * @param api Сервис API
+   */
   constructor(
     private api: ApiService,
   ) {
@@ -69,6 +108,11 @@ export class AuthService {
     });
   }
 
+  /**
+   * Обработка логина пользователя
+   *
+   * @param login Параметры авторизации пользователя
+   */
   public async login(login: Login): Promise<Session> {
     const session = await this.api.createSession(login).toPromise();
 
@@ -80,6 +124,9 @@ export class AuthService {
     return session;
   }
 
+  /**
+   * Обработка выхода пользователя из сеанса
+   */
   public async logout(): Promise<void> {
     if (this.isAuthed) {
       await this.api.deleteSession(this.currentSession.value.id).toPromise();

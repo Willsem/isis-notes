@@ -4,6 +4,9 @@ import { AuthService } from '../../services/auth.service';
 import { FormControl } from '@angular/forms';
 import { ApiService } from '../../../api/services/api.service';
 
+/**
+ * Компонент редактирования информации о пользователе
+ */
 @Component({
   selector: 'isis-user-edit',
   templateUrl: './user-edit.component.html',
@@ -11,7 +14,13 @@ import { ApiService } from '../../../api/services/api.service';
 })
 export class UserEditComponent implements OnInit {
 
+  /**
+   * Данные пользователя
+   */
   public user: User = this.auth.currentSessionValue.user;
+  /**
+   * Контроллер формы ввода данных пользователя
+   */
   public fullUserDataForm = new FormControl({
     login: this.user.username,
     email: this.user.email,
@@ -19,11 +28,23 @@ export class UserEditComponent implements OnInit {
     confirmPassword: '',
   });
 
+  /**
+   * Аватар пользователя в формате base64
+   */
   public file = this.user.avatar;
+  /**
+   * Аватар пользователя в бинарном формате
+   */
   public fileBinary;
 
   public isChangingActive = false;
 
+  /**
+   * Конструктор
+   *
+   * @param auth Сервис авторизации
+   * @param api Сервис API
+   */
   constructor(
     public auth: AuthService,
     public api: ApiService,
@@ -43,6 +64,11 @@ export class UserEditComponent implements OnInit {
     });
   }
 
+  /**
+   * Обработчик загрузки нового аватара
+   *
+   * @param event Событие загрузки файла
+   */
   onAvatarChange(event: Event): void {
     this.isChangingActive = true;
 
@@ -61,6 +87,9 @@ export class UserEditComponent implements OnInit {
     fileReader.readAsDataURL(file);
   }
 
+  /**
+   * Обработчик события обновления данных о пользователе
+   */
   public async onUpdate(): Promise<void> {
     if (this.fullUserDataForm.invalid) {
       return;

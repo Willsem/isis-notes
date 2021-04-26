@@ -2,6 +2,9 @@ import { Component, Input, OnInit } from '@angular/core';
 import { NoteFileContent } from '../../../shared/models/note-file-content';
 import { NoteFilesService } from '../../services/note-files.service';
 
+/**
+ * Компонент отображения и открытия текстовых файлов
+ */
 @Component({
   selector: 'isis-note-text-file',
   templateUrl: './note-text-file.component.html',
@@ -9,6 +12,9 @@ import { NoteFilesService } from '../../services/note-files.service';
 })
 export class NoteTextFileComponent implements OnInit {
 
+  /**
+   * Метаданные файла
+   */
   @Input()
   public file: NoteFileContent = {
     fileType: 'text/plain',
@@ -17,13 +23,27 @@ export class NoteTextFileComponent implements OnInit {
     noteId: 'asd',
     type: 'file'
   }; // TODO: remove
+  /**
+   * Файл в формате base64
+   */
   public fileBase64 = '';
+  /**
+   * Файл в бинарном формате
+   */
   public fileBlob: File | null = null;
 
+  /**
+   * Конструктор
+   *
+   * @param noteFiles Сервис файлов заметки
+   */
   constructor(
     public noteFiles: NoteFilesService,
   ) { }
 
+  /**
+   * Обработчик событий инициализации компонента
+   */
   ngOnInit(): void {
     this.noteFiles.getFileData(this.file.fileId).then(blob => {
       this.fileBlob = new File([blob], this.file.fileName,
@@ -46,6 +66,9 @@ export class NoteTextFileComponent implements OnInit {
     // }; // TODO: remove
   }
 
+  /**
+   * Обработчик открытия файла в новой вкладке
+   */
   public onClick(): void {
     // window.open(this.fileBase64, '_blank');
     const w = window.open('about:blank');

@@ -10,6 +10,9 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatCardModule } from '@angular/material/card';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
+/**
+ * Список подключаемых Material модулей
+ */
 const materialModules = [
   MatInputModule,
   MatFormFieldModule,
