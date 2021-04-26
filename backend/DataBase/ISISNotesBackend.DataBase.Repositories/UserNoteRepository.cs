@@ -1,6 +1,5 @@
 using System;
 using System.Linq;
-using ISISNotesBackend.Core.Models.Enums;
 using ISISNotesBackend.Core.Repositories;
 using ISISNotesBackend.DataBase.NpgsqlContext;
 using Microsoft.EntityFrameworkCore;
@@ -69,12 +68,13 @@ namespace ISISNotesBackend.DataBase.Repositories
                 .ThenInclude(u => u.UserPhoto)
                 .First(un => un.UserId == userId && un.NoteId == noteId);
 
+            var userRights = (CoreModels.Enums.UserRights) Enum.Parse(typeof(CoreModels.Enums.UserRights), userNote.Rights.ToString());
             _dbContext.UserNotes.Remove(userNote);
             _dbContext.SaveChanges();
             
             return new CoreModels.NoteAccessRight(userNote.NoteId.ToString(), 
                 userNote.UserId.ToString(), 
-                (CoreModels.Enums.UserRights) userNote.Rights);
+                userRights);
         }
     }
 }
