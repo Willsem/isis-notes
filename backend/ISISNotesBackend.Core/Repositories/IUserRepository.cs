@@ -7,48 +7,48 @@ namespace ISISNotesBackend.Core.Repositories
     public interface IUserRepository
     {
         /// <summary>
-        /// Gets all users of ISISNotes.
+        /// Получить всех пользователей ISISNotes.
         /// </summary>
-        /// <returns>All users.</returns>
+        /// <returns>Все пользователи.</returns>
         IEnumerable<User> GetAllUsers();
         /// <summary>
-        /// Gets user by Id.
+        /// Получить пользователя по идентификатору.
         /// </summary>
-        /// <param name="userId">User id.</param>
-        /// <returns>User.</returns>
+        /// <param name="userId">Идентификатор пользователя.</param>
+        /// <returns>Пользователь.</returns>
         User GetUser(String userId);
         /// <summary>
-        /// Creates new user.
+        /// Создает нового пользователя.
         /// </summary>
-        /// <param name="userWithLogin">User.</param>
-        /// <returns>Created user.</returns>
+        /// <param name="userWithLogin">Пользователь.</param>
+        /// <returns>Созданный пользователь.</returns>
         User CreateUser(UserWithLogin userWithLogin);
         /// <summary>
-        /// Changes user.
+        /// Изменяет пользователя.
         /// </summary>
-        /// <param name="userWithLoginAndAvatar">User.</param>
-        /// <param name="image">Path to image.</param>
-        /// <returns>User.</returns>
+        /// <param name="userWithLoginAndAvatar">Пользователь.</param>
+        /// <param name="image">Путь к изображению.</param>
+        /// <returns>Пользователь.</returns>
         User ChangeUser(UserWithLoginAndAvatar userWithLoginAndAvatar, String image);
         /// <summary>
-        /// Correct name and password of user?
+        /// Проверяет, существует ли пользователь
         /// </summary>
-        /// <param name="name">Name of entering user.</param>
-        /// <param name="password">Password of entering user.</param>
-        /// <returns>User or null.</returns>
+        /// <param name="name">Имя входящего пользователя.</param>
+        /// <param name="password">Пароль входящего пользователя.</param>
+        /// <returns>Пользователь, если существует, иначе - Null.</returns>
         User? EnterUser(String name, String password);
         /// <summary>
-        /// Create session after login.
+        /// Создает сессию после входе в систему.
         /// </summary>
-        /// <param name="token">JSON Web Token of session.</param>
-        /// <param name="userId">User that logged in.</param>
-        /// <returns>Deleted session.</returns>
+        /// <param name="token">JWT-токен сессии</param>
+        /// <param name="userId">Идентификатор пользователя, для которого создается сессия.</param>
+        /// <returns>Созданная сессия.</returns>
         Session CreateSession(String token, String userId);
         /// <summary>
-        /// Delete session after logout.
+        /// Удаляет сессию при выходе из системы.
         /// </summary>
-        /// <param name="id">Id of session.</param>
-        /// <returns>Deleted session.</returns>
+        /// <param name="id">Идентификатор сессии, которую удаляют</param>
+        /// <returns>Удаленная сессия.</returns>
         Session DeleteSession(string id);
     }
 }
