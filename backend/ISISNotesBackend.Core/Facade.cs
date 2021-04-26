@@ -27,7 +27,7 @@ namespace ISISNotesBackend.Core
             
         public Note[] GetUserNotes(string userId)
         {
-            return _noteRepository.GetUserNotes(Guid.Parse(userId)) as Note[];
+            return _noteRepository.GetUserNotes(Guid.Parse(userId)).ToArray();
         }
 
         public Note CreateNote(string userId, string name)
@@ -43,23 +43,26 @@ namespace ISISNotesBackend.Core
             }
         }
 
-        public NoteContent[] GetNoteContent(string userId, string noteId)
+        public INoteContent[] GetNoteContent(string userId, string noteId)
         {
             if (_rightsRepository.CanUserReadNote(Guid.Parse(userId), Guid.Parse(noteId)))
-                return _noteRepository.GetNoteContent(Guid.Parse(userId), Guid.Parse(noteId)) as NoteContent[];
+                return _noteRepository.GetNoteContent(Guid.Parse(userId), Guid.Parse(noteId)) as INoteContent[];
             else
                 throw new Exception("No access to read note.\n");
         }
 
-        public NoteWithContent ChangeNoteText(string userId, string noteId, NoteContent[] noteContent)
+        public NoteAllContent ChangeNoteText(string userId, string noteId, INoteContent[] noteContent)
         {
             if (_rightsRepository.CanUserEditNote(Guid.Parse(userId), Guid.Parse(noteId)))
+            {
+                Console.WriteLine("aaaa");
                 return _noteRepository.ChangeNoteText(Guid.Parse(userId), Guid.Parse(noteId), noteContent);
+            }
             else
                 throw new Exception("No access to edit note.\n");
         }
 
-        public NoteWithContent ChangeNoteName(string userId, string noteId, string name)
+        public NoteAllContent ChangeNoteName(string userId, string noteId, string name)
         {
             if (_rightsRepository.CanUserEditNote(Guid.Parse(userId), Guid.Parse(noteId)))
                 return _noteRepository.ChangeNoteName(Guid.Parse(userId), Guid.Parse(noteId), name);
@@ -80,7 +83,7 @@ namespace ISISNotesBackend.Core
             string name = $"{userId}_" +
                           $"{DateTime.UtcNow:yyyy-MM-dd_h-mm-ss_tt}" +
                           $".{file.File.FileName.Split('.').Last()}";
-            
+            Console.WriteLine(name);
             try
             {
                 path = GetFilePath(path, file.File.FileType);
@@ -174,7 +177,7 @@ namespace ISISNotesBackend.Core
             return _userRepository.EnterUser(name, password);
         }
 
-        public NoteAccessRight CreateUserNote(string changeUserId, string userId, string noteId, UserRights userRights)
+        public NoteAccessRight CreateUserNote(string changeUserId, string userId, string noteId, string userRights)
         {
             if (_rightsRepository.CanUserAddUsersToNote(Guid.Parse(userId), Guid.Parse(noteId)))
                 return _userNoteRepository.CreateUserNote(Guid.Parse(changeUserId), Guid.Parse(userId), Guid.Parse(noteId), userRights);
@@ -182,7 +185,7 @@ namespace ISISNotesBackend.Core
                 throw new Exception("No access to add users to note.\n");
         }
 
-        public NoteAccessRight ChangeUserNote(string changeUserId, string userId, string noteId, UserRights userRights)
+        public NoteAccessRight ChangeUserNote(string changeUserId, string userId, string noteId, string userRights)
         {
             if (_rightsRepository.CanUserDeleteNote(Guid.Parse(userId), Guid.Parse(noteId)))
                 return _userNoteRepository.ChangeUserNote(Guid.Parse(changeUserId), Guid.Parse(userId), Guid.Parse(noteId), userRights);

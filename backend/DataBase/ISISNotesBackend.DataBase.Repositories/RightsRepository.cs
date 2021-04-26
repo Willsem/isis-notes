@@ -27,7 +27,15 @@ namespace ISISNotesBackend.DataBase.Repositories
                     .ThenInclude(u => u.UserPhoto)
                 .First(un => un.UserId == userId && un.NoteId == noteId);
 
-            return userNote.Rights.HasFlag(DbModels.Enums.UserRights.Read);
+            bool can = false;
+            if (userNote.Rights.HasFlag(DbModels.Enums.UserRights.author)) 
+                can = true;
+            else if (userNote.Rights.HasFlag(DbModels.Enums.UserRights.write))
+                can = true;
+            else if (userNote.Rights.HasFlag(DbModels.Enums.UserRights.read))
+                can = true;
+
+            return can;
         }
 
         public bool CanUserEditNote(Guid userId, Guid noteId)
@@ -40,8 +48,14 @@ namespace ISISNotesBackend.DataBase.Repositories
                 .Include(un => un.User)
                     .ThenInclude(u => u.UserPhoto)
                 .First(un => un.UserId == userId && un.NoteId == noteId);
+            
+            bool can = false;
+            if (userNote.Rights.HasFlag(DbModels.Enums.UserRights.author)) 
+                can = true;
+            else if (userNote.Rights.HasFlag(DbModels.Enums.UserRights.write))
+                can = true;
 
-            return userNote.Rights.HasFlag(DbModels.Enums.UserRights.Write);
+            return can;
         }
 
         public bool CanUserDeleteNote(Guid userId, Guid noteId)
@@ -55,7 +69,7 @@ namespace ISISNotesBackend.DataBase.Repositories
                     .ThenInclude(u => u.UserPhoto)
                 .First(un => un.UserId == userId && un.NoteId == noteId);
 
-            return userNote.Rights.HasFlag(DbModels.Enums.UserRights.Author);
+            return userNote.Rights.HasFlag(DbModels.Enums.UserRights.author);
         }
 
         public bool CanUserAddUsersToNote(Guid userId, Guid noteId)
@@ -69,7 +83,7 @@ namespace ISISNotesBackend.DataBase.Repositories
                     .ThenInclude(u => u.UserPhoto)
                 .First(un => un.UserId == userId && un.NoteId == noteId);
 
-            return userNote.Rights.HasFlag(DbModels.Enums.UserRights.Author);
+            return userNote.Rights.HasFlag(DbModels.Enums.UserRights.author);
         }
     }
 }

@@ -18,7 +18,7 @@ namespace ISISNotesBackend.DataBase.Repositories
         }
         
         public CoreModels.NoteAccessRight CreateUserNote(Guid changeUserId, Guid userId, Guid noteId, 
-            CoreModels.Enums.UserRights userRights)
+            string userRights)
         {
             var user = _dbContext.Users
                 .Include(un => un.Passcode)
@@ -27,9 +27,8 @@ namespace ISISNotesBackend.DataBase.Repositories
             var note = _dbContext.Notes
                 .Include((un => un.TextNote))
                 .First(n => n.Id == noteId);
-            var dbUserRights =
-                (DbModels.Enums.UserRights) Enum.Parse(typeof(DbModels.Enums.UserRights), userRights.ToString());
-            var userNote = new DbModels.UserNote(dbUserRights, userId, user, noteId, note);
+
+            var userNote = new DbModels.UserNote(convertStrToUseRights(userRights), userId, user, noteId, note);
 
             _dbContext.UserNotes.Add(userNote);
             _dbContext.SaveChanges();
@@ -40,7 +39,7 @@ namespace ISISNotesBackend.DataBase.Repositories
         }
 
         public CoreModels.NoteAccessRight ChangeUserNote(Guid changeUserId, Guid userId, Guid noteId, 
-            CoreModels.Enums.UserRights userRights)
+            string userRights)
         {
             var userNote = _dbContext.UserNotes
                 .Include(un => un.Note)
@@ -71,13 +70,38 @@ namespace ISISNotesBackend.DataBase.Repositories
                     .ThenInclude(u => u.UserPhoto)
                 .First(un => un.UserId == userId && un.NoteId == noteId);
 
-            var userRights = (CoreModels.Enums.UserRights) Enum.Parse(typeof(CoreModels.Enums.UserRights), userNote.Rights.ToString());
             _dbContext.UserNotes.Remove(userNote);
             _dbContext.SaveChanges();
             
             return new CoreModels.NoteAccessRight(userNote.NoteId.ToString(), 
                 userNote.UserId.ToString(), 
-                userRights);
+                userRightsToStr(userNote.Rights));
+        }
+
+        private DbModels.Enums.UserRights convertStrToUseRights(string rights)
+        {
+            DbModels.Enums.UserRights userRights;
+            if (rights == "author")
+                userRights = DbModels.Enums.UserRights.author;
+            else if (rights == "write")
+                userRights = DbModels.Enums.UserRights.write;
+            else 
+                userRights = DbModels.Enums.UserRights.read;
+
+            return userRights;
+        }
+        
+        private string userRightsToStr(DbModels.Enums.UserRights userRights)
+        {
+            string rights;
+            if (userRights.HasFlag(DbModels.Enums.UserRights.author))
+                rights = "author";
+            else if (userRights.HasFlag(DbModels.Enums.UserRights.write))
+                rights = "write";
+            else
+                rights = "read";
+            
+            return rights;
         }
     }
 }

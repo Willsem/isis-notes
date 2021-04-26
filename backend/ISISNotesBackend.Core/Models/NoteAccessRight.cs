@@ -6,9 +6,9 @@ namespace ISISNotesBackend.Core.Models
     {
         public string NoteId { get; set; }
         public string UserId { get; set; }
-        public UserRights Rights { get; set; }
+        public string Rights { get; set; }
 
-        public NoteAccessRight(string noteId, string userId, UserRights rights)
+        public NoteAccessRight(string noteId, string userId, string rights)
         {
             NoteId = noteId;
             UserId = userId;

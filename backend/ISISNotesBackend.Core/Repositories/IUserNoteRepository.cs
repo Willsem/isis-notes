@@ -14,7 +14,7 @@ namespace ISISNotesBackend.Core.Repositories
         /// <param name="noteId">Id of note.</param>
         /// <param name="userRights">Rights of user.</param>
         /// <returns>New user of note.</returns>
-        NoteAccessRight CreateUserNote(Guid changeUserId, Guid userId, Guid noteId, UserRights userRights);
+        NoteAccessRight CreateUserNote(Guid changeUserId, Guid userId, Guid noteId, String userRights);
         /// <summary>
         /// Changes user rights.
         /// </summary>
@@ -23,7 +23,7 @@ namespace ISISNotesBackend.Core.Repositories
         /// <param name="noteId">Id of note.</param>
         /// <param name="userRights">New rights of user.</param>
         /// <returns>Changed user of note.</returns>
-        NoteAccessRight ChangeUserNote(Guid changeUserId, Guid userId, Guid noteId, UserRights userRights);
+        NoteAccessRight ChangeUserNote(Guid changeUserId, Guid userId, Guid noteId, String userRights);
         /// <summary>
         /// Deletes user of note.
         /// </summary>

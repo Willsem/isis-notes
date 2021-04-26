@@ -124,7 +124,7 @@ export class NotesService {
     const newNote = newNoteData.note;
 
     let notes = this.notes.value;
-    notes = notes.splice(notes.findIndex(n => n.id === noteData.note.id), 1, newNote);
+    notes.splice(notes.findIndex(n => n.id === noteData.note.id), 1, newNote);
     this.notes.next(notes);
 
     return newNoteData;
@@ -139,7 +139,7 @@ export class NotesService {
     const deletedNote = await this.api.deleteNote(this.auth.currentSessionValue.user.id, noteId).toPromise();
 
     let notes = this.notes.value;
-    notes = notes.splice(notes.findIndex(n => n.id === deletedNote.id), 1);
+    notes.splice(notes.findIndex(n => n.id === deletedNote.id), 1);
     this.notes.next(notes);
   }
 }

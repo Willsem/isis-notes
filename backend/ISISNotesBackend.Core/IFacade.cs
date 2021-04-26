@@ -27,7 +27,7 @@ namespace ISISNotesBackend.Core
         /// <param name="noteId">Id of note.</param>
         /// <param name="path">Path to folder with files.</param>
         /// <returns>Text of note.</returns>
-        NoteContent[] GetNoteContent(string userId, string noteId);
+        INoteContent[] GetNoteContent(string userId, string noteId);
         /// <summary>
         /// Changes text content of note.
         /// </summary>
@@ -36,7 +36,7 @@ namespace ISISNotesBackend.Core
         /// <param name="noteContent">New content of note.</param>
         /// <param name="path">Path to folder with files.</param>
         /// <returns>Note.</returns>
-        NoteWithContent ChangeNoteText(string userId, string noteId, NoteContent[] noteContent);
+        NoteAllContent ChangeNoteText(string userId, string noteId, INoteContent[] noteContent);
         /// <summary>
         /// Changes name of note.
         /// </summary>
@@ -44,7 +44,7 @@ namespace ISISNotesBackend.Core
         /// <param name="noteId">Id of note.</param>
         /// <param name="name">New name.</param>
         /// <returns>Note.</returns>
-        NoteWithContent ChangeNoteName(string userId, string noteId, String name);
+        NoteAllContent ChangeNoteName(string userId, string noteId, String name);
         /// <summary>
         /// Deletes note.
         /// </summary>
@@ -128,7 +128,7 @@ namespace ISISNotesBackend.Core
         /// <param name="noteId">Id of note.</param>
         /// <param name="userRights">Rights of user.</param>
         /// <returns>New user of note.</returns>
-        NoteAccessRight CreateUserNote(String changeUserId, String userId, String noteId, UserRights userRights);
+        NoteAccessRight CreateUserNote(String changeUserId, String userId, String noteId, string userRights);
         /// <summary>
         /// Changes user rights.
         /// </summary>
@@ -137,7 +137,7 @@ namespace ISISNotesBackend.Core
         /// <param name="noteId">Id of note.</param>
         /// <param name="userRights">New rights of user.</param>
         /// <returns>Changed user of note.</returns>
-        NoteAccessRight ChangeUserNote(String changeUserId, String userId, String noteId, UserRights userRights);
+        NoteAccessRight ChangeUserNote(String changeUserId, String userId, String noteId, string userRights);
         /// <summary>
         /// Deletes user of note.
         /// </summary>

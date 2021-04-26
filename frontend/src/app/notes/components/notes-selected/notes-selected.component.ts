@@ -94,10 +94,10 @@ export class NotesSelectedComponent implements OnInit {
    * Сохранить заметку
    */
   public async saveNote(): Promise<void> {
-    const headerRegExp = new RegExp(/# .*\n/);
+    /*const headerRegExp = new RegExp(/# .*\n/);
     const noteHeader = (this.noteContent[0] as NoteTextContent).text.match(headerRegExp)[0];
     console.log(noteHeader);
-    this.note.name = noteHeader ? noteHeader : this.note.name;
+    this.note.name = noteHeader ? noteHeader : this.note.name;*/
 
     await this.notes.editNoteContent({
       note: this.note,

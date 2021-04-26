@@ -5,9 +5,9 @@ namespace ISISNotesBackend.Core.Models.Enums
     [Flags]
     public enum UserRights : int
     {
-        None = 0,
-        Read = 1,
-        Write = 2,
-        Author = 4
+        none = 0,
+        read = 1,
+        write = 2,
+        author = 4
     };
 }

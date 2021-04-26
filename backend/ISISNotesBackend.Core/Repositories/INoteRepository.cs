@@ -26,7 +26,7 @@ namespace ISISNotesBackend.Core.Repositories
         /// <param name="userId">Id of user, who wants to get the content.</param>
         /// <param name="noteId">Id of note.</param>
         /// <returns>Text of note.</returns>
-        IEnumerable<NoteContent> GetNoteContent(Guid userId, Guid noteId);
+        IEnumerable<INoteContent> GetNoteContent(Guid userId, Guid noteId);
         /// <summary>
         /// Changes text content of note.
         /// </summary>
@@ -34,7 +34,7 @@ namespace ISISNotesBackend.Core.Repositories
         /// <param name="noteId">Id of note.</param>
         /// <param name="noteContent">New content.</param>
         /// <returns>Text of note.</returns>
-        NoteWithContent ChangeNoteText(Guid userId, Guid noteId, NoteContent[] noteContent);
+        NoteAllContent ChangeNoteText(Guid userId, Guid noteId, INoteContent[] noteContent);
         /// <summary>
         /// Changes name of note.
         /// </summary>
@@ -42,7 +42,7 @@ namespace ISISNotesBackend.Core.Repositories
         /// <param name="noteId">Id of note.</param>
         /// <param name="name">New name.</param>
         /// <returns>Note.</returns>
-        NoteWithContent ChangeNoteName(Guid userId, Guid noteId, String name);
+        NoteAllContent ChangeNoteName(Guid userId, Guid noteId, String name);
         /// <summary>
         /// Deletes note.
         /// </summary>
