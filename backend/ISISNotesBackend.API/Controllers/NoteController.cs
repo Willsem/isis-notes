@@ -17,6 +17,11 @@ namespace ISISNotesBackend.API.Controllers
             _facade = facade;
         }
         
+        /// <summary>
+        /// Возвращает все заметки пользователя.
+        /// </summary>
+        /// <param name="userId">Идентификатор пользователя, чьи заметки ищутся в хранилище и возвращаются.</param>
+        /// <returns>Массив заметок пользователя.</returns>
         [Authorize]
         [Route("{userId}")]
         [HttpGet]
@@ -25,6 +30,12 @@ namespace ISISNotesBackend.API.Controllers
             return _facade.GetUserNotes(userId);
         }
         
+        /// <summary>
+        /// Создает заметку.
+        /// </summary>
+        /// <param name="userId">Идентификатор пользователя, создающего заметку.</param>
+        /// <param name="note">Информация о заметке (идентификатор, имя, режим доступа), полученная из POST-запроса.</param>
+        /// <returns>Результат действия Ok с информацией о созданной заметке в случае успеха, иначе - NotFound.</returns>
         [Authorize]
         [Route("{userId}")]
         [HttpPost]
@@ -40,6 +51,12 @@ namespace ISISNotesBackend.API.Controllers
             }
         }
         
+        /// <summary>
+        /// Получает содержимое заметки.
+        /// </summary>
+        /// <param name="userId">Идентификатор пользователя, получающего содержимое заметки.</param>
+        /// <param name="noteId">Идентификатор заметки, содержимое которой нужно получить.</param>
+        /// <returns>Результат действия Ok с информацией о получаемой заметке в случае успеха, иначе - Forbid.</returns>
         [Authorize]
         [Route("{userId}/{noteId}")]
         [HttpGet]
@@ -55,6 +72,12 @@ namespace ISISNotesBackend.API.Controllers
             }
         }
         
+        /// <summary>
+        /// Изменяет заметку и получает ее содержимое.
+        /// </summary>
+        /// <param name="userId">Идентификатор пользователя, изменяющего заметку.</param>
+        /// <param name="noteId">Идентификатор изменяемой заметки.</param>
+        /// <returns>Результат действия Ok с информацией о измененной заметке и ее содержимое в случае успеха, иначе - Forbid.</returns>
         [Authorize]
         [Route("{userId}/{noteId}")]
         [HttpPatch]
@@ -70,7 +93,13 @@ namespace ISISNotesBackend.API.Controllers
                 return Forbid();
             }
         }
-        
+       
+        /// <summary>
+        /// Удаляет заметку.
+        /// </summary>
+        /// <param name="userId">Идентификатор пользователя, удаляющего заметку.</param>
+        /// <param name="noteId">Идентификатор удаляемой заметки.</param>
+        /// <returns>Результат действия Ok с информацией о удаленной заметке в случае успеха, иначе - Forbid.</returns>
         [Authorize]
         [Route("{userId}/{noteId}")]
         [HttpDelete]
@@ -86,6 +115,13 @@ namespace ISISNotesBackend.API.Controllers
             }
         }
         
+        /// <summary>
+        /// Добавляет права пользователю на заметку.
+        /// </summary>
+        /// <param name="userId">Идентификатор пользователя, который добавляет права.</param>
+        /// <param name="noteId">Идентификатор заметки, на которую распространяются выделенные пользователю права.</param>
+        /// <param name="noteAccessRight">Новый режим доступа, получаемый из POST-запроса.</param>
+        /// <returns>Результат действия Ok с информацией о заметке, на которые распространяются права в случае успеха, иначе - Forbid.</returns>
         [Authorize]
         [Route("{userId}/{noteId}/permission")]
         [HttpPost]
@@ -101,6 +137,13 @@ namespace ISISNotesBackend.API.Controllers
             }
         }
         
+        /// <summary>
+        /// Изменяет права пользователю на заметку.
+        /// </summary>
+        /// <param name="userId">Идентификатор пользователя, котороый меняет права.</param>
+        /// <param name="noteId">Идентификатор заметки, на которую распространяются выделенные пользователю права.</param>
+        /// <param name="noteAccessRight">Новый режим доступа, получаемый из POST-запроса.</param>
+        /// <returns>Результат действия Ok с информацией о заметке, на которые распространяются права в случае успеха, иначе - Forbid.</returns>
         [Authorize]
         [Route("{userId}/{noteId}/permission")]
         [HttpPatch]
@@ -116,6 +159,13 @@ namespace ISISNotesBackend.API.Controllers
             }
         }
         
+        /// <summary>
+        /// Удаляет права пользователя на заметку.
+        /// </summary>
+        /// <param name="userId">Идентификатор пользователя, который удаляет права.</param>
+        /// <param name="noteId">Идентификатор заметки, на которую распространяются выделенные пользователю права.</param>
+        /// <param name="toUserId">Идентификатор пользователя, которому удаляют права.</param>
+        /// <returns>Результат действия Ok с правами доступа к заметке, для которой происходило изменение в случае успеха, иначе - Forbid.</returns>
         [Authorize]
         [Route("{userId}/{noteId}/permission/{toUserId}")]
         [HttpDelete]
