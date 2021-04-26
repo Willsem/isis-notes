@@ -23,10 +23,8 @@ namespace ISISNotesBackend.DataBase.Repositories
         {
             var user = _dbContext.Users
                 .First(u => u.Id == userId);
-            
             var note = _dbContext.Notes
                 .First(n => n.Id == noteId);
-            
             var userNote = new DbModels.UserNote((DbModels.Enums.UserRights) userRights, userId, user, noteId, note);
 
             _dbContext.UserNotes.Add(userNote);
@@ -44,7 +42,19 @@ namespace ISISNotesBackend.DataBase.Repositories
 
         public NoteAccessRight DeleteUserNote(Guid changeUserId, Guid userId, Guid noteId)
         {
-            throw new NotImplementedException();
+            var userNote = _dbContext.UserNotes
+                .Include(un => un.Note)
+                .Include(un => un.User)
+                .First(un => un.UserId == userId && un.NoteId == noteId);
+
+            _dbContext.UserNotes.Remove(userNote);
+            _dbContext.Notes.Remove(userNote.Note);
+            _dbContext.Users.Remove(userNote.User);
+            _dbContext.SaveChanges();
+            
+            return new NoteAccessRight(noteId.ToString(), 
+                userId.ToString(), 
+                (UserRights) userNote.Rights);
         }
     }
 }
